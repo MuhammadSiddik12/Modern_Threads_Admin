@@ -1,0 +1,76 @@
+.admin-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 20px;
+	background-color: #e1e6e2;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	position: relative;
+}
+
+.admin-header .logo h1 {
+	font-size: 28px;
+	font-weight: bold;
+	margin: 0;
+	color: #242425;
+}
+
+.admin-nav ul {
+	display: flex;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.admin-nav ul li {
+	margin-left: 20px;
+	font-size: 16px;
+	cursor: pointer;
+	transition: color 0.3s ease;
+}
+
+.admin-nav ul li:hover {
+	color: #ef233c;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+	.admin-header {
+		flex-direction: column;
+		align-items: flex-start;
+		padding: 15px;
+		width: 100%;
+	}
+
+	.admin-header .logo h1 {
+		font-size: 24px;
+		margin-bottom: 10px;
+	}
+
+	.admin-nav ul {
+		flex-direction: column;
+		width: 100%;
+	}
+
+	.admin-nav ul li {
+		margin: 10px 0;
+		text-align: left;
+	}
+}
+
+@media (max-width: 480px) {
+	.admin-header {
+		padding: 10px;
+		align-items: center;
+		width: 100%;
+	}
+
+	.admin-header .logo h1 {
+		font-size: 20px;
+	}
+
+	.admin-nav ul li {
+		font-size: 14px;
+		margin: 8px 0;
+	}
+}

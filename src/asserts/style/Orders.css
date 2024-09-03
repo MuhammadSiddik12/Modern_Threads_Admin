@@ -1,0 +1,55 @@
+.orders {
+	padding: 20px;
+}
+
+.orders table {
+	width: 100%;
+	border-collapse: collapse;
+	overflow-x: auto;
+}
+
+.orders table th,
+.orders table td {
+	padding: 12px;
+	border: 1px solid #ddd;
+	text-align: left;
+}
+
+.orders table th {
+	background-color: #f4f4f4;
+}
+
+.edit-link {
+	color: #007bff;
+	text-decoration: none;
+}
+
+.edit-link:hover {
+	text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+	.orders {
+		padding: 10px;
+	}
+
+	.orders table {
+		display: block; /* Allows table to scroll horizontally */
+		overflow-x: auto;
+		white-space: nowrap;
+	}
+
+	.orders table th,
+	.orders table td {
+		white-space: nowrap;
+	}
+}
+
+@media (max-width: 480px) {
+	.orders table th,
+	.orders table td {
+		padding: 8px;
+		font-size: 14px; /* Adjust font size for smaller screens */
+	}
+}

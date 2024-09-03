@@ -1,0 +1,26 @@
+.user-details {
+	padding: 20px;
+}
+
+.user-details h2 {
+	margin-bottom: 20px;
+	font-size: 28px;
+	color: #333;
+}
+
+.user-info {
+	background-color: #f9f9f9;
+	padding: 20px;
+	border-radius: 8px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.user-info p {
+	font-size: 18px;
+	margin: 10px 0;
+	color: #555;
+}
+
+.user-info strong {
+	color: #333;
+}

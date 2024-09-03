@@ -1,0 +1,24 @@
+.app {
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+	font-family: "eurostile, sans-serif";
+}
+
+.content {
+	flex: 1;
+	padding: 20px;
+}
+
+.main-content {
+	display: flex;
+	flex: 1;
+	margin-left: 250px;
+	transition: margin-left 0.3s ease;
+}
+
+@media (max-width: 768px) {
+	.main-content {
+		margin-left: 0;
+	}
+}

@@ -1,0 +1,44 @@
+.dashboard {
+	text-align: center;
+}
+
+.stats {
+	display: flex;
+	justify-content: space-around;
+	flex-wrap: wrap; /* Allows cards to wrap to the next line on smaller screens */
+	margin-top: 20px;
+}
+
+.stat-card {
+	background-color: #232525;
+	color: white;
+	padding: 20px;
+	border-radius: 10px;
+	width: 200px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	margin: 10px;
+	transition: transform 0.3s ease;
+}
+
+.stat-card:hover {
+	transform: scale(1.05); /* Slightly enlarges card on hover */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+	.stats {
+		justify-content: center; /* Center the cards on smaller screens */
+	}
+
+	.stat-card {
+		width: 100%; /* Cards take full width on small screens */
+		max-width: 300px;
+	}
+}
+
+@media (max-width: 480px) {
+	.stat-card {
+		width: 100%;
+		max-width: 100%; /* Cards take full width of the screen */
+	}
+}
