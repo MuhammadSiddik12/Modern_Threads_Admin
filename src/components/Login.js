@@ -26,6 +26,9 @@ const LoginPage = () => {
 			toast.success(data.message);
 			// Redirect to home page after successful login
 			navigate("/");
+			setTimeout(() => {
+				window.location.reload();
+			}, 2000);
 		} catch (error) {
 			toast.error(error);
 		} finally {

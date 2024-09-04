@@ -18,7 +18,7 @@ function Header({ isLogin }) {
 				<span></span>
 				<span></span>
 			</div>
-			{isLogin ? (
+			{!isLogin ? (
 				<nav className={`admin-nav ${isNavOpen ? "open" : ""}`}>
 					<ul>
 						<li>Settings</li>

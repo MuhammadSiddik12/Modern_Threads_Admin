@@ -19,49 +19,146 @@ import AddProduct from "./components/Products/AddProduct";
 import EditProduct from "./components/Products/ProductEdit";
 import OrderDetails from "./components/Orders/OrderDetails";
 import PaymentDetails from "./components/Payments/PaymentDetails";
+import { ToastContainer } from "react-toastify";
+import PrivateRoute from "./components/PrivateRoute";
 
 function App() {
 	const isAuthPage = window.location.pathname === "/login";
 	return (
 		<Router>
 			<div className="app">
-				{!isAuthPage ? (
-					<>
-						<Header isLogin={true} />
-						<div className="main-content">
-							<Sidebar />
-							<div className="content">
-								<Routes>
-									<Route path="/" element={<Dashboard />} />
-									<Route path="/users" element={<Users />} />
-									<Route path="/users/:id" element={<UserDetails />} />
-									<Route path="/categories" element={<Categories />} />
-									<Route path="/category/:id" element={<CategoryDetail />} />
-									<Route path="/add-category" element={<AddCategory />} />
-									<Route path="/edit-category/:id" element={<EditCategory />} />
-									<Route path="/products" element={<Products />} />
-									<Route path="/products/:id" element={<ProductDetails />} />
-									<Route path="/products/add" element={<AddProduct />} />
-									<Route path="/products/edit/:id" element={<EditProduct />} />
-									<Route path="/orders" element={<Orders />} />
-									<Route path="/orders/:id" element={<OrderDetails />} />
-									<Route path="/payments" element={<Payments />} />
-									<Route path="/payments/:id" element={<PaymentDetails />} />
-								</Routes>
-							</div>
-						</div>
-					</>
-				) : (
-					<>
-						<Header isLogin={false} />
-						<div className="content">
-							<Routes>
-								<Route path="/login" element={<LoginPage />} />
-							</Routes>
-						</div>
-					</>
-				)}
+				{" "}
+				<Header isLogin={isAuthPage} />
+				<div className={!isAuthPage ? "main-content" : ""}>
+					{!isAuthPage ? <Sidebar /> : ""}
+					<div className="content">
+						<Routes>
+							<Route path="/login" element={<LoginPage />} />
+							<Route
+								path="/"
+								element={
+									<PrivateRoute>
+										<Dashboard />
+									</PrivateRoute>
+								}
+							/>
+							<Route
+								path="/users"
+								element={
+									<PrivateRoute>
+										<Users />
+									</PrivateRoute>
+								}
+							/>
+							<Route
+								path="/users/:id"
+								element={
+									<PrivateRoute>
+										<UserDetails />
+									</PrivateRoute>
+								}
+							/>
+							<Route
+								path="/categories"
+								element={
+									<PrivateRoute>
+										<Categories />
+									</PrivateRoute>
+								}
+							/>
+							<Route
+								path="/category/:id"
+								element={
+									<PrivateRoute>
+										<CategoryDetail />
+									</PrivateRoute>
+								}
+							/>
+							<Route
+								path="/add-category"
+								element={
+									<PrivateRoute>
+										<AddCategory />
+									</PrivateRoute>
+								}
+							/>
+							<Route
+								path="/edit-category/:id"
+								element={
+									<PrivateRoute>
+										<EditCategory />
+									</PrivateRoute>
+								}
+							/>
+							<Route
+								path="/products"
+								element={
+									<PrivateRoute>
+										<Products />
+									</PrivateRoute>
+								}
+							/>
+							<Route
+								path="/products/:id"
+								element={
+									<PrivateRoute>
+										<ProductDetails />
+									</PrivateRoute>
+								}
+							/>
+							<Route
+								path="/products/add"
+								element={
+									<PrivateRoute>
+										<AddProduct />
+									</PrivateRoute>
+								}
+							/>
+							<Route
+								path="/products/edit/:id"
+								element={
+									<PrivateRoute>
+										<EditProduct />
+									</PrivateRoute>
+								}
+							/>
+							<Route
+								path="/orders"
+								element={
+									<PrivateRoute>
+										<Orders />
+									</PrivateRoute>
+								}
+							/>
+							<Route
+								path="/orders/:id"
+								element={
+									<PrivateRoute>
+										<OrderDetails />
+									</PrivateRoute>
+								}
+							/>
+							<Route
+								path="/payments"
+								element={
+									<PrivateRoute>
+										<Payments />
+									</PrivateRoute>
+								}
+							/>
+							<Route
+								path="/payments/:id"
+								element={
+									<PrivateRoute>
+										<PaymentDetails />
+									</PrivateRoute>
+								}
+							/>
+						</Routes>
+					</div>
+				</div>
 			</div>
+			<ToastContainer />
 		</Router>
 	);
 }
