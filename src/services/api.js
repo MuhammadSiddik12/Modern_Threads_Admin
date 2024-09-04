@@ -185,3 +185,23 @@ export const getAllProducts = async () => {
 		throw error.response?.data?.message || error.message;
 	}
 };
+
+export const getProductById = async (id) => {
+	try {
+		const token = localStorage.getItem("authToken");
+
+		const response = await axios.get(
+			`http://localhost:3001/admin/products/getProductById?product_id=${id}`,
+			{
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			}
+		);
+
+		return response.data;
+	} catch (error) {
+		console.error("Error getting product:", error);
+		throw error.response?.data?.message || error.message;
+	}
+};

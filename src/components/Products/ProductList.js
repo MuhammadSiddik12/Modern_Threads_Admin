@@ -88,7 +88,10 @@ function Products() {
 							<td>{product.price}</td>
 							<td>{product.stock_quantity}</td>
 							<td>
-								<Link to={`/products/${product.id}`} className="edit-link">
+								<Link
+									to={`/products/${product.product_id}`}
+									className="edit-link"
+								>
 									View
 								</Link>
 							</td>
