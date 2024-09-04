@@ -43,7 +43,7 @@ function Orders() {
 							<td>{order.order_status}</td>
 							<td>{order.created_at}</td>
 							<td>
-								<Link to={`/orders/${order.id}`} className="edit-link">
+								<Link to={`/orders/${order.order_id}`} className="edit-link">
 									View
 								</Link>
 							</td>

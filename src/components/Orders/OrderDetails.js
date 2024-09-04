@@ -1,31 +1,26 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import "../../asserts/style/OrderDetails.css";
+import { fetchOrderById } from "../../services/api"; // Assume this is the API call function
+import { toast } from "react-toastify";
 
 function OrderDetails() {
 	const { id } = useParams();
+	const [order, setOrder] = useState(null); // State to store the fetched order
 
-	// Static data for demonstration
-	const orders = [
-		{
-			id: 101,
-			customer: "John Doe",
-			amount: "$250",
-			status: "Shipped",
-			date: "2024-09-01",
-			items: ["Item1", "Item2"],
-		},
-		{
-			id: 102,
-			customer: "Jane Smith",
-			amount: "$150",
-			status: "Processing",
-			date: "2024-09-01",
-			items: ["Item3"],
-		},
-	];
+	useEffect(() => {
+		const getOrderDetails = async () => {
+			try {
+				const response = await fetchOrderById(id); // Fetch order details from the API
+				setOrder(response.data);
+			} catch (error) {
+				console.error("Error fetching order details:", error);
+				toast.error("Failed to fetch order details");
+			}
+		};
 
-	const order = orders.find((o) => o.id === parseInt(id));
+		getOrderDetails();
+	}, [id]);
 
 	if (!order) {
 		return <p>Order not found!</p>;
@@ -33,18 +28,18 @@ function OrderDetails() {
 
 	return (
 		<div className="order-details">
-			<h2>Order ID: {order.id}</h2>
+			<h2>Order ID: {order.order_id}</h2>
 			<p>
 				<strong>Customer Name:</strong> {order.customer}
 			</p>
 			<p>
-				<strong>Total Amount:</strong> {order.amount}
+				<strong>Total Amount:</strong> {order.total_amount}
 			</p>
 			<p>
-				<strong>Status:</strong> {order.status}
+				<strong>Status:</strong> {order.order_status}
 			</p>
 			<p>
-				<strong>Date:</strong> {order.date}
+				<strong>Date:</strong> {order.created_at}
 			</p>
 			<p>
 				<strong>Items:</strong> {order.items.join(", ")}

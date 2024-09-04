@@ -288,3 +288,15 @@ export const fetchOrders = async () => {
 		throw error.response?.data?.message || error.message;
 	}
 };
+
+export const fetchOrderById = async (orderId) => {
+	try {
+		const response = await axios.get(
+			`http://localhost:3001/admin/orders?order_id=${orderId}`
+		);
+		return response;
+	} catch (error) {
+		console.error("Error fetching order by ID:", error);
+		throw error.response?.data?.message || error.message;
+	}
+};
