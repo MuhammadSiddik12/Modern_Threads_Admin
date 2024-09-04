@@ -1,29 +1,37 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import "../../asserts/style/CategoryDetail.css";
+import { getCategoryById } from "../../services/api"; // Import the API function
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function CategoryDetail() {
 	const { id } = useParams(); // Get category ID from URL
 	const [category, setCategory] = useState(null);
+	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
-		// Simulate fetching category data based on ID
 		const fetchCategory = async () => {
 			try {
-				// Replace with actual API call
-				// const response = await fetch(`/api/categories/${id}`);
-				// const data = await response.json();
-				setCategory({ id: 1, name: "Electronics" });
+				const data = await getCategoryById(id); // Fetch category details by ID
+				setCategory(data.data); // Set the fetched data to category state
 			} catch (error) {
 				console.error("Error fetching category:", error);
+				toast.error(error);
+			} finally {
+				setLoading(false);
 			}
 		};
 
 		fetchCategory();
 	}, [id]);
 
-	if (!category) {
+	if (loading) {
 		return <div>Loading...</div>;
+	}
+
+	if (!category) {
+		return <div>No category data found.</div>;
 	}
 
 	return (
@@ -31,10 +39,10 @@ function CategoryDetail() {
 			<h2>Category Details</h2>
 			<div className="category-info">
 				<p>
-					<strong>Id:</strong> {category.id}
+					<strong>Id:</strong> {category.category_id}
 				</p>
 				<p>
-					<strong>Name:</strong> {category.name}
+					<strong>Name:</strong> {category.category_name}
 				</p>
 			</div>
 		</div>
