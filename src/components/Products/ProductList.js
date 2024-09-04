@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../../asserts/style/Products.css";
 import { Link } from "react-router-dom";
-import { getAllProducts } from "../../services/api";
+import { deleteProduct, getAllProducts } from "../../services/api";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -45,14 +45,13 @@ function Products() {
 		const confirmDelete = window.confirm(
 			"Are you sure you want to delete this Product?"
 		);
+		console.log("🚀 ~ handleDeleteProduct ~ confirmDelete:", confirmDelete);
 		if (confirmDelete) {
 			try {
 				await deleteProduct(id);
-				setCategories(
-					categories.filter((Product) => Product.product_id !== id)
-				);
 				toast.success("Product deleted successfully!");
 			} catch (error) {
+				console.log("🚀 ~ handleDeleteProduct ~ error:", error);
 				toast.error(error);
 			}
 		}

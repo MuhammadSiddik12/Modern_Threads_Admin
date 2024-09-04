@@ -207,7 +207,6 @@ export const getProductById = async (id) => {
 };
 
 export const updateProduct = async (data) => {
-	console.log("🚀 ~ updateProduct ~ data:", data)
 	try {
 		const token = localStorage.getItem("authToken");
 
@@ -225,6 +224,27 @@ export const updateProduct = async (data) => {
 		return response.data;
 	} catch (error) {
 		console.error("Error updating product:", error);
+		throw error.response?.data?.message || error.message;
+	}
+};
+
+export const deleteProduct = async (id) => {
+	try {
+		const token = localStorage.getItem("authToken");
+
+		const response = await axios.delete(
+			`${BASE_URL}/products/deleteProduct?product_id=${id}`,
+			{
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: `Bearer ${token}`,
+				},
+			}
+		);
+
+		return await response.data;
+	} catch (error) {
+		console.error("Error deleting product:", error);
 		throw error.response?.data?.message || error.message;
 	}
 };
