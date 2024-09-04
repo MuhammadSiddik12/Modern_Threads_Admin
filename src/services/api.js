@@ -142,7 +142,7 @@ export const getAllUsers = async () => {
 			},
 		});
 
-		return await response.data;
+		return response.data;
 	} catch (error) {
 		console.error("Error fetching users:", error);
 		throw error.response?.data?.message || error.message;
@@ -165,6 +165,23 @@ export const getUserById = async (user_id) => {
 		return response.data;
 	} catch (error) {
 		console.error("Error getting users:", error);
+		throw error.response?.data?.message || error.message;
+	}
+};
+
+export const getAllProducts = async () => {
+	try {
+		const token = localStorage.getItem("authToken");
+
+		const response = await axios.get(`${BASE_URL}/products/getAllProducts`, {
+			headers: {
+				Authorization: "Bearer " + token,
+			},
+		});
+
+		return response.data;
+	} catch (error) {
+		console.error("Error fetching product:", error);
 		throw error.response?.data?.message || error.message;
 	}
 };
