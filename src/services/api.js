@@ -248,3 +248,24 @@ export const deleteProduct = async (id) => {
 		throw error.response?.data?.message || error.message;
 	}
 };
+
+export const addProduct = async (data) => {
+	try {
+		const token = localStorage.getItem("authToken");
+
+		const response = await axios.post(
+			"http://localhost:3001/admin/products/addProduct",
+			data,
+			{
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: `Bearer ${token}`,
+				},
+			}
+		);
+
+		return response.data;
+	} catch (error) {
+		throw error.response?.data?.message || error.message;
+	}
+};
