@@ -269,3 +269,22 @@ export const addProduct = async (data) => {
 		throw error.response?.data?.message || error.message;
 	}
 };
+
+export const fetchOrders = async () => {
+	try {
+		const token = localStorage.getItem("authToken");
+
+		const response = await axios.get(
+			`http://localhost:3001/admin/orders/getAllOrders`,
+			{
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			}
+		);
+		return response.data;
+	} catch (error) {
+		console.error("Error fetching orders:", error);
+		throw error.response?.data?.message || error.message;
+	}
+};

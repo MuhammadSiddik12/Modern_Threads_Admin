@@ -1,25 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "../../asserts/style/Orders.css";
+import { fetchOrders } from "../../services/api"; // Assume this is the API call function
 
 function Orders() {
-	const orders = [
-		{
-			id: 101,
-			customer: "John Doe",
-			amount: "$250",
-			status: "Shipped",
-			date: "2024-09-01",
-		},
-		{
-			id: 102,
-			customer: "Jane Smith",
-			amount: "$150",
-			status: "Processing",
-			date: "2024-09-01",
-		},
-		// Add more static data here
-	];
+	const [orders, setOrders] = useState([]);
+
+	useEffect(() => {
+		const getOrders = async () => {
+			try {
+				const response = await fetchOrders(); // Fetch orders from the API
+				console.log("🚀 ~ getOrders ~ response:", response);
+				setOrders(response.data);
+			} catch (error) {
+				console.error("Error fetching orders:", error);
+			}
+		};
+
+		getOrders();
+	}, []);
 
 	return (
 		<div className="orders">
@@ -28,7 +27,7 @@ function Orders() {
 				<thead>
 					<tr>
 						<th>Order ID</th>
-						<th>Customer Name</th>
+						<th>Cart Items</th>
 						<th>Total Amount</th>
 						<th>Status</th>
 						<th>Date</th>
@@ -37,12 +36,12 @@ function Orders() {
 				</thead>
 				<tbody>
 					{orders.map((order) => (
-						<tr key={order.id}>
-							<td>{order.id}</td>
-							<td>{order.customer}</td>
-							<td>{order.amount}</td>
-							<td>{order.status}</td>
-							<td>{order.date}</td>
+						<tr key={order.order_id}>
+							<td>{order.order_id}</td>
+							<td>{order.total_price}</td>
+							<td>{order.order_items}</td>
+							<td>{order.order_status}</td>
+							<td>{order.created_at}</td>
 							<td>
 								<Link to={`/orders/${order.id}`} className="edit-link">
 									View
