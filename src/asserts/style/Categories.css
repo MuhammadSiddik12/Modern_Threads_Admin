@@ -71,3 +71,23 @@
 .delete-category-button:hover {
 	background-color: #c82333;
 }
+
+/* src/asserts/style/Categories.css */
+
+.loader {
+	text-align: center;
+	font-size: 20px;
+	padding: 20px;
+}
+
+.error-message {
+	color: red;
+	text-align: center;
+	font-size: 24px;
+}
+
+.no-data {
+	text-align: center;
+	font-size: 24px;
+	padding: 20px;
+}

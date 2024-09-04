@@ -1,9 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../asserts/style/AddCategory.css";
+import { addCategory } from "../../services/api"; // Import the addCategory API function
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function AddCategory() {
 	const [category, setCategory] = useState({ name: "" });
+	const [loading, setLoading] = useState(false);
 	const navigate = useNavigate();
 
 	const handleChange = (e) => {
@@ -12,16 +16,16 @@ function AddCategory() {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+		setLoading(true);
 		try {
-			// Replace with actual API call
-			// await fetch("/api/categories", {
-			// 	method: "POST",
-			// 	headers: { "Content-Type": "application/json" },
-			// 	body: JSON.stringify(category),
-			// });
+			await addCategory({ category_name: category.name });
+			toast.success("Category added successfully!");
 			navigate("/categories"); // Redirect after adding category
 		} catch (error) {
 			console.error("Error adding category:", error);
+			toast.error(error);
+		} finally {
+			setLoading(false);
 		}
 	};
 
@@ -37,7 +41,9 @@ function AddCategory() {
 					onChange={handleChange}
 					required
 				/>
-				<button type="submit">Add Category</button>
+				<button type="submit" disabled={loading}>
+					{loading ? "Adding..." : "Add Category"}
+				</button>
 			</form>
 		</div>
 	);
