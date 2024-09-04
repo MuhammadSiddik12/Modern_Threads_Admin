@@ -49,6 +49,7 @@ function Products() {
 		if (confirmDelete) {
 			try {
 				await deleteProduct(id);
+				setProducts(products.filter((product) => product.product_id !== id));
 				toast.success("Product deleted successfully!");
 			} catch (error) {
 				console.log("🚀 ~ handleDeleteProduct ~ error:", error);
