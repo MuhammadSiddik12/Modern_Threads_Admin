@@ -130,3 +130,41 @@ export const updateCategory = async (categoryId, categoryName) => {
 		throw error.response?.data?.message || error.message;
 	}
 };
+
+// Fetch all users
+export const getAllUsers = async () => {
+	try {
+		const token = localStorage.getItem("authToken");
+
+		const response = await axios.get(`${BASE_URL}/users/getAllUsers`, {
+			headers: {
+				Authorization: "Bearer " + token,
+			},
+		});
+
+		return await response.data;
+	} catch (error) {
+		console.error("Error fetching users:", error);
+		throw error.response?.data?.message || error.message;
+	}
+};
+
+export const getUserById = async (user_id) => {
+	try {
+		const token = localStorage.getItem("authToken");
+
+		const response = await axios.get(
+			`${BASE_URL}/users/getUserDetails?user_id=${user_id}`,
+			{
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			}
+		);
+
+		return response.data;
+	} catch (error) {
+		console.error("Error getting users:", error);
+		throw error.response?.data?.message || error.message;
+	}
+};
