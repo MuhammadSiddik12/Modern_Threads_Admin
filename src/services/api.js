@@ -205,3 +205,26 @@ export const getProductById = async (id) => {
 		throw error.response?.data?.message || error.message;
 	}
 };
+
+export const updateProduct = async (data) => {
+	console.log("🚀 ~ updateProduct ~ data:", data)
+	try {
+		const token = localStorage.getItem("authToken");
+
+		const response = await axios.put(
+			"http://localhost:3001/admin/products/updateProduct",
+			data,
+			{
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: `Bearer ${token}`, // Pass the token for authentication
+				},
+			}
+		);
+
+		return response.data;
+	} catch (error) {
+		console.error("Error updating product:", error);
+		throw error.response?.data?.message || error.message;
+	}
+};

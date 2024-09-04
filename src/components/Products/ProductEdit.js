@@ -1,41 +1,55 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
 import "../../asserts/style/ProductForm.css";
+import {
+	getAllCategories,
+	getProductById,
+	updateProduct,
+} from "../../services/api";
+import { toast } from "react-toastify";
 
 function EditProduct() {
 	const navigate = useNavigate();
 	const { id } = useParams(); // Get product ID from URL
+	const [categories, setCategories] = useState([]); // State to hold categories
+
 	const [product, setProduct] = useState({
-		name: "",
+		product_id: id,
+		product_name: "",
 		description: "",
 		price: "",
-		category: "",
+		category_name: "",
+		category_id: "",
+		stock_quantity: 0,
 	});
+	const [loading, setLoading] = useState(true); // For loading state
+	const [error, setError] = useState(null); // For error state
 
 	useEffect(() => {
-		// Fetch product data by ID (replace with actual API call)
-		// Simulated static data for demonstration
+		// Fetch product data by ID
 		const fetchProductData = async () => {
-			const products = [
-				{
-					id: 1,
-					name: "Smartphone",
-					description: "A high-quality smartphone",
-					price: "499",
-					category: "Electronics",
-				},
-				{
-					id: 2,
-					name: "Laptop",
-					description: "A powerful laptop",
-					price: "999",
-					category: "Computers",
-				},
-			];
-			const productData = products.find(
-				(product) => product.id === parseInt(id)
-			);
-			setProduct(productData);
+			try {
+				const data = await getProductById(id);
+				setProduct({
+					...data.data,
+					category_name: data.data.Category.category_name,
+					category_id: data.data.Category.category_id,
+				});
+
+				// Fetch categories
+				const categoriesResponse = await getAllCategories();
+				console.log(
+					"🚀 ~ fetchProductData ~ categoriesResponse:",
+					categoriesResponse
+				);
+				setCategories(categoriesResponse.data);
+				setLoading(false); // Data fetched, stop loading
+			} catch (error) {
+				toast.error(error);
+				setError("Failed to fetch product data.");
+				setLoading(false);
+			}
 		};
 
 		fetchProductData();
@@ -43,18 +57,45 @@ function EditProduct() {
 
 	const handleChange = (e) => {
 		const { name, value } = e.target;
-		setProduct((prevProduct) => ({
-			...prevProduct,
-			[name]: value,
-		}));
+
+		if (name == "category") {
+			const findId = categories.find((f) => f.category_name == value);
+			console.log("🚀 ~ handleChange ~ findId:", findId);
+
+			setProduct((prevProduct) => ({
+				...prevProduct,
+				category_id: findId.category_id,
+				category_name: findId.category_name,
+			}));
+		} else {
+			setProduct((prevProduct) => ({
+				...prevProduct,
+				[name]: value,
+			}));
+		}
+		console.log("🚀 ~ handleChange ~ name, value :", name, value);
 	};
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
-		// Submit form data (replace with API call)
-		console.log("Product updated:", product);
-		navigate("/products");
+		try {
+			const update = await updateProduct(product);
+			console.log("Product updated:", update);
+			toast.success(update.message);
+			navigate("/products"); // Redirect after successful update
+		} catch (error) {
+			console.error("Error updating product:", error);
+			setError("Failed to update product.");
+		}
 	};
+
+	if (loading) {
+		return <div>Loading...</div>;
+	}
+
+	if (error) {
+		return <div>{error}</div>;
+	}
 
 	return (
 		<div className="product-form">
@@ -65,7 +106,7 @@ function EditProduct() {
 					<input
 						type="text"
 						name="name"
-						value={product.name}
+						value={product.product_name}
 						onChange={handleChange}
 						required
 					/>
@@ -91,13 +132,19 @@ function EditProduct() {
 				</label>
 				<label>
 					Category:
-					<input
-						type="text"
+					<select
 						name="category"
-						value={product.category}
+						value={product.category_name}
 						onChange={handleChange}
 						required
-					/>
+					>
+						<option value="">Select a category</option>
+						{categories.map((category) => (
+							<option key={category.category_id} value={category.category_name}>
+								{category.category_name}
+							</option>
+						))}
+					</select>
 				</label>
 				<button type="submit">Update Product</button>
 			</form>
