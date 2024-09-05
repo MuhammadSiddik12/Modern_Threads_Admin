@@ -30,10 +30,11 @@ function OrderDetails() {
 		<div className="order-details">
 			<h2>Order ID: {order.order_id}</h2>
 			<p>
-				<strong>Customer Name:</strong> {order.customer}
+				<strong>Customer Name:</strong>{" "}
+				{order.user_details.first_name + " " + order.user_details.last_name}
 			</p>
 			<p>
-				<strong>Total Amount:</strong> {order.total_amount}
+				<strong>Total Amount:</strong> {order.total_price}
 			</p>
 			<p>
 				<strong>Status:</strong> {order.order_status}
@@ -42,7 +43,8 @@ function OrderDetails() {
 				<strong>Date:</strong> {order.created_at}
 			</p>
 			<p>
-				<strong>Items:</strong> {order.items.join(", ")}
+				<strong>Items:</strong>{" "}
+				{order.cart_items.map((e) => e.product_details.product_name + ", ")}
 			</p>
 		</div>
 	);

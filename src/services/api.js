@@ -291,10 +291,17 @@ export const fetchOrders = async () => {
 
 export const fetchOrderById = async (orderId) => {
 	try {
+		const token = localStorage.getItem("authToken");
+
 		const response = await axios.get(
-			`http://localhost:3001/admin/orders?order_id=${orderId}`
+			`http://localhost:3001/admin/orders/getOrderDetails?order_id=${orderId}`,
+			{
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			}
 		);
-		return response;
+		return response.data;
 	} catch (error) {
 		console.error("Error fetching order by ID:", error);
 		throw error.response?.data?.message || error.message;
