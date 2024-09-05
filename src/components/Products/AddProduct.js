@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import "../../asserts/style/ProductForm.css";
 import { useNavigate } from "react-router-dom";
-import { addProduct, getAllCategories } from "../../services/api";
+import { addProduct, getAllCategories, uploadImage } from "../../services/api"; // Import the uploadImage function
 import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function AddProduct() {
 	const navigate = useNavigate();
-	const [categories, setCategories] = useState([]); // State to hold categories
+	const [categories, setCategories] = useState([]);
 	const [product, setProduct] = useState({
 		product_name: "",
 		description: "",
@@ -27,13 +27,11 @@ function AddProduct() {
 				category_id: findId.category_id,
 				category_name: findId.category_name,
 			}));
-		} else if (name === "image") {
-			// Handle image file
+		} else if (name === "product_images") {
 			const file = e.target.files[0];
-			console.log("🚀 ~ handleChange ~ file:", file.name);
 			setProduct((prevProduct) => ({
 				...prevProduct,
-				product_images: file.name,
+				product_images: file,
 			}));
 		} else {
 			setProduct((prevProduct) => ({
@@ -59,19 +57,25 @@ function AddProduct() {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
-		// const formData = new FormData();
-		// formData.append("product_name", product.product_name);
-		// formData.append("description", product.description);
-		// formData.append("price", product.price);
-		// formData.append("category_id", product.category_id);
-		// formData.append("stock_quantity", product.stock_quantity);
-		// if (product.image) {
-		// 	formData.append("image", product.image); // Append image file if it exists
-		// }
-
 		try {
-			const add = await addProduct(product); // Send form data with image
-			toast.success(add.message);
+			let imageUrl = null;
+			if (product.product_images) {
+				// Upload image
+				const formDataImage = new FormData();
+				formDataImage.append("image", product.product_images);
+
+				const imageResponse = await uploadImage(formDataImage);
+				imageUrl = imageResponse.data.filePath; // Assuming the response contains the image URL
+			}
+
+			// Submit product details with image URL
+			const formDataProduct = {
+				...product,
+				product_images: [imageUrl],
+			};
+
+			await addProduct(formDataProduct);
+			toast.success("Product added successfully!");
 			navigate("/products"); // Redirect after successful addition
 		} catch (error) {
 			console.error("Error adding product:", error);
@@ -113,7 +117,17 @@ function AddProduct() {
 					/>
 				</label>
 				<label>
-					Category:
+					Stock Quantity:
+					<input
+						type="number"
+						name="stock_quantity"
+						value={product.stock_quantity}
+						onChange={handleChange}
+						required
+					/>
+				</label>
+				<label>
+					Category:{"    "}
 					<select
 						name="category"
 						value={product.category_name}
@@ -132,9 +146,9 @@ function AddProduct() {
 					Image:
 					<input
 						type="file"
-						name="image"
+						name="product_images"
 						onChange={handleChange}
-						accept="image/*" // Accept only images
+						accept="image/*"
 					/>
 				</label>
 				<button type="submit">Add Product</button>

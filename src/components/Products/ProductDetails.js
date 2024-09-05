@@ -46,7 +46,7 @@ function ProductDetails() {
 				<img
 					src={
 						product.product_images.length
-							? product.product_images[0]
+							? `http://localhost:3001${product.product_images[0]}`
 							: "https://via.placeholder.com/300"
 					}
 					alt={product.product_name}

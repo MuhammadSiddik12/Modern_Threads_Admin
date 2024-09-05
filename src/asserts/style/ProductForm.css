@@ -23,7 +23,7 @@
 
 .product-form input,
 .product-form textarea {
-	width: 100%;
+	width: 94%;
 	padding: 10px;
 	margin-bottom: 20px;
 	border: 1px solid #ddd;
@@ -44,4 +44,14 @@
 
 .product-form button:hover {
 	background-color: #218838;
+}
+
+.product-form select {
+	padding: 8px 9px;
+	color: rgb(54, 54, 54);
+	border-radius: 4px;
+	font-size: 16px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+	width: 98%;
 }
