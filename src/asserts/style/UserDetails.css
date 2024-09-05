@@ -1,5 +1,6 @@
 .user-details {
 	padding: 20px;
+	text-align: center;
 }
 
 .user-details h2 {
@@ -23,4 +24,12 @@
 
 .user-info strong {
 	color: #333;
+}
+
+.user-profile-pic {
+	width: 150px;
+	height: 150px;
+	border-radius: 50%;
+	object-fit: cover;
+	margin-bottom: 20px;
 }

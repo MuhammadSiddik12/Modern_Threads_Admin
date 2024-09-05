@@ -10,8 +10,6 @@ function UserDetails() {
 	const [user, setUser] = useState(null);
 
 	useEffect(() => {
-		// Fetch user data based on the ID (replace with actual API call)
-		// For now, we're using static data for demonstration
 		const fetchUserData = async () => {
 			try {
 				const res = await getUserById(id);
@@ -28,10 +26,17 @@ function UserDetails() {
 		return <div>Loading...</div>;
 	}
 
+	const defaultProfilePic = "https://via.placeholder.com/150"; // URL for default image
+
 	return (
 		<div className="user-details">
 			<h2>User Details</h2>
 			<div className="user-info">
+				<img
+					src={user.profile_pic || defaultProfilePic}
+					alt={`${user.first_name} ${user.last_name}`}
+					className="user-profile-pic"
+				/>
 				<p>
 					<strong>ID:</strong> {user.user_id}
 				</p>
