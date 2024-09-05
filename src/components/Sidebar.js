@@ -8,6 +8,7 @@ import {
 	FaTags,
 	FaReceipt,
 	FaCreditCard,
+	FaUser,
 } from "react-icons/fa"; // Import icons
 
 function Sidebar() {
@@ -54,6 +55,11 @@ function Sidebar() {
 					<li>
 						<Link to="/payments" onClick={toggleSidebar}>
 							<FaCreditCard className="sidebar-icon" /> Payments
+						</Link>
+					</li>
+					<li>
+						<Link to="/profile" onClick={toggleSidebar}>
+							<FaUser className="sidebar-icon" /> Profile
 						</Link>
 					</li>
 				</ul>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import "../asserts/style/Login.css";
-import { loginUser } from "../services/api"; // Import the login function
+import "../../asserts/style/Login.css";
+import { loginUser } from "../../services/api"; // Import the login function
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 

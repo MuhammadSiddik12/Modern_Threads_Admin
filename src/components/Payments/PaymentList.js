@@ -41,10 +41,10 @@ function Payments() {
 							<tr key={payment.payment_id}>
 								<td>{payment.payment_id}</td>
 								<td>
-									{payment.user_details.length
+									{payment.user_details
 										? payment.user_details.first_name +
 										  " " +
-										  payment.user_details[0].last_name
+										  payment.user_details.last_name
 										: "N/A"}
 								</td>
 								<td>{payment.amount}</td>
@@ -52,7 +52,10 @@ function Payments() {
 								<td>{payment.payment_status}</td>
 								<td>{payment.created_at}</td>
 								<td>
-									<Link to={`/payments/${payment.id}`} className="edit-link">
+									<Link
+										to={`/payments/${payment.payment_id}`}
+										className="edit-link"
+									>
 										View
 									</Link>
 								</td>

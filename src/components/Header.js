@@ -1,11 +1,29 @@
 import React, { useState } from "react";
 import "../asserts/style/Header.css";
+import { logout } from "../services/api";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 function Header({ isLogin }) {
 	const [isNavOpen, setIsNavOpen] = useState(false);
 
 	const toggleNav = () => {
 		setIsNavOpen(!isNavOpen);
+	};
+
+	const navigate = useNavigate();
+
+	const handleLogout = async () => {
+		try {
+			await logout(); // Call logout function
+			toast.success("Logged out successfully");
+			navigate("/login"); // Redirect to login page
+			setTimeout(() => {
+				window.location.reload();
+			}, 1000);
+		} catch (error) {
+			toast.error("Logout failed");
+		}
 	};
 
 	return (
@@ -21,8 +39,9 @@ function Header({ isLogin }) {
 			{!isLogin ? (
 				<nav className={`admin-nav ${isNavOpen ? "open" : ""}`}>
 					<ul>
-						<li>Settings</li>
-						<li>Logout</li>
+						<button className="logout-btn" onClick={handleLogout}>
+							Logout
+						</button>
 					</ul>
 				</nav>
 			) : (

@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
-import Dashboard from "./components/Dashboard";
+import Dashboard from "./components/Dashboard/Dashboard";
 import Users from "./components/Users/UserList";
 import Products from "./components/Products/ProductList";
 import Categories from "./components/Categories/CategoryList";
@@ -9,7 +9,7 @@ import Orders from "./components/Orders/OrderList";
 import Payments from "./components/Payments/PaymentList";
 import "./App.css";
 import Header from "./components/Header";
-import LoginPage from "./components/Login";
+import LoginPage from "./components/Profile/Login";
 import EditCategory from "./components/Categories/EditCategory";
 import AddCategory from "./components/Categories/AddCategory";
 import CategoryDetail from "./components/Categories/CategoryDetail";
@@ -21,7 +21,7 @@ import OrderDetails from "./components/Orders/OrderDetails";
 import PaymentDetails from "./components/Payments/PaymentDetails";
 import { ToastContainer } from "react-toastify";
 import PrivateRoute from "./components/PrivateRoute";
-
+import AdminProfile from "./components/Profile/Profile";
 function App() {
 	const isAuthPage = window.location.pathname === "/login";
 	return (
@@ -151,6 +151,14 @@ function App() {
 								element={
 									<PrivateRoute>
 										<PaymentDetails />
+									</PrivateRoute>
+								}
+							/>
+							<Route
+								path="/profile"
+								element={
+									<PrivateRoute>
+										<AdminProfile />
 									</PrivateRoute>
 								}
 							/>

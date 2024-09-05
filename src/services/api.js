@@ -325,3 +325,70 @@ export const getPayments = async () => {
 		throw error.response?.data?.message || error.message;
 	}
 };
+
+export const getPaymentById = async (paymentId) => {
+	try {
+		const token = localStorage.getItem("authToken");
+
+		const response = await axios.get(
+			`http://localhost:3001/admin/payments/getPaymentDetails?payment_id=${paymentId}`,
+			{
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			}
+		);
+
+		return response.data;
+	} catch (error) {
+		console.error("Error getting category:", error);
+		throw error.response?.data?.message || error.message;
+	}
+};
+
+export const logout = async () => {
+	try {
+		localStorage.removeItem("authToken");
+	} catch (error) {
+		throw error.message ? error.message : "Logout failed";
+	}
+};
+
+export const getAdminDetails = async () => {
+	try {
+		const token = localStorage.getItem("authToken");
+
+		const response = await axios.get(`${BASE_URL}/getAdminDetails`, {
+			headers: {
+				Authorization: "Bearer " + token,
+			},
+		});
+
+		return response.data;
+	} catch (error) {
+		console.error("Error fetching admin:", error);
+		throw error.response?.data?.message || error.message;
+	}
+};
+
+export const updateAdminDetails = async (admin) => {
+	try {
+		const token = localStorage.getItem("authToken");
+
+		const response = await axios.put(
+			"http://localhost:3001/admin/editAdminProfile",
+			admin,
+			{
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: `Bearer ${token}`, // Pass the token for authentication
+				},
+			}
+		);
+
+		return response.data;
+	} catch (error) {
+		console.error("Error updating product:", error);
+		throw error.response?.data?.message || error.message;
+	}
+};
