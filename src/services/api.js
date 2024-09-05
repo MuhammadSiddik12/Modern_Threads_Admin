@@ -132,15 +132,18 @@ export const updateCategory = async (category) => {
 };
 
 // Fetch all users
-export const getAllUsers = async () => {
+export const getAllUsers = async (page, limit, searchTerm) => {
 	try {
 		const token = localStorage.getItem("authToken");
 
-		const response = await axios.get(`${BASE_URL}/users/getAllUsers`, {
-			headers: {
-				Authorization: "Bearer " + token,
-			},
-		});
+		const response = await axios.get(
+			`${BASE_URL}/users/getAllUsers?page=${page}&limit=${limit}&search=${searchTerm}`,
+			{
+				headers: {
+					Authorization: "Bearer " + token,
+				},
+			}
+		);
 
 		return response.data;
 	} catch (error) {

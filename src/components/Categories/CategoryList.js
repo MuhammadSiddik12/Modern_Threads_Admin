@@ -11,7 +11,7 @@ function Categories() {
 	const [loading, setLoading] = useState(true);
 	const [searchTerm, setSearchTerm] = useState("");
 	const [currentPage, setCurrentPage] = useState(1);
-	const [categoriesPerPage] = useState(4); // Categories per page
+	const [categoriesPerPage] = useState(10); // Categories per page
 	const [totalCategories, setTotalCategories] = useState(0); // To keep track of total categories
 
 	useEffect(() => {
