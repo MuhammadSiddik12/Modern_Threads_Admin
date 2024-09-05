@@ -106,16 +106,13 @@ export const getCategoryById = async (categoryId) => {
 	}
 };
 
-export const updateCategory = async (categoryId, categoryName) => {
+export const updateCategory = async (category) => {
 	try {
 		const token = localStorage.getItem("authToken");
 
 		const response = await axios.put(
 			"http://localhost:3001/admin/category/updateCategory",
-			JSON.stringify({
-				category_id: categoryId,
-				category_name: categoryName,
-			}),
+			category,
 			{
 				headers: {
 					"Content-Type": "application/json",
