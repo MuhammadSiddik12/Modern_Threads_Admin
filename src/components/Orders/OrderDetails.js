@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import "../../asserts/style/OrderDetails.css";
 import { fetchOrderById } from "../../services/api"; // Assume this is the API call function
 import { toast } from "react-toastify";
@@ -44,7 +44,17 @@ function OrderDetails() {
 			</p>
 			<p>
 				<strong>Items:</strong>{" "}
-				{order.cart_items.map((e) => e.product_details.product_name + ", ")}
+				{order.cart_items.map((e, index) => (
+					<React.Fragment key={index}>
+						<Link
+							to={`/products/${e.product_details.product_id}`}
+							className="edit-link"
+						>
+							{e.product_details.product_name}
+						</Link>
+						{index < order.cart_items.length - 1 && ", "}
+					</React.Fragment>
+				))}
 			</p>
 		</div>
 	);

@@ -6,6 +6,9 @@
 	border-radius: 8px;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 	margin-top: 50px;
+	text-align: left;
+	width: 100%;
+	max-width: 600px;
 }
 
 .category-detail h2 {
@@ -21,4 +24,14 @@
 
 .category-info p {
 	margin: 10px 0;
+}
+
+.category-image {
+	display: block;
+	margin: 0 auto; /* Centers the image horizontally */
+	width: 100%;
+	max-width: 300px;
+	height: auto;
+	border-radius: 8px;
+	margin-bottom: 20px;
 }

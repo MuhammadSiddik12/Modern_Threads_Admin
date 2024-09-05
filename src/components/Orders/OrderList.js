@@ -27,8 +27,8 @@ function Orders() {
 				<thead>
 					<tr>
 						<th>Order ID</th>
-						<th>Cart Items</th>
 						<th>Total Amount</th>
+						<th>Cart Items</th>
 						<th>Status</th>
 						<th>Date</th>
 						<th>Actions</th>

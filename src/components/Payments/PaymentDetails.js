@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import "../../asserts/style/PaymentDetails.css";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -68,7 +68,10 @@ function PaymentDetails() {
 				<strong>Date:</strong> {payment.created_at}
 			</p>
 			<p>
-				<strong>Order Id:</strong> {payment.order_id}
+				<strong>Order Id:</strong>{" "}
+				<Link to={`/orders/${payment.order_id}`} className="edit-link">
+					{payment.order_id}
+				</Link>
 			</p>
 		</div>
 	);

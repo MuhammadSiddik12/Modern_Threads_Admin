@@ -11,8 +11,6 @@ function ProductDetails() {
 	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
-		// Fetch product data based on the ID (replace with actual API call)
-		// For now, we're using static data for demonstration
 		const fetchProductData = async () => {
 			setLoading(true); // Start loading
 			try {
@@ -24,7 +22,7 @@ function ProductDetails() {
 					toast.error("Data not found");
 				}
 			} catch (error) {
-				toast.error(error);
+				toast.error(error.message);
 			} finally {
 				setLoading(false); // Stop loading
 			}
@@ -45,6 +43,15 @@ function ProductDetails() {
 		<div className="product-details">
 			<h2>Product Details</h2>
 			<div className="product-info">
+				<img
+					src={
+						product.product_images.length
+							? product.product_images[0]
+							: "https://via.placeholder.com/300"
+					}
+					alt={product.product_name}
+					className="product-image"
+				/>
 				<p>
 					<strong>ID:</strong> {product.product_id}
 				</p>
