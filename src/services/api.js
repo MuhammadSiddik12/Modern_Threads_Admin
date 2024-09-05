@@ -172,15 +172,18 @@ export const getUserById = async (user_id) => {
 	}
 };
 
-export const getAllProducts = async () => {
+export const getAllProducts = async (page, limit, searchTerm) => {
 	try {
 		const token = localStorage.getItem("authToken");
 
-		const response = await axios.get(`${BASE_URL}/products/getAllProducts`, {
-			headers: {
-				Authorization: "Bearer " + token,
-			},
-		});
+		const response = await axios.get(
+			`${BASE_URL}/products/getAllProducts?page=${page}&limit=${limit}&search=${searchTerm}`,
+			{
+				headers: {
+					Authorization: "Bearer " + token,
+				},
+			}
+		);
 
 		return response.data;
 	} catch (error) {
