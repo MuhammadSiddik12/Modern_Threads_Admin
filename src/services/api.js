@@ -307,3 +307,21 @@ export const fetchOrderById = async (orderId) => {
 		throw error.response?.data?.message || error.message;
 	}
 };
+
+export const getPayments = async () => {
+	try {
+		const token = localStorage.getItem("authToken");
+
+		const response = await axios.get(
+			`http://localhost:3001/admin/payments/getAllPayments`,
+			{
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			}
+		);
+		return response.data;
+	} catch (error) {
+		throw error.response?.data?.message || error.message;
+	}
+};

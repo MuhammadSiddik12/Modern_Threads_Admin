@@ -1,27 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "../../asserts/style/Payments.css";
+import { getPayments } from "../../services/api";
+import { toast } from "react-toastify";
 
 function Payments() {
-	const payments = [
-		{
-			id: 501,
-			customer: "John Doe",
-			amount: "$250",
-			method: "Credit Card",
-			status: "Completed",
-			date: "2024-09-01",
-		},
-		{
-			id: 502,
-			customer: "Jane Smith",
-			amount: "$150",
-			method: "PayPal",
-			status: "Pending",
-			date: "2024-09-01",
-		},
-		// Add more static data here
-	];
+	const [payments, setPayments] = useState([]);
+
+	useEffect(() => {
+		const fetchPayments = async () => {
+			try {
+				const paymentsData = await getPayments();
+				setPayments(paymentsData.data);
+			} catch (error) {
+				toast.error(error);
+			}
+		};
+
+		fetchPayments();
+	}, []);
 
 	return (
 		<div className="payments">
@@ -39,21 +36,33 @@ function Payments() {
 					</tr>
 				</thead>
 				<tbody>
-					{payments.map((payment) => (
-						<tr key={payment.id}>
-							<td>{payment.id}</td>
-							<td>{payment.customer}</td>
-							<td>{payment.amount}</td>
-							<td>{payment.method}</td>
-							<td>{payment.status}</td>
-							<td>{payment.date}</td>
-							<td>
-								<Link to={`/payments/${payment.id}`} className="edit-link">
-									View
-								</Link>
-							</td>
+					{payments.length > 0 ? (
+						payments.map((payment) => (
+							<tr key={payment.payment_id}>
+								<td>{payment.payment_id}</td>
+								<td>
+									{payment.user_details.length
+										? payment.user_details.first_name +
+										  " " +
+										  payment.user_details[0].last_name
+										: "N/A"}
+								</td>
+								<td>{payment.amount}</td>
+								<td>{payment.payment_method}</td>
+								<td>{payment.payment_status}</td>
+								<td>{payment.created_at}</td>
+								<td>
+									<Link to={`/payments/${payment.id}`} className="edit-link">
+										View
+									</Link>
+								</td>
+							</tr>
+						))
+					) : (
+						<tr>
+							<td colSpan="7">No payments found.</td>
 						</tr>
-					))}
+					)}
 				</tbody>
 			</table>
 		</div>
