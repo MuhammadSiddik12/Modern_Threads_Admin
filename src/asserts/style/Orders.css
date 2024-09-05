@@ -53,3 +53,15 @@
 		font-size: 14px; /* Adjust font size for smaller screens */
 	}
 }
+
+.order-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 20px;
+}
+
+.order-header h2 {
+	margin: 0;
+	font-size: 24px;
+}

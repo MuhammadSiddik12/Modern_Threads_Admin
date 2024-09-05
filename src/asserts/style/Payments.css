@@ -26,3 +26,16 @@
 .edit-link:hover {
 	text-decoration: underline;
 }
+
+
+.payment-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 20px;
+}
+
+.payment-header h2 {
+	margin: 0;
+	font-size: 24px;
+}

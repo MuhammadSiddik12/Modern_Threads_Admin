@@ -276,12 +276,12 @@ export const addProduct = async (data) => {
 	}
 };
 
-export const fetchOrders = async () => {
+export const fetchOrders = async (page, limit, searchTerm) => {
 	try {
 		const token = localStorage.getItem("authToken");
 
 		const response = await axios.get(
-			`http://localhost:3001/admin/orders/getAllOrders`,
+			`http://localhost:3001/admin/orders/getAllOrders?page=${page}&limit=${limit}&search=${searchTerm}`,
 			{
 				headers: {
 					Authorization: `Bearer ${token}`,
@@ -314,12 +314,12 @@ export const fetchOrderById = async (orderId) => {
 	}
 };
 
-export const getPayments = async () => {
+export const getPayments = async (page, limit, searchTerm) => {
 	try {
 		const token = localStorage.getItem("authToken");
 
 		const response = await axios.get(
-			`http://localhost:3001/admin/payments/getAllPayments`,
+			`http://localhost:3001/admin/payments/getAllPayments?page=${page}&limit=${limit}&search=${searchTerm}`,
 			{
 				headers: {
 					Authorization: `Bearer ${token}`,
