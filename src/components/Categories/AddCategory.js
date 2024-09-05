@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../asserts/style/AddCategory.css";
-import { addCategory } from "../../services/api"; // Import the addCategory API function
+import { addCategory, uploadImage } from "../../services/api"; // Import the addCategory and uploadImage API functions
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function AddCategory() {
-	const [category, setCategory] = useState({ name: "" });
+	const [category, setCategory] = useState({ name: "", image: null });
 	const [loading, setLoading] = useState(false);
 	const navigate = useNavigate();
 
@@ -14,16 +14,39 @@ function AddCategory() {
 		setCategory({ ...category, name: e.target.value });
 	};
 
+	const handleImageChange = (e) => {
+		setCategory({ ...category, image: e.target.files[0] });
+	};
+
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		setLoading(true);
+
+		let imageUrl = null;
+
 		try {
-			await addCategory({ category_name: category.name });
+			// Step 1: Upload the image if one is selected
+			if (category.image) {
+				const formData = new FormData();
+				formData.append("image", category.image);
+
+				// Assuming the response contains the image URL
+				const imageUploadResponse = await uploadImage(formData);
+				imageUrl = imageUploadResponse.data.filePath; // Assuming `url` contains the uploaded image URL
+			}
+
+			// Step 2: Add the category with the image URL (if available)
+			const categoryData = {
+				category_name: category.name,
+				category_image: imageUrl, // Include the image URL in the request
+			};
+
+			await addCategory(categoryData);
 			toast.success("Category added successfully!");
 			navigate("/categories"); // Redirect after adding category
 		} catch (error) {
 			console.error("Error adding category:", error);
-			toast.error(error);
+			toast.error(error.message || "Failed to add category");
 		} finally {
 			setLoading(false);
 		}
@@ -32,7 +55,7 @@ function AddCategory() {
 	return (
 		<div className="add-category">
 			<h2>Add New Category</h2>
-			<form onSubmit={handleSubmit}>
+			<form onSubmit={handleSubmit} encType="multipart/form-data">
 				<label htmlFor="name">Category Name:</label>
 				<input
 					type="text"
@@ -41,6 +64,15 @@ function AddCategory() {
 					onChange={handleChange}
 					required
 				/>
+
+				<label htmlFor="image">Upload Category Image:</label>
+				<input
+					type="file"
+					id="image"
+					accept="image/*"
+					onChange={handleImageChange}
+				/>
+
 				<button type="submit" disabled={loading}>
 					{loading ? "Adding..." : "Add Category"}
 				</button>

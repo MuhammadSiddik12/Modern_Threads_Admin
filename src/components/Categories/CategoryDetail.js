@@ -41,7 +41,9 @@ function CategoryDetail() {
 			<h2>Category Details</h2>
 			<div className="category-info">
 				<img
-					src={category.category_image || defaultImage}
+					src={
+						`http://localhost:3001${category.category_image}` || defaultImage
+					}
 					alt={category.category_name}
 					className="category-image"
 				/>

@@ -412,3 +412,11 @@ export const dashboardDetails = async () => {
 		throw error.response?.data?.message || error.message;
 	}
 };
+
+export const uploadImage = (formData) => {
+	return axios.post("http://localhost:3001/uploadImage", formData, {
+		headers: {
+			"Content-Type": "multipart/form-data",
+		},
+	});
+};
