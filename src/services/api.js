@@ -26,15 +26,18 @@ export const loginUser = async (email, password) => {
 };
 
 // Fetch all categories
-export const getAllCategories = async () => {
+export const getAllCategories = async (page, limit, searchTerm) => {
 	try {
 		const token = localStorage.getItem("authToken");
 
-		const response = await axios.get(`${BASE_URL}/category/getAllCategories`, {
-			headers: {
-				Authorization: "Bearer " + token,
-			},
-		});
+		const response = await axios.get(
+			`${BASE_URL}/category/getAllCategories?page=${page}&limit=${limit}&search=${searchTerm}`,
+			{
+				headers: {
+					Authorization: "Bearer " + token,
+				},
+			}
+		);
 
 		return await response.data;
 	} catch (error) {

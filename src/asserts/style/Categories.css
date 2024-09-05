@@ -48,8 +48,10 @@
 	font-size: 16px;
 	cursor: pointer;
 	margin-bottom: 20px;
+	margin-left: 60%;
 	transition: background-color 0.3s ease;
 	justify-content: space-between;
+	margin-top: 20px;
 	align-items: center;
 }
 
@@ -90,4 +92,55 @@
 	text-align: center;
 	font-size: 24px;
 	padding: 20px;
+}
+
+/* No Data Message */
+.no-data {
+	text-align: center;
+	font-size: 18px;
+	color: #999;
+	margin-top: 20px;
+}
+
+/* Pagination Styles */
+.pagination {
+	display: flex;
+	justify-content: center;
+	margin-top: 20px;
+}
+
+.pagination button {
+	background-color: #f2f2f2;
+	border: 1px solid #ccc;
+	padding: 8px 12px;
+	cursor: pointer;
+	margin: 0 5px;
+	border-radius: 4px;
+	font-size: 16px;
+}
+
+.pagination button:hover {
+	background-color: #ddd;
+}
+
+.pagination button:disabled {
+	background-color: #e0e0e0;
+	cursor: not-allowed;
+}
+
+.pagination button:disabled:hover {
+	background-color: #e0e0e0;
+}
+
+.search-bar {
+	padding: 8px 12px;
+	width: 250px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	font-size: 16px;
+}
+
+.search-bar:focus {
+	outline: none;
+	border-color: #4caf50;
 }
