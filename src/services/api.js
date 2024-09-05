@@ -392,3 +392,23 @@ export const updateAdminDetails = async (admin) => {
 		throw error.response?.data?.message || error.message;
 	}
 };
+
+export const dashboardDetails = async () => {
+	try {
+		const token = localStorage.getItem("authToken");
+
+		const response = await axios.get(
+			"http://localhost:3001/admin/dashboardDetails",
+			{
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: `Bearer ${token}`, // Pass the token for authentication
+				},
+			}
+		);
+		return response.data;
+	} catch (error) {
+		console.error("Error fetching dashboard details:", error);
+		throw error.response?.data?.message || error.message;
+	}
+};
