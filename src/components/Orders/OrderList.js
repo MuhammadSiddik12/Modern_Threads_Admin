@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import "../../asserts/style/Orders.css";
+import "../../asserts/style/Order/Orders.css";
 import { fetchOrders } from "../../services/api"; // Assume this is the API call function
 
 function Orders() {

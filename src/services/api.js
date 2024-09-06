@@ -1,5 +1,7 @@
 // src/api.js
 const BASE_URL = "http://localhost:3001/admin";
+export const IMAGE_BASE_URL = "http://localhost:3001";
+
 import axios from "axios";
 
 // src/auth.js

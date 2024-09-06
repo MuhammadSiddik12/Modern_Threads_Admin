@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "../../asserts/style/Dashboard.css";
+import "../../asserts/style/Dashboard/Dashboard.css";
 import { dashboardDetails } from "../../services/api";
 import { Link } from "react-router-dom";
 

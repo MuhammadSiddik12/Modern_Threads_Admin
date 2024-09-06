@@ -5,7 +5,7 @@
 	background-color: #f9f9f9;
 	border-radius: 8px;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-	margin-top: 250px;
+	/* margin-top: 250px; */
 }
 
 .edit-category form {
@@ -55,4 +55,14 @@
 
 .delete-button:hover {
 	background-color: #c82333;
+}
+
+.image-preview {
+	/* display: block; */
+	margin: 0 auto; /* Centers the image horizontally */
+	width: 100%;
+	max-width: 300px;
+	height: auto;
+	border-radius: 8px;
+	margin-bottom: 20px;
 }

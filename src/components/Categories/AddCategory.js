@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "../../asserts/style/AddCategory.css";
+import "../../asserts/style/Category/AddCategory.css";
 import { addCategory, uploadImage } from "../../services/api"; // Import the addCategory and uploadImage API functions
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";

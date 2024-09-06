@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import "../../asserts/style/PaymentDetails.css";
+import "../../asserts/style/Payment/PaymentDetails.css";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { getPaymentById } from "../../services/api";

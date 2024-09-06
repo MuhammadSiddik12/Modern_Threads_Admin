@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import "../../asserts/style/CategoryDetail.css";
-import { getCategoryById } from "../../services/api"; // Import the API function
+import "../../asserts/style/Category/CategoryDetail.css";
+import { getCategoryById, IMAGE_BASE_URL } from "../../services/api"; // Import the API function
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -41,9 +41,7 @@ function CategoryDetail() {
 			<h2>Category Details</h2>
 			<div className="category-info">
 				<img
-					src={
-						`http://localhost:3001${category.category_image}` || defaultImage
-					}
+					src={`${IMAGE_BASE_URL}${category.category_image}` || defaultImage}
 					alt={category.category_name}
 					className="category-image"
 				/>

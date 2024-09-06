@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "../../asserts/style/Products.css";
+import "../../asserts/style/Product/Products.css";
 import { Link, useNavigate } from "react-router-dom";
 import { deleteProduct, getAllProducts } from "../../services/api";
 import { toast } from "react-toastify";
@@ -16,33 +16,31 @@ function Products() {
 	const [searchTerm, setSearchTerm] = useState("");
 
 	useEffect(() => {
+		const fetchProducts = async () => {
+			setLoading(true);
+			try {
+				const response = await getAllProducts(
+					currentPage,
+					productsPerPage,
+					searchTerm
+				);
+				setProducts(response.data); // Set the products data
+				setTotalProducts(response.total_count); // Assuming API returns total product count
+				setLoading(false);
+			} catch (error) {
+				toast.error(error);
+				setLoading(false);
+			}
+		};
+
+		// Delay the API call when searchTerm changes
 		const delayDebounceFn = setTimeout(() => {
-			fetchProducts(); // Fetch categories whenever search input changes after a delay
-		}, 500); // Delay of 500ms
+			fetchProducts();
+		}, 500);
 
-		return () => clearTimeout(delayDebounceFn); // Cleanup the timeout if search changes again
-	}, [searchTerm]);
-
-	useEffect(() => {
-		fetchProducts();
-	}, [currentPage]);
-
-	const fetchProducts = async () => {
-		setLoading(true);
-		try {
-			const response = await getAllProducts(
-				currentPage,
-				productsPerPage,
-				searchTerm
-			);
-			setProducts(response.data); // Set the products data
-			setTotalProducts(response.total_count); // Assuming API returns total product count
-			setLoading(false);
-		} catch (error) {
-			toast.error(error);
-			setLoading(false);
-		}
-	};
+		// Cleanup timeout if searchTerm or currentPage changes again before delay is over
+		return () => clearTimeout(delayDebounceFn);
+	}, [currentPage, searchTerm]);
 
 	const handleDeleteProduct = async (id) => {
 		const confirmDelete = window.confirm(

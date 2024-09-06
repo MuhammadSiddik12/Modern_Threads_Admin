@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-import "../../asserts/style/ProductForm.css";
+import "../../asserts/style/Product/ProductForm.css";
 import {
 	getAllCategories,
 	getProductById,

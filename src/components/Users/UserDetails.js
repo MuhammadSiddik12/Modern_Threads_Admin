@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import "../../asserts/style/UserDetails.css";
+import "../../asserts/style/Users/UserDetails.css";
 import { getUserById } from "../../services/api";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";

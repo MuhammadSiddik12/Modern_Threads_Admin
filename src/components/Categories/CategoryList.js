@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "../../asserts/style/Categories.css";
+import "../../asserts/style/Category/Categories.css";
 import { Link, useNavigate } from "react-router-dom";
 import { getAllCategories, deleteCategory } from "../../services/api";
 import { toast } from "react-toastify";
@@ -20,11 +20,7 @@ function Categories() {
 		}, 500); // Delay of 500ms
 
 		return () => clearTimeout(delayDebounceFn); // Cleanup the timeout if search changes again
-	}, [searchTerm]);
-
-	useEffect(() => {
-		fetchCategories(); // Fetch categories whenever search input changes after a delay
-	}, [currentPage]);
+	}, [currentPage, searchTerm]);
 
 	const fetchCategories = async () => {
 		setLoading(true);

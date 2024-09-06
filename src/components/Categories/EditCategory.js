@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import "../../asserts/style/EditCategory.css";
+import "../../asserts/style/Category/EditCategory.css";
 import {
 	updateCategory,
 	deleteCategory,
 	getCategoryById,
 	uploadImage,
+	IMAGE_BASE_URL,
 } from "../../services/api"; // Import API functions
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -101,9 +102,10 @@ function EditCategory() {
 				{category.category_image && (
 					<div className="image-preview">
 						<img
-							src={category.category_image}
+							src={`${IMAGE_BASE_URL}${category.category_image}`}
 							alt={category.category_name}
-							width="100"
+							width="auto"
+							height="150"
 						/>
 					</div>
 				)}

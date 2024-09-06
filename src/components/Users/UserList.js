@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "../../asserts/style/Users.css";
+import "../../asserts/style/Users/Users.css";
 import { Link } from "react-router-dom";
 import { getAllUsers } from "../../services/api";
 import { toast } from "react-toastify";
