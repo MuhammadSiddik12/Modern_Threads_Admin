@@ -1,44 +1,54 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "../../asserts/style/Order/Orders.css";
-import { fetchOrders } from "../../services/api"; // Assume this is the API call function
+import { fetchOrders } from "../../services/api";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Orders() {
 	const [orders, setOrders] = useState([]);
 	const [searchTerm, setSearchTerm] = useState("");
 	const [currentPage, setCurrentPage] = useState(1);
-	const [itemPerPage] = useState(10); // Categories per page
-	const [totalOrders, setTotalOrders] = useState(0); // To keep track of total categories
+	const [itemsPerPage] = useState(10);
+	const [totalOrders, setTotalOrders] = useState(0);
+	const [loading, setLoading] = useState(true);
+	const [error, setError] = useState(null);
 
 	useEffect(() => {
 		const delayDebounceFn = setTimeout(() => {
-			getOrders(); // Fetch categories whenever search input changes after a delay
+			getOrders(); // Fetch orders whenever search input changes after a delay
 		}, 500); // Delay of 500ms
 
 		return () => clearTimeout(delayDebounceFn); // Cleanup the timeout if search changes again
-	}, [searchTerm]);
-
-	useEffect(() => {
-		getOrders();
-	}, [currentPage]);
+	}, [searchTerm, currentPage]);
 
 	const getOrders = async () => {
+		setLoading(true);
 		try {
-			const response = await fetchOrders(currentPage, itemPerPage, searchTerm); // Fetch orders from the API
-			console.log("🚀 ~ getOrders ~ response:", response);
+			const response = await fetchOrders(currentPage, itemsPerPage, searchTerm);
 			setOrders(response.data);
 			setTotalOrders(response.total_count);
 		} catch (error) {
-			console.error("Error fetching orders:", error);
+			setError(error.message || "Failed to fetch orders");
+			toast.error(error.message || "Failed to fetch orders");
+		} finally {
+			setLoading(false);
 		}
 	};
 
 	const paginate = (pageNumber) => {
 		if (pageNumber >= 1 && pageNumber <= totalOrders) {
 			setCurrentPage(pageNumber);
-			console.log("🚀 ~ paginate ~ pageNumber:", pageNumber);
 		}
 	};
+
+	if (loading) {
+		return <div className="loading">Loading...</div>;
+	}
+
+	if (error) {
+		return <div className="error">Error: {error}</div>;
+	}
 
 	return (
 		<div className="orders">
@@ -64,7 +74,7 @@ function Orders() {
 							<tr>
 								<th>Order ID</th>
 								<th>Total Amount</th>
-								<th>Cart Items</th>
+								<th>Items</th>
 								<th>Status</th>
 								<th>Date</th>
 								<th>Actions</th>
@@ -74,10 +84,10 @@ function Orders() {
 							{orders.map((order) => (
 								<tr key={order.order_id}>
 									<td>{order.order_id}</td>
-									<td>{order.total_price}</td>
+									<td>₹{order.total_price}</td>
 									<td>{order.order_items}</td>
 									<td>{order.order_status}</td>
-									<td>{order.created_at}</td>
+									<td>{new Date(order.created_at).toLocaleDateString()}</td>
 									<td>
 										<Link
 											to={`/orders/${order.order_id}`}
@@ -98,7 +108,11 @@ function Orders() {
 							Prev
 						</button>
 						{Array.from({ length: totalOrders }, (_, index) => (
-							<button key={index} onClick={() => paginate(index + 1)}>
+							<button
+								key={index + 1}
+								onClick={() => paginate(index + 1)}
+								className={currentPage === index + 1 ? "active" : ""}
+							>
 								{index + 1}
 							</button>
 						))}

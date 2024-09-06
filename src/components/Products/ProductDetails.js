@@ -17,12 +17,12 @@ function ProductDetails() {
 				const data = await getProductById(id);
 
 				if (data.data) {
-					setProduct(data.data); // Assuming the response structure has a `categories` field
+					setProduct(data.data); // Assuming the response structure has a `data` field
 				} else {
-					toast.error("Data not found");
+					toast.error("Product not found");
 				}
 			} catch (error) {
-				toast.error(error.message);
+				toast.error("Error fetching product: " + error.message);
 			} finally {
 				setLoading(false); // Stop loading
 			}
@@ -39,16 +39,17 @@ function ProductDetails() {
 		return <div>Product not found</div>;
 	}
 
+	const imageUrl =
+		product.product_images && product.product_images.length
+			? `http://localhost:3001${product.product_images[0]}`
+			: "https://via.placeholder.com/300";
+
 	return (
 		<div className="product-details">
 			<h2>Product Details</h2>
 			<div className="product-info">
 				<img
-					src={
-						product.product_images.length
-							? `http://localhost:3001${product.product_images[0]}`
-							: "https://via.placeholder.com/300"
-					}
+					src={imageUrl}
 					alt={product.product_name}
 					className="product-image"
 				/>
@@ -62,10 +63,10 @@ function ProductDetails() {
 					<strong>Description:</strong> {product.description}
 				</p>
 				<p>
-					<strong>Price:</strong> {product.price}
+					<strong>Price:</strong> ₹{product.price}
 				</p>
 				<p>
-					<strong>Category:</strong> {product.Category.category_name}
+					<strong>Category:</strong> {product.Category?.category_name || "N/A"}
 				</p>
 				<p>
 					<strong>Stocks:</strong> {product.stock_quantity}

@@ -18,9 +18,8 @@ const LoginPage = () => {
 
 		try {
 			const data = await loginUser(email, password); // Call the loginUser function
-			console.log("🚀 ~ handleSubmit ~ data:", data);
 
-			// Store the token (you can store it in localStorage or sessionStorage)
+			// Store the token securely (preferably in HttpOnly cookies)
 			localStorage.setItem("authToken", data.token);
 
 			toast.success(data.message);
@@ -28,9 +27,9 @@ const LoginPage = () => {
 			navigate("/");
 			setTimeout(() => {
 				window.location.reload();
-			}, 2000);
+			}, 1000);
 		} catch (error) {
-			toast.error(error);
+			toast.error("Login failed. Please check your credentials.");
 		} finally {
 			setLoading(false); // Stop loading
 		}
@@ -42,18 +41,20 @@ const LoginPage = () => {
 				<h2>Login</h2>
 
 				<div className="form-group">
-					<label>Email</label>
+					<label htmlFor="email">Email</label>
 					<input
 						type="email"
+						id="email"
 						value={email}
 						onChange={(e) => setEmail(e.target.value)} // Update email state on change
 						required // Ensure field is filled before submission
 					/>
 				</div>
 				<div className="form-group">
-					<label>Password</label>
+					<label htmlFor="password">Password</label>
 					<input
 						type="password"
+						id="password"
 						value={password}
 						onChange={(e) => setPassword(e.target.value)} // Update password state on change
 						required // Ensure field is filled before submission

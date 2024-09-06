@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { addProduct, getAllCategories, uploadImage } from "../../services/api"; // Import the uploadImage function
+import { addProduct, getAllCategories, uploadImage } from "../../services/api";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -16,22 +16,26 @@ function AddProduct() {
 		stock_quantity: 0,
 		product_images: null,
 	});
+	const [loading, setLoading] = useState(false);
 
 	const handleChange = (e) => {
 		const { name, value } = e.target;
 
 		if (name === "category") {
-			const findId = categories.find((f) => f.category_name === value);
-			setProduct((prevProduct) => ({
-				...prevProduct,
-				category_id: findId.category_id,
-				category_name: findId.category_name,
-			}));
+			const selectedCategory = categories.find(
+				(cat) => cat.category_name === value
+			);
+			if (selectedCategory) {
+				setProduct((prevProduct) => ({
+					...prevProduct,
+					category_id: selectedCategory.category_id,
+					category_name: selectedCategory.category_name,
+				}));
+			}
 		} else if (name === "product_images") {
-			const file = e.target.files[0];
 			setProduct((prevProduct) => ({
 				...prevProduct,
-				product_images: file,
+				product_images: e.target.files[0],
 			}));
 		} else {
 			setProduct((prevProduct) => ({
@@ -42,44 +46,44 @@ function AddProduct() {
 	};
 
 	useEffect(() => {
-		const fetchProductData = async () => {
+		const fetchCategories = async () => {
 			try {
-				const categoriesResponse = await getAllCategories();
-				setCategories(categoriesResponse.data);
+				const response = await getAllCategories();
+				setCategories(response.data);
 			} catch (error) {
-				toast.error(error.message);
+				toast.error("Failed to fetch categories: " + error.message);
 			}
 		};
 
-		fetchProductData();
+		fetchCategories();
 	}, []);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+		setLoading(true);
 
 		try {
 			let imageUrl = null;
 			if (product.product_images) {
-				// Upload image
 				const formDataImage = new FormData();
 				formDataImage.append("image", product.product_images);
 
 				const imageResponse = await uploadImage(formDataImage);
-				imageUrl = imageResponse.data.filePath; // Assuming the response contains the image URL
+				imageUrl = imageResponse.data.filePath;
 			}
 
-			// Submit product details with image URL
 			const formDataProduct = {
 				...product,
-				product_images: [imageUrl],
+				product_images: imageUrl ? [imageUrl] : [],
 			};
 
 			await addProduct(formDataProduct);
 			toast.success("Product added successfully!");
-			navigate("/products"); // Redirect after successful addition
+			navigate("/products");
 		} catch (error) {
-			console.error("Error adding product:", error);
-			toast.error(error.message);
+			toast.error("Failed to add product: " + error.message);
+		} finally {
+			setLoading(false);
 		}
 	};
 
@@ -127,7 +131,7 @@ function AddProduct() {
 					/>
 				</label>
 				<label>
-					Category:{"    "}
+					Category:
 					<select
 						name="category"
 						value={product.category_name}
@@ -151,7 +155,9 @@ function AddProduct() {
 						accept="image/*"
 					/>
 				</label>
-				<button type="submit">Add Product</button>
+				<button type="submit" disabled={loading}>
+					{loading ? "Adding..." : "Add Product"}
+				</button>
 			</form>
 		</div>
 	);

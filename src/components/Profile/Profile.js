@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { getAdminDetails, updateAdminDetails } from "../../services/api"; // Import API services
+import { getAdminDetails, updateAdminDetails } from "../../services/api";
 import { toast } from "react-toastify";
-import "../../asserts/style/Profile/Profile.css"; // Import your CSS for styling
+import "../../asserts/style/Profile/Profile.css";
 
 function AdminProfile() {
 	const [admin, setAdmin] = useState({
@@ -12,13 +12,11 @@ function AdminProfile() {
 	const [isEditing, setIsEditing] = useState(false);
 
 	useEffect(() => {
-		// Fetch admin details (replace with actual API call)
 		const fetchAdminDetails = async () => {
 			try {
 				const response = await getAdminDetails();
 				setAdmin(response.data);
 			} catch (error) {
-				console.log("🚀 ~ fetchAdminDetails ~ error:", error)
 				toast.error("Failed to load admin details");
 			}
 		};
@@ -37,11 +35,10 @@ function AdminProfile() {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {
-			await updateAdminDetails(admin); // Call API to update admin details
+			await updateAdminDetails(admin);
 			toast.success("Admin details updated successfully");
 			setIsEditing(false);
 		} catch (error) {
-			console.log("🚀 ~ handleSubmit ~ error:", error)
 			toast.error("Failed to update admin details");
 		}
 	};
@@ -63,26 +60,28 @@ function AdminProfile() {
 				</div>
 			) : (
 				<form onSubmit={handleSubmit} className="profile-form">
-					<label>
-						Name:
+					<div className="form-group">
+						<label htmlFor="admin_name">Name:</label>
 						<input
 							type="text"
+							id="admin_name"
 							name="admin_name"
 							value={admin.admin_name}
 							onChange={handleChange}
 							required
 						/>
-					</label>
-					<label>
-						Email:
+					</div>
+					<div className="form-group">
+						<label htmlFor="admin_email">Email:</label>
 						<input
 							type="email"
+							id="admin_email"
 							name="admin_email"
 							value={admin.admin_email}
 							onChange={handleChange}
 							required
 						/>
-					</label>
+					</div>
 					<button type="submit" className="save-btn">
 						Save Changes
 					</button>

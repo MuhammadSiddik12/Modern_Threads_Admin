@@ -11,22 +11,19 @@ function PaymentDetails() {
 	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
-		// Fetch payment data based on the ID (replace with actual API call)
-		// For now, we're using static data for demonstration
 		const fetchPaymentData = async () => {
-			setLoading(true); // Start loading
+			setLoading(true);
 			try {
-				const data = await getPaymentById(id);
-
-				if (data.data) {
-					setPayment(data.data); // Assuming the response structure has a `categories` field
+				const response = await getPaymentById(id);
+				if (response.data) {
+					setPayment(response.data);
 				} else {
-					toast.error("Data not found");
+					toast.error("Payment data not found");
 				}
 			} catch (error) {
-				toast.error(error);
+				toast.error(error.message || "Failed to fetch payment details");
 			} finally {
-				setLoading(false); // Stop loading
+				setLoading(false);
 			}
 		};
 
@@ -34,7 +31,7 @@ function PaymentDetails() {
 	}, [id]);
 
 	if (loading) {
-		return <div>Loading...</div>;
+		return <div className="loading">Loading...</div>;
 	}
 
 	if (!payment) {
@@ -45,18 +42,16 @@ function PaymentDetails() {
 		<div className="payment-details">
 			<h2>Payment ID: {payment.payment_id}</h2>
 			<p>
-				<strong>Transaction Id:</strong> {payment.transaction_id}
+				<strong>Transaction ID:</strong> {payment.transaction_id}
 			</p>
 			<p>
 				<strong>Customer Name:</strong>{" "}
 				{payment.user_details
-					? payment.user_details.first_name +
-					  " " +
-					  payment.user_details.last_name
+					? `${payment.user_details.first_name} ${payment.user_details.last_name}`
 					: "N/A"}
 			</p>
 			<p>
-				<strong>Amount:</strong> {payment.amount}
+				<strong>Amount:</strong> ₹{payment.amount.toFixed(2)}
 			</p>
 			<p>
 				<strong>Method:</strong> {payment.payment_method}
@@ -65,10 +60,11 @@ function PaymentDetails() {
 				<strong>Status:</strong> {payment.payment_status}
 			</p>
 			<p>
-				<strong>Date:</strong> {payment.created_at}
+				<strong>Date:</strong>{" "}
+				{new Date(payment.created_at).toLocaleDateString()}
 			</p>
 			<p>
-				<strong>Order Id:</strong>{" "}
+				<strong>Order ID:</strong>{" "}
 				<Link to={`/orders/${payment.order_id}`} className="edit-link">
 					{payment.order_id}
 				</Link>

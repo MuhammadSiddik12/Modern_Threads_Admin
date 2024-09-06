@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../asserts/style/Category/AddCategory.css";
-import { addCategory, uploadImage } from "../../services/api"; // Import the addCategory and uploadImage API functions
+import { addCategory, uploadImage } from "../../services/api";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -25,17 +25,16 @@ function AddCategory() {
 		let imageUrl = null;
 
 		try {
-			// Step 1: Upload the image if one is selected
+			// Upload the image if one is selected
 			if (category.image) {
 				const formData = new FormData();
 				formData.append("image", category.image);
 
-				// Assuming the response contains the image URL
-				const imageUploadResponse = await uploadImage(formData);
-				imageUrl = imageUploadResponse.data.filePath; // Assuming `url` contains the uploaded image URL
+				const { data } = await uploadImage(formData);
+				imageUrl = data.filePath; // Adjust based on the actual response structure
 			}
 
-			// Step 2: Add the category with the image URL (if available)
+			// Add the category with the image URL (if available)
 			const categoryData = {
 				category_name: category.name,
 				category_image: imageUrl, // Include the image URL in the request
@@ -43,10 +42,14 @@ function AddCategory() {
 
 			await addCategory(categoryData);
 			toast.success("Category added successfully!");
-			navigate("/categories"); // Redirect after adding category
+			navigate("/categories");
 		} catch (error) {
 			console.error("Error adding category:", error);
-			toast.error(error.message || "Failed to add category");
+			toast.error(
+				error.response?.data?.message ||
+					error.message ||
+					"Failed to add category"
+			);
 		} finally {
 			setLoading(false);
 		}
@@ -55,7 +58,7 @@ function AddCategory() {
 	return (
 		<div className="add-category">
 			<h2>Add New Category</h2>
-			<form onSubmit={handleSubmit} encType="multipart/form-data">
+			<form onSubmit={handleSubmit}>
 				<label htmlFor="name">Category Name:</label>
 				<input
 					type="text"

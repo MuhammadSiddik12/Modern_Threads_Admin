@@ -12,7 +12,7 @@ function Products() {
 	const [loading, setLoading] = useState(true); // State to manage loading state
 	const [currentPage, setCurrentPage] = useState(1); // State to manage current page
 	const [productsPerPage] = useState(10); // Products per page
-	const [totalProducts, setTotalProducts] = useState(0); // State to track total products
+	const [totalPages, setTotalPages] = useState(0); // State to track total pages
 	const [searchTerm, setSearchTerm] = useState("");
 
 	useEffect(() => {
@@ -25,10 +25,10 @@ function Products() {
 					searchTerm
 				);
 				setProducts(response.data); // Set the products data
-				setTotalProducts(response.total_count); // Assuming API returns total product count
+				setTotalPages(response.total_count); // Calculate total pages
 				setLoading(false);
 			} catch (error) {
-				toast.error(error);
+				toast.error("Error fetching products: " + error.message);
 				setLoading(false);
 			}
 		};
@@ -52,43 +52,43 @@ function Products() {
 				setProducts(products.filter((product) => product.product_id !== id));
 				toast.success("Product deleted successfully!");
 			} catch (error) {
-				toast.error(error);
+				toast.error("Error deleting product: " + error.message);
 			}
 		}
 	};
 
 	// Pagination logic
 	const paginate = (pageNumber) => {
-		if (pageNumber >= 1 && pageNumber <= totalProducts) {
+		if (pageNumber >= 1 && pageNumber <= totalPages) {
 			setCurrentPage(pageNumber);
 		}
 	};
+
 	const handleAddProduct = () => {
 		navigate("/products/add");
 	};
+
 	if (loading) {
 		return (
-			<>
-				<div className="products">
-					<div className="header">
-						<h2>Products</h2>
-						<button className="add-product-btn" onClick={handleAddProduct}>
-							Add Product
-						</button>
-						<input
-							type="text"
-							placeholder="Search users..."
-							className="search-bar"
-							value={searchTerm}
-							onChange={(e) => {
-								setSearchTerm(e.target.value);
-								setCurrentPage(1); // Reset to page 1 when searching
-							}}
-						/>
-					</div>
-					<div>Loading...</div>
+			<div className="products">
+				<div className="header">
+					<h2>Products</h2>
+					<button className="add-product-btn" onClick={handleAddProduct}>
+						Add Product
+					</button>
+					<input
+						type="text"
+						placeholder="Search products..."
+						className="search-bar"
+						value={searchTerm}
+						onChange={(e) => {
+							setSearchTerm(e.target.value);
+							setCurrentPage(1); // Reset to page 1 when searching
+						}}
+					/>
 				</div>
-			</>
+				<div>Loading...</div>
+			</div>
 		);
 	}
 
@@ -101,8 +101,8 @@ function Products() {
 				</button>
 				<input
 					type="text"
-					placeholder="Search users..."
-					className="search-bar"
+					placeholder="Search products..."
+					className="search-bar-product"
 					value={searchTerm}
 					onChange={(e) => {
 						setSearchTerm(e.target.value);
@@ -167,7 +167,7 @@ function Products() {
 						>
 							Prev
 						</button>
-						{Array.from({ length: totalProducts }, (_, index) => (
+						{Array.from({ length: totalPages }, (_, index) => (
 							<button
 								key={index}
 								onClick={() => paginate(index + 1)}
@@ -178,7 +178,7 @@ function Products() {
 						))}
 						<button
 							onClick={() => paginate(currentPage + 1)}
-							disabled={currentPage === totalProducts}
+							disabled={currentPage === totalPages}
 						>
 							Next
 						</button>

@@ -11,31 +11,29 @@ function Categories() {
 	const [loading, setLoading] = useState(true);
 	const [searchTerm, setSearchTerm] = useState("");
 	const [currentPage, setCurrentPage] = useState(1);
-	const [categoriesPerPage] = useState(10); // Categories per page
-	const [totalCategories, setTotalCategories] = useState(0); // To keep track of total categories
+	const [categoriesPerPage] = useState(2); // Categories per page
+	const [totalCategories, setTotalCategories] = useState(0);
 
 	useEffect(() => {
 		const delayDebounceFn = setTimeout(() => {
-			fetchCategories(); // Fetch categories whenever search input changes after a delay
-		}, 500); // Delay of 500ms
+			fetchCategories();
+		}, 500);
 
-		return () => clearTimeout(delayDebounceFn); // Cleanup the timeout if search changes again
+		return () => clearTimeout(delayDebounceFn);
 	}, [currentPage, searchTerm]);
 
 	const fetchCategories = async () => {
 		setLoading(true);
 		try {
-			console.log("🚀 ~ fetchCategories ~ currentPage:", currentPage);
-			const data = await getAllCategories(
+			const { data, total_count } = await getAllCategories(
 				currentPage,
 				categoriesPerPage,
 				searchTerm
 			);
-			setCategories(data.data);
-			setTotalCategories(data.total_count); // Assuming the API returns total count
+			setCategories(data);
+			setTotalCategories(total_count); // Assuming the API returns total count
 		} catch (error) {
-			toast.error(error);
-			setError(error);
+			toast.error("Failed to fetch categories. Please try again.");
 		} finally {
 			setLoading(false);
 		}
@@ -46,32 +44,26 @@ function Categories() {
 	};
 
 	const handleDeleteCategory = async (id) => {
-		const confirmDelete = window.confirm(
-			"Are you sure you want to delete this category?"
-		);
-		if (confirmDelete) {
+		if (window.confirm("Are you sure you want to delete this category?")) {
 			try {
 				await deleteCategory(id);
-				fetchCategories(); // Refetch categories after deletion
+				fetchCategories();
 				toast.success("Category deleted successfully!");
 			} catch (error) {
-				toast.error(error);
+				toast.error("Failed to delete category. Please try again.");
 			}
 		}
 	};
 
-	// Pagination logic
-
 	const paginate = (pageNumber) => {
 		if (pageNumber >= 1 && pageNumber <= totalCategories) {
 			setCurrentPage(pageNumber);
-			console.log("🚀 ~ paginate ~ pageNumber:", pageNumber);
 		}
 	};
 
 	if (loading) {
 		return (
-			<>
+			<div className="categories">
 				<div className="categories-header">
 					<h2>Categories</h2>
 					<button className="add-category-button" onClick={handleAddCategory}>
@@ -86,10 +78,10 @@ function Categories() {
 							setSearchTerm(e.target.value);
 							setCurrentPage(1); // Reset to page 1 when searching
 						}}
-					/>{" "}
+					/>
 				</div>
 				<div className="loader">Loading...</div>
-			</>
+			</div>
 		);
 	}
 
@@ -126,8 +118,8 @@ function Categories() {
 							</tr>
 						</thead>
 						<tbody>
-							{categories.map((category, index) => (
-								<tr key={index}>
+							{categories.map((category) => (
+								<tr key={category.category_id}>
 									<td>{category.category_id}</td>
 									<td>{category.category_name}</td>
 									<td>
@@ -166,7 +158,11 @@ function Categories() {
 							Prev
 						</button>
 						{Array.from({ length: totalCategories }, (_, index) => (
-							<button key={index} onClick={() => paginate(index + 1)}>
+							<button
+								key={index}
+								onClick={() => paginate(index + 1)}
+								className={index + 1 === currentPage ? "active" : ""}
+							>
 								{index + 1}
 							</button>
 						))}

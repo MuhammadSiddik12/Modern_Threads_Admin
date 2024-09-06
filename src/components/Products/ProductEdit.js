@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import axios from "axios";
-import "../../asserts/style/Product/ProductForm.css";
 import {
 	getAllCategories,
 	getProductById,
@@ -9,6 +7,7 @@ import {
 	uploadImage,
 } from "../../services/api";
 import { toast } from "react-toastify";
+import "../../asserts/style/Product/ProductForm.css";
 
 function EditProduct() {
 	const navigate = useNavigate();
@@ -29,22 +28,20 @@ function EditProduct() {
 	const [error, setError] = useState(null); // For error state
 
 	useEffect(() => {
-		// Fetch product data by ID
 		const fetchProductData = async () => {
 			try {
-				const data = await getProductById(id);
+				const { data } = await getProductById(id);
 				setProduct({
-					...data.data,
-					category_name: data.data?.Category?.category_name || "",
-					category_id: data.data?.Category?.category_id || "",
+					...data,
+					category_name: data?.Category?.category_name || "",
+					category_id: data?.Category?.category_id || "",
 				});
 
-				// Fetch categories
-				const categoriesResponse = await getAllCategories();
-				setCategories(categoriesResponse.data);
+				const { data: categoriesResponse } = await getAllCategories(1, 100, "");
+				setCategories(categoriesResponse);
 				setLoading(false); // Data fetched, stop loading
 			} catch (error) {
-				toast.error(error.message);
+				toast.error("Error fetching product data: " + error.message);
 				setError("Failed to fetch product data.");
 				setLoading(false);
 			}
@@ -78,16 +75,13 @@ function EditProduct() {
 		setLoading(true);
 		try {
 			let imageUrl = product.product_images;
-			console.log("🚀 ~ handleSubmit ~ imageUrl:", imageUrl);
-
 			if (image) {
 				const formData = new FormData();
 				formData.append("image", image);
 
 				try {
-					const response = await uploadImage(formData);
-					console.log("🚀 ~ uploadImage ~ response:", response);
-					imageUrl = response.data.filePath; // Assuming the API returns the image URL
+					const { data } = await uploadImage(formData);
+					imageUrl = data.filePath; // Assuming the API returns the image URL
 				} catch (error) {
 					toast.error("Failed to upload image.");
 					throw error;
@@ -99,12 +93,12 @@ function EditProduct() {
 				product_images: [imageUrl],
 			};
 
-			const update = await updateProduct(updatedProduct); // Call API to update product
-			toast.success(update.message);
+			const { message } = await updateProduct(updatedProduct); // Call API to update product
+			toast.success(message);
 			navigate("/products"); // Redirect after successful update
 		} catch (error) {
 			console.error("Error updating product:", error);
-			toast.error("Failed to update product.");
+			toast.error("Failed to update product: " + error.message);
 			setError("Failed to update product.");
 		} finally {
 			setLoading(false);

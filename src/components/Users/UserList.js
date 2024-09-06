@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import "../../asserts/style/Users/Users.css";
 import { Link } from "react-router-dom";
 import { getAllUsers } from "../../services/api";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import "../../asserts/style/Users/Users.css";
 
 function Users() {
 	const [users, setUsers] = useState([]); // State to store users
@@ -14,27 +14,32 @@ function Users() {
 	const [searchTerm, setSearchTerm] = useState("");
 
 	useEffect(() => {
-		const delayDebounceFn = setTimeout(() => {
-			fetchUsers(); // Fetch categories whenever search input changes after a delay
-		}, 500); // Delay of 500ms
+		const fetchUsers = async () => {
+			setLoading(true);
+			try {
+				const response = await getAllUsers(
+					currentPage,
+					usersPerPage,
+					searchTerm
+				);
+				setUsers(response.data);
+				setTotalUsers(response.total_count); // Assuming API returns total user count
+			} catch (error) {
+				toast.error("Failed to fetch users.");
+				console.error("Error fetching users:", error);
+			} finally {
+				setLoading(false);
+			}
+		};
 
-		return () => clearTimeout(delayDebounceFn); // Cleanup the timeout if search changes again
+		const delayDebounceFn = setTimeout(() => {
+			fetchUsers();
+		}, 500);
+
+		// Cleanup timeout if searchTerm or currentPage changes again before delay is over
+		return () => clearTimeout(delayDebounceFn);
 	}, [currentPage, searchTerm]);
 
-	const fetchUsers = async () => {
-		setLoading(true);
-		try {
-			const response = await getAllUsers(currentPage, usersPerPage, searchTerm);
-			setUsers(response.data);
-			setTotalUsers(response.total_count); // Assuming API returns total user count
-			setLoading(false);
-		} catch (error) {
-			toast.error(error);
-			setLoading(false);
-		}
-	};
-
-	// Pagination logic
 	const paginate = (pageNumber) => {
 		if (pageNumber >= 1 && pageNumber <= totalUsers) {
 			setCurrentPage(pageNumber);
@@ -43,7 +48,7 @@ function Users() {
 
 	if (loading) {
 		return (
-			<>
+			<div className="loading-container">
 				<div className="user-header">
 					<h2>Users</h2>
 					<input
@@ -57,8 +62,8 @@ function Users() {
 						}}
 					/>
 				</div>
-				<div>Loading...</div>
-			</>
+				<div className="loading">Loading...</div>
+			</div>
 		);
 	}
 

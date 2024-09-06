@@ -8,15 +8,16 @@ function Payments() {
 	const [payments, setPayments] = useState([]);
 	const [searchTerm, setSearchTerm] = useState("");
 	const [currentPage, setCurrentPage] = useState(1);
-	const [itemPerPage] = useState(10); // Categories per page
-	const [totalPayments, setTotalPayments] = useState(0); // To keep track of total categories
+	const [itemsPerPage] = useState(10);
+	const [totalPayments, setTotalPayments] = useState(0);
+	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
 		const delayDebounceFn = setTimeout(() => {
-			fetchPayments(); // Fetch categories whenever search input changes after a delay
-		}, 500); // Delay of 500ms
+			fetchPayments();
+		}, 500);
 
-		return () => clearTimeout(delayDebounceFn); // Cleanup the timeout if search changes again
+		return () => clearTimeout(delayDebounceFn);
 	}, [searchTerm]);
 
 	useEffect(() => {
@@ -24,25 +25,25 @@ function Payments() {
 	}, [currentPage]);
 
 	const fetchPayments = async () => {
+		setLoading(true);
 		try {
-			const paymentsData = await getPayments(
-				currentPage,
-				itemPerPage,
-				searchTerm
-			);
-			setPayments(paymentsData.data);
-			setTotalPayments(paymentsData.total_count);
+			const response = await getPayments(currentPage, itemsPerPage, searchTerm);
+			setPayments(response.data);
+			setTotalPayments(response.total_count);
 		} catch (error) {
-			toast.error(error);
+			toast.error(error.message || "Failed to fetch payments");
+		} finally {
+			setLoading(false);
 		}
 	};
 
 	const paginate = (pageNumber) => {
 		if (pageNumber >= 1 && pageNumber <= totalPayments) {
 			setCurrentPage(pageNumber);
-			console.log("🚀 ~ paginate ~ pageNumber:", pageNumber);
 		}
 	};
+
+	const totalPages = totalPayments;
 
 	return (
 		<div className="payments">
@@ -59,7 +60,9 @@ function Payments() {
 					}}
 				/>
 			</div>
-			{payments.length === 0 ? (
+			{loading ? (
+				<div className="loading">Loading...</div>
+			) : payments.length === 0 ? (
 				<div className="no-data">No data found</div>
 			) : (
 				<>
@@ -76,36 +79,28 @@ function Payments() {
 							</tr>
 						</thead>
 						<tbody>
-							{payments.length > 0 ? (
-								payments.map((payment) => (
-									<tr key={payment.payment_id}>
-										<td>{payment.payment_id}</td>
-										<td>
-											{payment.user_details
-												? payment.user_details.first_name +
-												  " " +
-												  payment.user_details.last_name
-												: "N/A"}
-										</td>
-										<td>{payment.amount}</td>
-										<td>{payment.payment_method}</td>
-										<td>{payment.payment_status}</td>
-										<td>{payment.created_at}</td>
-										<td>
-											<Link
-												to={`/payments/${payment.payment_id}`}
-												className="edit-link"
-											>
-												View
-											</Link>
-										</td>
-									</tr>
-								))
-							) : (
-								<tr>
-									<td colSpan="7">No payments found.</td>
+							{payments.map((payment) => (
+								<tr key={payment.payment_id}>
+									<td>{payment.payment_id}</td>
+									<td>
+										{payment.user_details
+											? `${payment.user_details.first_name} ${payment.user_details.last_name}`
+											: "N/A"}
+									</td>
+									<td>₹{payment.amount.toFixed(2)}</td>
+									<td>{payment.payment_method}</td>
+									<td>{payment.payment_status}</td>
+									<td>{new Date(payment.created_at).toLocaleDateString()}</td>
+									<td>
+										<Link
+											to={`/payments/${payment.payment_id}`}
+											className="edit-link"
+										>
+											View
+										</Link>
+									</td>
 								</tr>
-							)}
+							))}
 						</tbody>
 					</table>
 					<div className="pagination">
@@ -115,14 +110,18 @@ function Payments() {
 						>
 							Prev
 						</button>
-						{Array.from({ length: totalPayments }, (_, index) => (
-							<button key={index} onClick={() => paginate(index + 1)}>
+						{Array.from({ length: totalPages }, (_, index) => (
+							<button
+								key={index}
+								onClick={() => paginate(index + 1)}
+								className={index + 1 === currentPage ? "active" : ""}
+							>
 								{index + 1}
 							</button>
 						))}
 						<button
 							onClick={() => paginate(currentPage + 1)}
-							disabled={currentPage === totalPayments}
+							disabled={currentPage === totalPages}
 						>
 							Next
 						</button>

@@ -1,357 +1,303 @@
 // src/api.js
+import axios from "axios";
+
 const BASE_URL = "http://localhost:3001/admin";
 export const IMAGE_BASE_URL = "http://localhost:3001";
 
-import axios from "axios";
+const getAuthHeaders = () => {
+	const token = localStorage.getItem("authToken");
+	return {
+		headers: {
+			"Content-Type": "application/json",
+			Authorization: `Bearer ${token}`,
+		},
+	};
+};
 
-// src/auth.js
-
+// Authentication
 export const loginUser = async (email, password) => {
 	try {
 		const response = await axios.post(
 			`${BASE_URL}/adminLogin`,
-			JSON.stringify({
+			{
 				admin_email: email,
 				admin_password: password,
-			}),
+			},
 			{
 				headers: {
 					"Content-Type": "application/json",
 				},
 			}
 		);
-
 		return response.data;
 	} catch (error) {
-		throw error.response?.data?.message || error.message;
+		handleError(error);
 	}
 };
 
-// Fetch all categories
+// Categories
 export const getAllCategories = async (page, limit, searchTerm) => {
 	try {
-		const token = localStorage.getItem("authToken");
-
-		const response = await axios.get(
-			`${BASE_URL}/category/getAllCategories?page=${page}&limit=${limit}&search=${searchTerm}`,
-			{
-				headers: {
-					Authorization: "Bearer " + token,
-				},
-			}
-		);
-
-		return await response.data;
+		const response = await axios.get(`${BASE_URL}/category/getAllCategories`, {
+			params: { page, limit, search: searchTerm },
+			...getAuthHeaders(),
+		});
+		return response.data;
 	} catch (error) {
-		console.error("Error fetching categories:", error);
-		throw error.response?.data?.message || error.message;
+		handleError(error);
 	}
 };
 
-// Delete a category
 export const deleteCategory = async (id) => {
 	try {
-		const token = localStorage.getItem("authToken");
-
-		const response = await axios.delete(
-			`${BASE_URL}/category/deleteCategory?category_id=${id}`,
-			{
-				headers: {
-					"Content-Type": "application/json",
-					Authorization: `Bearer ${token}`,
-				},
-			}
-		);
-
-		return await response.data;
+		const response = await axios.delete(`${BASE_URL}/category/deleteCategory`, {
+			params: { category_id: id },
+			...getAuthHeaders(),
+		});
+		return response.data;
 	} catch (error) {
-		console.error("Error deleting category:", error);
-		throw error.response?.data?.message || error.message;
+		handleError(error);
 	}
 };
 
 export const addCategory = async (category) => {
 	try {
-		const token = localStorage.getItem("authToken");
-
 		const response = await axios.post(
-			"http://localhost:3001/admin/category/createCategory",
+			`${BASE_URL}/category/createCategory`,
 			category,
-			{
-				headers: {
-					"Content-Type": "application/json",
-					Authorization: `Bearer ${token}`,
-				},
-			}
+			getAuthHeaders()
 		);
-
 		return response.data;
 	} catch (error) {
-		throw error.response?.data?.message || error.message;
+		handleError(error);
 	}
 };
 
 export const getCategoryById = async (categoryId) => {
 	try {
-		const token = localStorage.getItem("authToken");
-
 		const response = await axios.get(
-			`http://localhost:3001/admin/category/getCategoryDetails?category_id=${categoryId}`,
+			`${BASE_URL}/category/getCategoryDetails`,
 			{
-				headers: {
-					Authorization: `Bearer ${token}`,
-				},
+				params: { category_id: categoryId },
+				...getAuthHeaders(),
 			}
 		);
-
 		return response.data;
 	} catch (error) {
-		console.error("Error getting category:", error);
-		throw error.response?.data?.message || error.message;
+		handleError(error);
 	}
 };
 
 export const updateCategory = async (category) => {
 	try {
-		const token = localStorage.getItem("authToken");
-
 		const response = await axios.put(
-			"http://localhost:3001/admin/category/updateCategory",
+			`${BASE_URL}/category/updateCategory`,
 			category,
-			{
-				headers: {
-					"Content-Type": "application/json",
-					Authorization: `Bearer ${token}`, // Pass the token for authentication
-				},
-			}
+			getAuthHeaders()
 		);
-
 		return response.data;
 	} catch (error) {
-		console.error("Error updating category:", error);
-		throw error.response?.data?.message || error.message;
+		handleError(error);
 	}
 };
 
-// Fetch all users
+// Users
 export const getAllUsers = async (page, limit, searchTerm) => {
 	try {
-		const token = localStorage.getItem("authToken");
-
-		const response = await axios.get(
-			`${BASE_URL}/users/getAllUsers?page=${page}&limit=${limit}&search=${searchTerm}`,
-			{
-				headers: {
-					Authorization: "Bearer " + token,
-				},
-			}
-		);
-
+		const response = await axios.get(`${BASE_URL}/users/getAllUsers`, {
+			params: { page, limit, search: searchTerm },
+			...getAuthHeaders(),
+		});
 		return response.data;
 	} catch (error) {
-		console.error("Error fetching users:", error);
-		throw error.response?.data?.message || error.message;
+		handleError(error);
 	}
 };
 
-export const getUserById = async (user_id) => {
+export const getUserById = async (userId) => {
 	try {
-		const token = localStorage.getItem("authToken");
-
-		const response = await axios.get(
-			`${BASE_URL}/users/getUserDetails?user_id=${user_id}`,
-			{
-				headers: {
-					Authorization: `Bearer ${token}`,
-				},
-			}
-		);
-
+		const response = await axios.get(`${BASE_URL}/users/getUserDetails`, {
+			params: { user_id: userId },
+			...getAuthHeaders(),
+		});
 		return response.data;
 	} catch (error) {
-		console.error("Error getting users:", error);
-		throw error.response?.data?.message || error.message;
+		handleError(error);
 	}
 };
 
+// Products
 export const getAllProducts = async (page, limit, searchTerm) => {
 	try {
-		const token = localStorage.getItem("authToken");
-
-		const response = await axios.get(
-			`${BASE_URL}/products/getAllProducts?page=${page}&limit=${limit}&search=${searchTerm}`,
-			{
-				headers: {
-					Authorization: "Bearer " + token,
-				},
-			}
-		);
-
+		const response = await axios.get(`${BASE_URL}/products/getAllProducts`, {
+			params: { page, limit, search: searchTerm },
+			...getAuthHeaders(),
+		});
 		return response.data;
 	} catch (error) {
-		console.error("Error fetching product:", error);
-		throw error.response?.data?.message || error.message;
+		handleError(error);
 	}
 };
 
 export const getProductById = async (id) => {
 	try {
-		const token = localStorage.getItem("authToken");
-
-		const response = await axios.get(
-			`http://localhost:3001/admin/products/getProductById?product_id=${id}`,
-			{
-				headers: {
-					Authorization: `Bearer ${token}`,
-				},
-			}
-		);
-
+		const response = await axios.get(`${BASE_URL}/products/getProductById`, {
+			params: { product_id: id },
+			...getAuthHeaders(),
+		});
 		return response.data;
 	} catch (error) {
-		console.error("Error getting product:", error);
-		throw error.response?.data?.message || error.message;
+		handleError(error);
 	}
 };
 
 export const updateProduct = async (data) => {
 	try {
-		const token = localStorage.getItem("authToken");
-
 		const response = await axios.put(
-			"http://localhost:3001/admin/products/updateProduct",
+			`${BASE_URL}/products/updateProduct`,
 			data,
-			{
-				headers: {
-					"Content-Type": "application/json",
-					Authorization: `Bearer ${token}`, // Pass the token for authentication
-				},
-			}
+			getAuthHeaders()
 		);
-
 		return response.data;
 	} catch (error) {
-		console.error("Error updating product:", error);
-		throw error.response?.data?.message || error.message;
+		handleError(error);
 	}
 };
 
 export const deleteProduct = async (id) => {
 	try {
-		const token = localStorage.getItem("authToken");
-
-		const response = await axios.delete(
-			`${BASE_URL}/products/deleteProduct?product_id=${id}`,
-			{
-				headers: {
-					"Content-Type": "application/json",
-					Authorization: `Bearer ${token}`,
-				},
-			}
-		);
-
-		return await response.data;
+		const response = await axios.delete(`${BASE_URL}/products/deleteProduct`, {
+			params: { product_id: id },
+			...getAuthHeaders(),
+		});
+		return response.data;
 	} catch (error) {
-		console.error("Error deleting product:", error);
-		throw error.response?.data?.message || error.message;
+		handleError(error);
 	}
 };
 
 export const addProduct = async (data) => {
 	try {
-		const token = localStorage.getItem("authToken");
-
 		const response = await axios.post(
-			"http://localhost:3001/admin/products/addProduct",
+			`${BASE_URL}/products/addProduct`,
 			data,
-			{
-				headers: {
-					"Content-Type": "application/json",
-					Authorization: `Bearer ${token}`,
-				},
-			}
+			getAuthHeaders()
 		);
-
 		return response.data;
 	} catch (error) {
-		throw error.response?.data?.message || error.message;
+		handleError(error);
 	}
 };
 
+// Orders
 export const fetchOrders = async (page, limit, searchTerm) => {
 	try {
-		const token = localStorage.getItem("authToken");
-
-		const response = await axios.get(
-			`http://localhost:3001/admin/orders/getAllOrders?page=${page}&limit=${limit}&search=${searchTerm}`,
-			{
-				headers: {
-					Authorization: `Bearer ${token}`,
-				},
-			}
-		);
+		const response = await axios.get(`${BASE_URL}/orders/getAllOrders`, {
+			params: { page, limit, search: searchTerm },
+			...getAuthHeaders(),
+		});
 		return response.data;
 	} catch (error) {
-		console.error("Error fetching orders:", error);
-		throw error.response?.data?.message || error.message;
+		handleError(error);
 	}
 };
 
 export const fetchOrderById = async (orderId) => {
 	try {
-		const token = localStorage.getItem("authToken");
-
-		const response = await axios.get(
-			`http://localhost:3001/admin/orders/getOrderDetails?order_id=${orderId}`,
-			{
-				headers: {
-					Authorization: `Bearer ${token}`,
-				},
-			}
-		);
+		const response = await axios.get(`${BASE_URL}/orders/getOrderDetails`, {
+			params: { order_id: orderId },
+			...getAuthHeaders(),
+		});
 		return response.data;
 	} catch (error) {
-		console.error("Error fetching order by ID:", error);
-		throw error.response?.data?.message || error.message;
+		handleError(error);
 	}
 };
 
+// Payments
 export const getPayments = async (page, limit, searchTerm) => {
 	try {
-		const token = localStorage.getItem("authToken");
-
-		const response = await axios.get(
-			`http://localhost:3001/admin/payments/getAllPayments?page=${page}&limit=${limit}&search=${searchTerm}`,
-			{
-				headers: {
-					Authorization: `Bearer ${token}`,
-				},
-			}
-		);
+		const response = await axios.get(`${BASE_URL}/payments/getAllPayments`, {
+			params: { page, limit, search: searchTerm },
+			...getAuthHeaders(),
+		});
 		return response.data;
 	} catch (error) {
-		throw error.response?.data?.message || error.message;
+		handleError(error);
 	}
 };
 
 export const getPaymentById = async (paymentId) => {
 	try {
-		const token = localStorage.getItem("authToken");
+		const response = await axios.get(`${BASE_URL}/payments/getPaymentDetails`, {
+			params: { payment_id: paymentId },
+			...getAuthHeaders(),
+		});
+		return response.data;
+	} catch (error) {
+		handleError(error);
+	}
+};
 
+// Admin
+export const getAdminDetails = async () => {
+	try {
 		const response = await axios.get(
-			`http://localhost:3001/admin/payments/getPaymentDetails?payment_id=${paymentId}`,
+			`${BASE_URL}/getAdminDetails`,
+			getAuthHeaders()
+		);
+		return response.data;
+	} catch (error) {
+		handleError(error);
+	}
+};
+
+export const updateAdminDetails = async (admin) => {
+	try {
+		const response = await axios.put(
+			`${BASE_URL}/editAdminProfile`,
+			admin,
+			getAuthHeaders()
+		);
+		return response.data;
+	} catch (error) {
+		handleError(error);
+	}
+};
+
+export const dashboardDetails = async () => {
+	try {
+		const response = await axios.get(
+			`${BASE_URL}/dashboardDetails`,
+			getAuthHeaders()
+		);
+		return response.data;
+	} catch (error) {
+		handleError(error);
+	}
+};
+
+export const uploadImage = async (formData) => {
+	try {
+		const response = await axios.post(
+			`${IMAGE_BASE_URL}/uploadImage`,
+			formData,
 			{
 				headers: {
-					Authorization: `Bearer ${token}`,
+					"Content-Type": "multipart/form-data",
 				},
 			}
 		);
-
 		return response.data;
 	} catch (error) {
-		console.error("Error getting category:", error);
-		throw error.response?.data?.message || error.message;
+		handleError(error);
 	}
+};
+
+// Helper function to handle errors
+const handleError = (error) => {
+	console.error("API error:", error);
+	throw error.response?.data?.message || error.message;
 };
 
 export const logout = async () => {
@@ -360,71 +306,4 @@ export const logout = async () => {
 	} catch (error) {
 		throw error.message ? error.message : "Logout failed";
 	}
-};
-
-export const getAdminDetails = async () => {
-	try {
-		const token = localStorage.getItem("authToken");
-
-		const response = await axios.get(`${BASE_URL}/getAdminDetails`, {
-			headers: {
-				Authorization: "Bearer " + token,
-			},
-		});
-
-		return response.data;
-	} catch (error) {
-		console.error("Error fetching admin:", error);
-		throw error.response?.data?.message || error.message;
-	}
-};
-
-export const updateAdminDetails = async (admin) => {
-	try {
-		const token = localStorage.getItem("authToken");
-
-		const response = await axios.put(
-			"http://localhost:3001/admin/editAdminProfile",
-			admin,
-			{
-				headers: {
-					"Content-Type": "application/json",
-					Authorization: `Bearer ${token}`, // Pass the token for authentication
-				},
-			}
-		);
-
-		return response.data;
-	} catch (error) {
-		console.error("Error updating product:", error);
-		throw error.response?.data?.message || error.message;
-	}
-};
-
-export const dashboardDetails = async () => {
-	try {
-		const token = localStorage.getItem("authToken");
-
-		const response = await axios.get(
-			"http://localhost:3001/admin/dashboardDetails",
-			{
-				headers: {
-					"Content-Type": "application/json",
-					Authorization: `Bearer ${token}`, // Pass the token for authentication
-				},
-			}
-		);
-		return response.data;
-	} catch (error) {
-		console.error("Error fetching dashboard details:", error);
-		throw error.response?.data?.message || error.message;
-	}
-};
-
-export const uploadImage = (formData) => {
-	return axios.post("http://localhost:3001/uploadImage", formData, {
-		headers: {
-			"Content-Type": "multipart/form-data",
-		},
-	});
 };

@@ -22,11 +22,14 @@ function EditCategory() {
 
 	useEffect(() => {
 		const fetchCategory = async () => {
+			setLoading(true);
 			try {
-				const data = await getCategoryById(id); // Fetch category details by ID
-				setCategory(data.data); // Set the fetched data to category state
+				const response = await getCategoryById(id); // Fetch category details by ID
+				setCategory(response.data); // Set the fetched data to category state
 			} catch (error) {
 				toast.error(error.message || "Error fetching category");
+			} finally {
+				setLoading(false);
 			}
 		};
 		fetchCategory();
@@ -43,6 +46,7 @@ function EditCategory() {
 		const formData = new FormData();
 		formData.append("image", file);
 
+		setLoading(true);
 		try {
 			const response = await uploadImage(formData); // Upload image to the server
 			const imageUrl = response.data.filePath; // Get the uploaded image URL
@@ -50,6 +54,8 @@ function EditCategory() {
 			toast.success("Image uploaded successfully!");
 		} catch (error) {
 			toast.error(error.message || "Error uploading image");
+		} finally {
+			setLoading(false);
 		}
 	};
 
@@ -69,14 +75,16 @@ function EditCategory() {
 
 	const handleDelete = async () => {
 		setLoading(true);
-		try {
-			await deleteCategory(id); // Call API to delete category
-			navigate("/categories");
-			toast.success("Category deleted successfully!");
-		} catch (error) {
-			toast.error(error.message || "Error deleting category");
-		} finally {
-			setLoading(false);
+		if (window.confirm("Are you sure you want to delete this category?")) {
+			try {
+				await deleteCategory(id); // Call API to delete category
+				navigate("/categories");
+				toast.success("Category deleted successfully!");
+			} catch (error) {
+				toast.error(error.message || "Error deleting category");
+			} finally {
+				setLoading(false);
+			}
 		}
 	};
 
@@ -84,13 +92,14 @@ function EditCategory() {
 		<div className="edit-category">
 			<h2>Edit Category</h2>
 			<form onSubmit={handleSubmit}>
-				<label htmlFor="name">Category Name:</label>
+				<label htmlFor="category_name">Category Name:</label>
 				<input
 					type="text"
 					id="category_name"
 					value={category.category_name}
 					onChange={handleChange}
 					required
+					disabled={loading}
 				/>
 				<label htmlFor="image">Upload Image:</label>
 				<input
@@ -98,6 +107,7 @@ function EditCategory() {
 					id="image"
 					accept="image/*"
 					onChange={handleImageUpload}
+					disabled={loading}
 				/>
 				{category.category_image && (
 					<div className="image-preview">

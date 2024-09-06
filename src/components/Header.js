@@ -16,11 +16,11 @@ function Header({ isLogin }) {
 	const handleLogout = async () => {
 		try {
 			await logout(); // Call logout function
-			toast.success("Logged out successfully");
 			navigate("/login"); // Redirect to login page
 			setTimeout(() => {
 				window.location.reload();
-			}, 1000);
+			}, 800);
+			toast.success("Logged out successfully");
 		} catch (error) {
 			toast.error("Logout failed");
 		}
@@ -31,7 +31,12 @@ function Header({ isLogin }) {
 			<div className="logo">
 				<h1>Modern Threads</h1>
 			</div>
-			<div className="hamburger" onClick={toggleNav}>
+			<div
+				className="hamburger"
+				onClick={toggleNav}
+				aria-label={isNavOpen ? "Close menu" : "Open menu"}
+				aria-expanded={isNavOpen}
+			>
 				<span></span>
 				<span></span>
 				<span></span>
@@ -39,14 +44,14 @@ function Header({ isLogin }) {
 			{!isLogin ? (
 				<nav className={`admin-nav ${isNavOpen ? "open" : ""}`}>
 					<ul>
-						<button className="logout-btn" onClick={handleLogout}>
-							Logout
-						</button>
+						<li>
+							<button className="logout-btn" onClick={handleLogout}>
+								Logout
+							</button>
+						</li>
 					</ul>
 				</nav>
-			) : (
-				""
-			)}
+			) : null}
 		</header>
 	);
 }
