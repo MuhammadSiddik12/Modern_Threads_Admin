@@ -2,7 +2,7 @@
 import axios from "axios";
 
 const BASE_URL = "https://ignou-project-backend.onrender.com/admin";
-export const IMAGE_BASE_URL = "http://localhost:3001";
+export const IMAGE_BASE_URL = "https://ignou-project-backend.onrender.com";
 
 const getAuthHeaders = () => {
 	const token = localStorage.getItem("authToken");
