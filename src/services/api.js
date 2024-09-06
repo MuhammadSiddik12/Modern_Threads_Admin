@@ -1,7 +1,7 @@
 // src/api.js
 import axios from "axios";
 
-const BASE_URL = "http://localhost:3001/admin";
+const BASE_URL = "https://ignou-project-backend.onrender.com/admin";
 export const IMAGE_BASE_URL = "http://localhost:3001";
 
 const getAuthHeaders = () => {
