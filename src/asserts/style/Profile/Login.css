@@ -36,6 +36,7 @@
 	display: block;
 	margin-bottom: 8px; /* Space below label */
 	font-size: 17px;
+	color: #333; /* Added color for consistency */
 }
 
 /* Styling for input fields inside form groups */
@@ -57,6 +58,11 @@
 	border-radius: 4px; /* Rounded corners */
 	cursor: pointer; /* Pointer cursor on hover */
 	font-size: 16px;
+	transition: background-color 0.3s ease; /* Smooth background color change */
+}
+
+.auth-button:hover {
+	background-color: #333; /* Slightly lighter shade on hover */
 }
 
 /* Section for switching between authentication forms (e.g., login/register) */
@@ -73,7 +79,6 @@
 	font-weight: bold;
 }
 
-/* Hover effect for links in the auth-switch section */
 .auth-switch a:hover {
 	color: #1c1c1c; /* Change color on hover */
 	text-decoration: underline; /* Underline on hover */

@@ -63,24 +63,34 @@ function Products() {
 			setCurrentPage(pageNumber);
 		}
 	};
-
-	if (loading) {
-		return (
-			<>
-				<div className="header">
-					<h2>Products</h2>
-					<Link to="/products/add">
-						<button className="add-product-btn">Add Product</button>
-					</Link>
-				</div>
-				<div>Loading...</div>
-			</>
-		);
-	}
-
 	const handleAddProduct = () => {
 		navigate("/products/add");
 	};
+	if (loading) {
+		return (
+			<>
+				<div className="products">
+					<div className="header">
+						<h2>Products</h2>
+						<button className="add-product-btn" onClick={handleAddProduct}>
+							Add Product
+						</button>
+						<input
+							type="text"
+							placeholder="Search users..."
+							className="search-bar"
+							value={searchTerm}
+							onChange={(e) => {
+								setSearchTerm(e.target.value);
+								setCurrentPage(1); // Reset to page 1 when searching
+							}}
+						/>
+					</div>
+					<div>Loading...</div>
+				</div>
+			</>
+		);
+	}
 
 	return (
 		<div className="products">

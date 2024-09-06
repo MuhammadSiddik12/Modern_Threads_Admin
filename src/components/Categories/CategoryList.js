@@ -77,6 +77,16 @@ function Categories() {
 					<button className="add-category-button" onClick={handleAddCategory}>
 						Add Category
 					</button>
+					<input
+						type="text"
+						placeholder="Search categories..."
+						className="search-bar"
+						value={searchTerm}
+						onChange={(e) => {
+							setSearchTerm(e.target.value);
+							setCurrentPage(1); // Reset to page 1 when searching
+						}}
+					/>{" "}
 				</div>
 				<div className="loader">Loading...</div>
 			</>

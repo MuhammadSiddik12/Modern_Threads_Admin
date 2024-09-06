@@ -35,13 +35,8 @@
 	}
 
 	.orders table {
-		display: block; /* Allows table to scroll horizontally */
+		display: block;
 		overflow-x: auto;
-		white-space: nowrap;
-	}
-
-	.orders table th,
-	.orders table td {
 		white-space: nowrap;
 	}
 }

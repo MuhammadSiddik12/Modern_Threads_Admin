@@ -5,7 +5,7 @@
 .stats {
 	display: flex;
 	justify-content: space-around;
-	flex-wrap: wrap; /* Allows cards to wrap to the next line on smaller screens */
+	flex-wrap: wrap;
 	margin-top: 20px;
 }
 
@@ -21,17 +21,17 @@
 }
 
 .stat-card:hover {
-	transform: scale(1.05); /* Slightly enlarges card on hover */
+	transform: scale(1.05);
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
 	.stats {
-		justify-content: center; /* Center the cards on smaller screens */
+		justify-content: center;
 	}
 
 	.stat-card {
-		width: 100%; /* Cards take full width on small screens */
+		width: 100%;
 		max-width: 300px;
 	}
 }
@@ -39,6 +39,6 @@
 @media (max-width: 480px) {
 	.stat-card {
 		width: 100%;
-		max-width: 100%; /* Cards take full width of the screen */
+		/* Removed redundant max-width since it already takes full width */
 	}
 }

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { getAdminDetails, updateAdminDetails } from "../../services/api"; // Import API services
 import { toast } from "react-toastify";
-import "../../asserts/style/AdminProfile.css"; // Import your CSS for styling
+import "../../asserts/style/Profile/Profile.css"; // Import your CSS for styling
 
 function AdminProfile() {
 	const [admin, setAdmin] = useState({

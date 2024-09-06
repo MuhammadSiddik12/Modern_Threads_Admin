@@ -13,7 +13,7 @@
 	background-color: #f9f9f9;
 	padding: 20px;
 	border-radius: 8px;
-	box-shadow: 0 4px 8px rgba(46, 36, 36, 0.1);
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 	display: inline-block;
 	text-align: left;
 	width: 100%;
@@ -32,10 +32,9 @@
 
 .product-image {
 	display: block;
-	margin: 0 auto; /* Centers the image horizontally */
+	margin: 0 auto 20px; /* Centers the image horizontally and adds bottom margin */
 	width: 100%;
 	max-width: 300px;
 	height: auto;
 	border-radius: 8px;
-	margin-bottom: 20px;
 }

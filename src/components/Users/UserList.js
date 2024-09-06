@@ -19,11 +19,7 @@ function Users() {
 		}, 500); // Delay of 500ms
 
 		return () => clearTimeout(delayDebounceFn); // Cleanup the timeout if search changes again
-	}, [searchTerm]);
-
-	useEffect(() => {
-		fetchUsers();
-	}, [currentPage]);
+	}, [currentPage, searchTerm]);
 
 	const fetchUsers = async () => {
 		setLoading(true);
@@ -46,7 +42,24 @@ function Users() {
 	};
 
 	if (loading) {
-		return <div>Loading...</div>;
+		return (
+			<>
+				<div className="user-header">
+					<h2>Users</h2>
+					<input
+						type="text"
+						placeholder="Search users..."
+						className="search-bar"
+						value={searchTerm}
+						onChange={(e) => {
+							setSearchTerm(e.target.value);
+							setCurrentPage(1); // Reset to page 1 when searching
+						}}
+					/>
+				</div>
+				<div>Loading...</div>
+			</>
+		);
 	}
 
 	return (

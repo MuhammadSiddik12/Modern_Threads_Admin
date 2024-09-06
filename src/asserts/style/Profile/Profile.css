@@ -12,16 +12,21 @@
 .admin-profile h2 {
 	text-align: center;
 	margin-bottom: 20px;
+	font-size: 24px; /* Added font-size for consistency */
+	color: #333; /* Added color for better readability */
 }
 
 .profile-details p {
 	font-size: 18px;
 	margin: 10px 0;
+	color: #555; /* Added color for better readability */
 }
 
 .profile-form label {
 	display: block;
 	margin: 10px 0;
+	font-size: 16px; /* Added font-size for consistency */
+	color: #333; /* Added color for better readability */
 }
 
 .profile-form input {
@@ -30,12 +35,13 @@
 	margin-top: 5px;
 	border-radius: 4px;
 	border: 1px solid #ccc;
+	font-size: 16px; /* Added font-size for consistency */
 }
 
+/* Button styling */
 .edit-btn,
 .save-btn,
 .cancel-btn {
-	background-color: #4caf50;
 	color: white;
 	border: none;
 	padding: 10px 15px;
@@ -43,9 +49,21 @@
 	cursor: pointer;
 	margin-right: 10px;
 	transition: background-color 0.3s ease;
+	font-size: 16px; /* Added font-size for consistency */
 }
 
-.edit-btn:hover,
+.edit-btn {
+	background-color: #4caf50;
+}
+
+.edit-btn:hover {
+	background-color: #45a049;
+}
+
+.save-btn {
+	background-color: #4caf50;
+}
+
 .save-btn:hover {
 	background-color: #45a049;
 }

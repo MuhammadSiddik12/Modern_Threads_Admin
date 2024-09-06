@@ -24,6 +24,7 @@
 .user-header h2 {
 	margin: 0;
 	font-size: 24px;
+	color: #333; /* Added color for consistency */
 }
 
 .users table th {
