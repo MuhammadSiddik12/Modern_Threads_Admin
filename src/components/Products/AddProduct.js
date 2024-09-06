@@ -48,7 +48,7 @@ function AddProduct() {
 	useEffect(() => {
 		const fetchCategories = async () => {
 			try {
-				const response = await getAllCategories();
+				const response = await getAllCategories(1, 100, "");
 				setCategories(response.data);
 			} catch (error) {
 				toast.error("Failed to fetch categories: " + error.message);
@@ -69,7 +69,7 @@ function AddProduct() {
 				formDataImage.append("image", product.product_images);
 
 				const imageResponse = await uploadImage(formDataImage);
-				imageUrl = imageResponse.data.filePath;
+				imageUrl = imageResponse.filePath;
 			}
 
 			const formDataProduct = {

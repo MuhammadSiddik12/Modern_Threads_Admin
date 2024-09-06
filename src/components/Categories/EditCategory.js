@@ -49,7 +49,7 @@ function EditCategory() {
 		setLoading(true);
 		try {
 			const response = await uploadImage(formData); // Upload image to the server
-			const imageUrl = response.data.filePath; // Get the uploaded image URL
+			const imageUrl = response.filePath; // Get the uploaded image URL
 			setCategory({ ...category, category_image: imageUrl }); // Update category with the image URL
 			toast.success("Image uploaded successfully!");
 		} catch (error) {
