@@ -30,7 +30,13 @@ function App() {
 				{" "}
 				<Header isLogin={isAuthPage} />
 				<div className={!isAuthPage ? "main-content" : ""}>
-					{!isAuthPage ? <Sidebar /> : ""}
+					{!isAuthPage ? (
+						<PrivateRoute>
+							<Sidebar />
+						</PrivateRoute>
+					) : (
+						""
+					)}
 					<div className="content">
 						<Routes>
 							<Route path="/login" element={<LoginPage />} />
