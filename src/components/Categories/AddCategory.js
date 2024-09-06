@@ -30,7 +30,8 @@ function AddCategory() {
 				const formData = new FormData();
 				formData.append("image", category.image);
 
-				const { data } = await uploadImage(formData);
+				const data = await uploadImage(formData);
+				console.log("🚀 ~ handleSubmit ~ data:", data);
 				imageUrl = data.filePath; // Adjust based on the actual response structure
 			}
 
