@@ -11,6 +11,7 @@ function Dashboard() {
 		totalProducts: 0,
 		totalOrders: 0,
 		totalPayments: 0,
+		totalCategory: 0,
 	});
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
@@ -47,6 +48,12 @@ function Dashboard() {
 					<div className="stat-card">
 						<h3>Total Users</h3>
 						<p>{stats.totalUsers}</p>
+					</div>
+				</Link>
+				<Link to="/categories" className="stat-link">
+					<div className="stat-card">
+						<h3>Total Categories</h3>
+						<p>{stats.totalCategory}</p>
 					</div>
 				</Link>
 				<Link to="/products" className="stat-link">
