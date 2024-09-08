@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "../../asserts/style/Order/Orders.css";
-import { fetchOrders } from "../../services/api";
+import { fetchOrders } from "../../services/ApiService";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 

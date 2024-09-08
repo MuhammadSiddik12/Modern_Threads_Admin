@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import "../../asserts/style/Payment/PaymentDetails.css";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { getPaymentById } from "../../services/api";
+import { getPaymentById } from "../../services/ApiService";
 
 function PaymentDetails() {
 	const { id } = useParams();

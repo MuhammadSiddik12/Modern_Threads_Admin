@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "../../asserts/style/Payment/Payments.css";
-import { getPayments } from "../../services/api";
+import { getPayments } from "../../services/ApiService";
 import { toast } from "react-toastify";
 
 function Payments() {

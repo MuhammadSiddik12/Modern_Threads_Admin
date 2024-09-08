@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import "../../asserts/style/Users/UserDetails.css";
-import { getUserById, IMAGE_BASE_URL } from "../../services/api";
+import { getUserById, IMAGE_BASE_URL } from "../../services/ApiService";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../../asserts/style/Product/Products.css";
 import { Link, useNavigate } from "react-router-dom";
-import { deleteProduct, getAllProducts } from "../../services/api";
+import { deleteProduct, getAllProducts } from "../../services/ApiService";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 

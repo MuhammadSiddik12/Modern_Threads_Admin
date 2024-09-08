@@ -7,7 +7,7 @@ import {
 	getCategoryById,
 	uploadImage,
 	IMAGE_BASE_URL,
-} from "../../services/api"; // Import API functions
+} from "../../services/ApiService"; // Import API functions
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 

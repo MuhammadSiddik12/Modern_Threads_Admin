@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../../asserts/style/Dashboard/Dashboard.css";
-import { dashboardDetails } from "../../services/api";
+import { dashboardDetails } from "../../services/ApiService";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getAdminDetails, updateAdminDetails } from "../../services/api";
+import { getAdminDetails, updateAdminDetails } from "../../services/ApiService";
 import { toast } from "react-toastify";
 import "../../asserts/style/Profile/Profile.css";
 

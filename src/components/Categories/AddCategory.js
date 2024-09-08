@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../asserts/style/Category/AddCategory.css";
-import { addCategory, uploadImage } from "../../services/api";
+import { addCategory, uploadImage } from "../../services/ApiService";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 

@@ -5,7 +5,7 @@ import {
 	getProductById,
 	updateProduct,
 	uploadImage,
-} from "../../services/api";
+} from "../../services/ApiService";
 import { toast } from "react-toastify";
 import "../../asserts/style/Product/ProductForm.css";
 

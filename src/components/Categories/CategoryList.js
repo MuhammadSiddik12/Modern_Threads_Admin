@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../../asserts/style/Category/Categories.css";
 import { Link, useNavigate } from "react-router-dom";
-import { getAllCategories, deleteCategory } from "../../services/api";
+import { getAllCategories, deleteCategory } from "../../services/ApiService";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 

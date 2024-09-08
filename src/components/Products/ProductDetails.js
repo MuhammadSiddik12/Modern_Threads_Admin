@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import "../../asserts/style/Product/ProductDetails.css";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { getProductById } from "../../services/api";
+import { getProductById } from "../../services/ApiService";
 
 function ProductDetails() {
 	const { id } = useParams(); // Get the product ID from the URL

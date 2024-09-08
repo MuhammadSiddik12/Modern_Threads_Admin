@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../asserts/style/Header.css";
-import { logout } from "../services/api";
+import { logout } from "../services/ApiService";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
