@@ -1,74 +1,82 @@
+/* Container for the products section */
 .products {
-	padding: 20px;
+	padding: 20px; /* Padding inside the products container */
 }
 
+/* Header styling for products section */
 .header {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	margin-bottom: 20px;
+	display: flex; /* Flexbox layout for header */
+	justify-content: space-between; /* Space between header elements */
+	align-items: center; /* Center align items vertically */
+	margin-bottom: 20px; /* Space below the header */
 }
 
+/* Button for adding new products */
 .add-product-btn {
-	padding: 10px 20px;
-	background-color: #28a745;
-	color: white;
-	border: none;
-	border-radius: 4px;
-	font-size: 16px;
-	cursor: pointer;
-	transition: background-color 0.3s ease;
-	margin-left: auto; /* Adjusted to align button to the right */
+	padding: 10px 20px; /* Padding inside the button */
+	background-color: #28a745; /* Green background color */
+	color: white; /* Text color for the button */
+	border: none; /* Remove default border */
+	border-radius: 4px; /* Rounded corners */
+	font-size: 16px; /* Font size for button text */
+	cursor: pointer; /* Pointer cursor on hover */
+	transition: background-color 0.3s ease; /* Smooth background color transition */
+	margin-left: auto; /* Align button to the right */
 }
 
+/* Hover effect for add-product-btn */
 .add-product-btn:hover {
-	background-color: #218838;
+	background-color: #218838; /* Darker green on hover */
 }
 
+/* Table styling for product list */
 table {
-	width: 100%;
-	border-collapse: collapse;
+	width: 100%; /* Full width of the container */
+	border-collapse: collapse; /* Collapse table borders */
 }
 
+/* Table header and data cell styling */
 table th,
 table td {
-	padding: 12px;
-	border: 1px solid #ddd;
-	text-align: left;
+	padding: 12px; /* Padding inside cells */
+	border: 1px solid #ddd; /* Light gray border */
+	text-align: left; /* Align text to the left */
 }
 
+/* Table header background color */
 table th {
-	background-color: #f4f4f4;
+	background-color: #f4f4f4; /* Light gray background color */
 }
 
+/* Edit button styling */
 .edit-btn {
-	padding: 8px 16px;
-	background-color: #007bff;
-	color: white;
-	border: none;
-	border-radius: 4px;
-	font-size: 14px;
-	cursor: pointer;
-	transition: background-color 0.3s ease;
+	padding: 8px 16px; /* Padding inside the button */
+	background-color: #007bff; /* Blue background color */
+	color: white; /* Text color for the button */
+	border: none; /* Remove default border */
+	border-radius: 4px; /* Rounded corners */
+	font-size: 14px; /* Font size for button text */
+	cursor: pointer; /* Pointer cursor on hover */
+	transition: background-color 0.3s ease; /* Smooth background color transition */
 }
 
+/* Hover effect for edit-btn */
 .edit-btn:hover {
-	background-color: #0056b3;
+	background-color: #0056b3; /* Darker blue on hover */
 }
 
+/* Search bar styling for products */
 .search-bar-product {
-	margin-left: 12px;
+	margin-left: 12px; /* Space on the left of the search bar */
+	padding: 8px 12px; /* Padding inside the search bar */
+	width: 250px; /* Width of the search bar */
+	border: 1px solid #ccc; /* Light gray border */
+	border-radius: 4px; /* Rounded corners */
+	font-size: 16px; /* Font size for search bar text */
 }
 
-.search-bar-product {
-	padding: 8px 12px;
-	width: 250px;
-	border: 1px solid #ccc;
-	border-radius: 4px;
-	font-size: 16px;
-}
-
+/* Focus effect for search-bar-product */
 .search-bar-product:focus {
-	outline: none;
-	border-color: #4caf50;
+	outline: none; /* Remove default focus outline */
+	border-color: #4caf50; /* Green border color on focus */
 }

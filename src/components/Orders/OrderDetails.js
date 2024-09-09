@@ -6,37 +6,37 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function OrderDetails() {
-	const { id } = useParams();
-	const [order, setOrder] = useState(null);
-	const [loading, setLoading] = useState(true);
-	const [error, setError] = useState(null);
+	const { id } = useParams(); // Get the order ID from URL parameters
+	const [order, setOrder] = useState(null); // State to store order details
+	const [loading, setLoading] = useState(true); // State to manage loading status
+	const [error, setError] = useState(null); // State to manage error messages
 
 	useEffect(() => {
 		const getOrderDetails = async () => {
 			try {
-				const response = await fetchOrderById(id);
-				setOrder(response.data);
+				const response = await fetchOrderById(id); // Fetch order details by ID
+				setOrder(response.data); // Update order state with fetched data
 			} catch (error) {
-				setError(error.message || "Failed to fetch order details");
+				setError(error.message || "Failed to fetch order details"); // Update error state and show toast error
 				toast.error(error.message || "Failed to fetch order details");
 			} finally {
-				setLoading(false);
+				setLoading(false); // Set loading to false once data is fetched or an error occurs
 			}
 		};
 
-		getOrderDetails();
+		getOrderDetails(); // Fetch order details on component mount
 	}, [id]);
 
 	if (loading) {
-		return <div className="loading">Loading...</div>;
+		return <div className="loading">Loading...</div>; // Show loading message while fetching data
 	}
 
 	if (error) {
-		return <div className="error">Error: {error}</div>;
+		return <div className="error">Error: {error}</div>; // Show error message if there is an error
 	}
 
 	if (!order) {
-		return <p>Order not found!</p>;
+		return <p>Order not found!</p>; // Show message if order is not found
 	}
 
 	return (
@@ -65,7 +65,8 @@ function OrderDetails() {
 						>
 							{item.product_details.product_name}
 						</Link>
-						{index < order.cart_items.length - 1 && ", "}
+						{index < order.cart_items.length - 1 && ", "}{" "}
+						{/* Add comma separator between items */}
 					</React.Fragment>
 				))}
 			</p>

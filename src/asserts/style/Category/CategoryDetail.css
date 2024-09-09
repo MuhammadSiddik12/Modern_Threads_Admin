@@ -1,34 +1,39 @@
+/* Container for category detail page */
 .category-detail {
-	padding: 20px;
-	margin: 50px auto 0;
-	background-color: #f9f9f9;
-	border-radius: 8px;
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-	text-align: left;
-	width: 100%;
-	max-width: 600px;
+	padding: 20px; /* Padding inside the container */
+	margin: 50px auto 0; /* Margin for vertical centering and spacing */
+	background-color: #f9f9f9; /* Light gray background */
+	border-radius: 8px; /* Rounded corners */
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow effect */
+	text-align: left; /* Left-align text */
+	width: 100%; /* Full width of the container */
+	max-width: 600px; /* Maximum width of the container */
 }
 
+/* Header styling within category detail */
 .category-detail h2 {
-	margin-bottom: 20px;
-	font-size: 24px;
-	color: #333;
+	margin-bottom: 20px; /* Space below the header */
+	font-size: 24px; /* Font size for the header */
+	color: #333; /* Dark gray color */
 }
 
+/* Styling for category information */
 .category-info {
-	font-size: 18px;
-	color: #555;
+	font-size: 18px; /* Font size */
+	color: #555; /* Medium gray color */
 }
 
+/* Paragraph styling within category information */
 .category-info p {
-	margin: 10px 0;
+	margin: 10px 0; /* Margin above and below paragraphs */
 }
 
+/* Styling for category image */
 .category-image {
-	display: block;
-	margin: 0 auto 20px; /* Combined margin properties */
-	width: 100%;
-	max-width: 300px;
-	height: auto;
-	border-radius: 8px;
+	display: block; /* Block display to ensure centering */
+	margin: 0 auto 20px; /* Centers the image horizontally and adds bottom margin */
+	width: 100%; /* Full width of the container */
+	max-width: 300px; /* Maximum width of the image */
+	height: auto; /* Maintain aspect ratio */
+	border-radius: 8px; /* Rounded corners */
 }

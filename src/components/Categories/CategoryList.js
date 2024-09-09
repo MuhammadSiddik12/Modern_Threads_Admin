@@ -6,58 +6,59 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function Categories() {
-	const navigate = useNavigate();
-	const [categories, setCategories] = useState([]);
-	const [loading, setLoading] = useState(true);
-	const [searchTerm, setSearchTerm] = useState("");
-	const [currentPage, setCurrentPage] = useState(1);
+	const navigate = useNavigate(); // Hook for navigation
+	const [categories, setCategories] = useState([]); // State to store categories
+	const [loading, setLoading] = useState(true); // State to manage loading state
+	const [searchTerm, setSearchTerm] = useState(""); // State for search term
+	const [currentPage, setCurrentPage] = useState(1); // State for current page
 	const [categoriesPerPage] = useState(10); // Categories per page
-	const [totalCategories, setTotalCategories] = useState(0);
+	const [totalCategories, setTotalCategories] = useState(0); // Total number of categories
 
 	useEffect(() => {
+		// Debounced fetchCategories to avoid too many API calls
 		const delayDebounceFn = setTimeout(() => {
 			fetchCategories();
 		}, 500);
 
-		return () => clearTimeout(delayDebounceFn);
+		return () => clearTimeout(delayDebounceFn); // Cleanup timeout on component unmount or when dependencies change
 	}, [currentPage, searchTerm]);
 
 	const fetchCategories = async () => {
-		setLoading(true);
+		setLoading(true); // Set loading state to true
 		try {
 			const { data, total_count } = await getAllCategories(
 				currentPage,
 				categoriesPerPage,
 				searchTerm
 			);
-			setCategories(data);
-			setTotalCategories(total_count); // Assuming the API returns total count
+			setCategories(data); // Set the fetched categories
+			setTotalCategories(total_count); // Set total categories count
 		} catch (error) {
-			toast.error("Failed to fetch categories. Please try again.");
+			toast.error("Failed to fetch categories. Please try again."); // Show error message
 		} finally {
-			setLoading(false);
+			setLoading(false); // Set loading state to false
 		}
 	};
 
 	const handleAddCategory = () => {
-		navigate("/add-category");
+		navigate("/add-category"); // Navigate to add category page
 	};
 
 	const handleDeleteCategory = async (id) => {
 		if (window.confirm("Are you sure you want to delete this category?")) {
 			try {
-				await deleteCategory(id);
-				fetchCategories();
-				toast.success("Category deleted successfully!");
+				await deleteCategory(id); // Delete category
+				fetchCategories(); // Refresh categories list
+				toast.success("Category deleted successfully!"); // Show success message
 			} catch (error) {
-				toast.error("Failed to delete category. Please try again.");
+				toast.error("Failed to delete category. Please try again."); // Show error message
 			}
 		}
 	};
 
 	const paginate = (pageNumber) => {
 		if (pageNumber >= 1 && pageNumber <= totalCategories) {
-			setCurrentPage(pageNumber);
+			setCurrentPage(pageNumber); // Set the current page number
 		}
 	};
 
@@ -104,7 +105,7 @@ function Categories() {
 				/>
 			</div>
 			{categories.length === 0 ? (
-				<div className="no-data">No categories found</div>
+				<div className="no-data">No categories found</div> // Message for no categories
 			) : (
 				<>
 					<table>

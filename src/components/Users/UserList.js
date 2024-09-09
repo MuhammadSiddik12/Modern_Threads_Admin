@@ -6,47 +6,50 @@ import "react-toastify/dist/ReactToastify.css";
 import "../../asserts/style/Users/Users.css";
 
 function Users() {
-	const [users, setUsers] = useState([]); // State to store users
-	const [loading, setLoading] = useState(true); // State to manage loading state
-	const [currentPage, setCurrentPage] = useState(1); // State to manage current page
-	const [usersPerPage] = useState(10); // Users per page
-	const [totalUsers, setTotalUsers] = useState(0); // State to track total users
-	const [searchTerm, setSearchTerm] = useState("");
+	const [users, setUsers] = useState([]); // State to store the list of users
+	const [loading, setLoading] = useState(true); // State to manage loading status
+	const [currentPage, setCurrentPage] = useState(1); // State to manage the current page
+	const [usersPerPage] = useState(10); // Number of users displayed per page
+	const [totalUsers, setTotalUsers] = useState(0); // State to track the total number of users
+	const [searchTerm, setSearchTerm] = useState(""); // State to handle the search term
 
+	// Effect to fetch users when component mounts or `currentPage` or `searchTerm` changes
 	useEffect(() => {
 		const fetchUsers = async () => {
-			setLoading(true);
+			setLoading(true); // Set loading to true before fetching data
 			try {
 				const response = await getAllUsers(
 					currentPage,
 					usersPerPage,
 					searchTerm
 				);
-				setUsers(response.data);
-				setTotalUsers(response.total_count); // Assuming API returns total user count
+				setUsers(response.data); // Set fetched users to state
+				setTotalUsers(response.total_count); // Set total users count from API response
 			} catch (error) {
-				toast.error("Failed to fetch users.");
-				console.error("Error fetching users:", error);
+				toast.error("Failed to fetch users."); // Show error toast on failure
+				console.error("Error fetching users:", error); // Log the error
 			} finally {
-				setLoading(false);
+				setLoading(false); // Set loading to false after fetching data
 			}
 		};
 
 		const delayDebounceFn = setTimeout(() => {
-			fetchUsers();
+			fetchUsers(); // Fetch users with a debounce effect
 		}, 500);
 
-		// Cleanup timeout if searchTerm or currentPage changes again before delay is over
+		// Cleanup function to clear the timeout if dependencies change before timeout completes
 		return () => clearTimeout(delayDebounceFn);
-	}, [currentPage, searchTerm]);
+	}, [currentPage, searchTerm]); // Dependencies: `currentPage` and `searchTerm`
 
 	const paginate = (pageNumber) => {
+		// Update the current page if it's within the valid range
 		if (pageNumber >= 1 && pageNumber <= totalUsers) {
 			setCurrentPage(pageNumber);
 		}
 	};
 
 	if (loading) {
+		// Render loading state while fetching data
 		return (
 			<div className="loading-container">
 				<div className="user-header">
@@ -57,7 +60,7 @@ function Users() {
 						className="search-bar"
 						value={searchTerm}
 						onChange={(e) => {
-							setSearchTerm(e.target.value);
+							setSearchTerm(e.target.value); // Update search term
 							setCurrentPage(1); // Reset to page 1 when searching
 						}}
 					/>
@@ -77,14 +80,14 @@ function Users() {
 					className="search-bar"
 					value={searchTerm}
 					onChange={(e) => {
-						setSearchTerm(e.target.value);
+						setSearchTerm(e.target.value); // Update search term
 						setCurrentPage(1); // Reset to page 1 when searching
 					}}
 				/>
 			</div>
 
 			{users.length === 0 ? (
-				<div className="no-data">No users found</div>
+				<div className="no-data">No users found</div> // Display message if no users are found
 			) : (
 				<>
 					<table>
@@ -114,7 +117,7 @@ function Users() {
 					<div className="pagination">
 						<button
 							onClick={() => paginate(currentPage - 1)}
-							disabled={currentPage === 1}
+							disabled={currentPage === 1} // Disable "Prev" button on the first page
 						>
 							Prev
 						</button>
@@ -122,14 +125,14 @@ function Users() {
 							<button
 								key={index}
 								onClick={() => paginate(index + 1)}
-								className={currentPage === index + 1 ? "active" : ""}
+								className={currentPage === index + 1 ? "active" : ""} // Highlight active page
 							>
 								{index + 1}
 							</button>
 						))}
 						<button
 							onClick={() => paginate(currentPage + 1)}
-							disabled={currentPage === totalUsers}
+							disabled={currentPage === totalUsers} // Disable "Next" button on the last page
 						>
 							Next
 						</button>

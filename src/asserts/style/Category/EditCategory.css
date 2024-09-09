@@ -1,62 +1,70 @@
+/* Container for editing category details */
 .edit-category {
-	padding: 20px;
-	max-width: 600px;
-	margin: auto;
-	background-color: #f9f9f9;
-	border-radius: 8px;
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-	/* margin-top: 250px; */
+	padding: 20px; /* Padding inside the container */
+	max-width: 600px; /* Maximum width of the container */
+	margin: auto; /* Center the container horizontally */
+	background-color: #f9f9f9; /* Light gray background */
+	border-radius: 8px; /* Rounded corners */
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow effect */
+	/* margin-top: 250px; /* Commented out margin for top spacing */
 }
 
+/* Styling for the form inside the edit category container */
 .edit-category form {
-	display: flex;
-	flex-direction: column;
+	display: flex; /* Use flexbox layout */
+	flex-direction: column; /* Stack items vertically */
 }
 
+/* Label styling */
 .edit-category label {
-	margin-bottom: 5px;
-	font-weight: bold;
+	margin-bottom: 5px; /* Space below the label */
+	font-weight: bold; /* Bold font */
 }
 
+/* Input field styling */
 .edit-category input {
-	margin-bottom: 15px;
-	padding: 10px;
-	border: 1px solid #ddd;
-	border-radius: 4px;
+	margin-bottom: 15px; /* Space below input fields */
+	padding: 10px; /* Padding inside input fields */
+	border: 1px solid #ddd; /* Light gray border */
+	border-radius: 4px; /* Rounded corners */
 }
 
+/* Button styling */
 .edit-button,
 .delete-button {
-	padding: 10px;
-	border: none;
-	border-radius: 4px;
-	color: white;
-	font-size: 16px;
-	cursor: pointer;
-	transition: background-color 0.3s;
+	padding: 10px; /* Padding inside buttons */
+	border: none; /* Remove default border */
+	border-radius: 4px; /* Rounded corners */
+	color: white; /* White text color */
+	font-size: 16px; /* Font size */
+	cursor: pointer; /* Pointer cursor on hover */
+	transition: background-color 0.3s; /* Smooth background color transition */
 }
 
+/* Edit button styling */
 .edit-button {
-	background-color: #007bff;
+	background-color: #007bff; /* Blue background */
 }
 
 .edit-button:hover {
-	background-color: #0056b3;
+	background-color: #0056b3; /* Darker blue on hover */
 }
 
+/* Delete button styling */
 .delete-button {
-	background-color: #dc3545;
-	width: 100%;
-	margin-top: 10px;
+	background-color: #dc3545; /* Red background */
+	width: 100%; /* Full width */
+	margin-top: 10px; /* Space above the button */
 }
 
 .delete-button:hover {
-	background-color: #c82333;
+	background-color: #c82333; /* Darker red on hover */
 }
 
+/* Image preview styling */
 .image-preview {
-	margin: 0 auto 20px; /* Combined margin properties */
-	width: 100%;
-	height: auto;
-	border-radius: 8px;
+	margin: 0 auto 20px; /* Center the image horizontally and add bottom margin */
+	width: 100%; /* Full width of the container */
+	height: auto; /* Maintain aspect ratio */
+	border-radius: 8px; /* Rounded corners */
 }

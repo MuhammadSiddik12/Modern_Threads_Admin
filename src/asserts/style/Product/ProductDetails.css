@@ -1,40 +1,46 @@
+/* Container for product details */
 .product-details {
-	padding: 20px;
-	text-align: center;
+	padding: 20px; /* Padding inside the container */
+	text-align: center; /* Center-align text within the container */
 }
 
+/* Header styling within product details */
 .product-details h2 {
-	margin-bottom: 20px;
-	font-size: 28px;
-	color: #333;
+	margin-bottom: 20px; /* Space below the header */
+	font-size: 28px; /* Font size for the header */
+	color: #333; /* Dark gray color for better readability */
 }
 
+/* Container for product information */
 .product-info {
-	background-color: #f9f9f9;
-	padding: 20px;
-	border-radius: 8px;
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-	display: inline-block;
-	text-align: left;
-	width: 100%;
-	max-width: 600px;
+	background-color: #f9f9f9; /* Light gray background color */
+	padding: 20px; /* Padding inside the container */
+	border-radius: 8px; /* Rounded corners */
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
+	display: inline-block; /* Display as inline-block to center within its parent */
+	text-align: left; /* Left-align text within the container */
+	width: 100%; /* Full width */
+	max-width: 600px; /* Maximum width of the container */
 }
 
+/* Paragraph styling within product information */
 .product-info p {
-	font-size: 18px;
-	margin: 10px 0;
-	color: #555;
+	font-size: 18px; /* Font size for paragraphs */
+	margin: 10px 0; /* Space above and below paragraphs */
+	color: #555; /* Medium gray color for text */
 }
 
+/* Styling for strong text within product information */
 .product-info strong {
-	color: #333;
+	color: #333; /* Dark gray color for strong text */
 }
 
+/* Styling for the product image */
 .product-image {
-	display: block;
-	margin: 0 auto 20px; /* Centers the image horizontally and adds bottom margin */
-	width: 100%;
-	max-width: 300px;
-	height: auto;
-	border-radius: 8px;
+	display: block; /* Display as block element */
+	margin: 0 auto 20px; /* Center the image horizontally and add space below */
+	width: 100%; /* Full width */
+	max-width: 300px; /* Maximum width of the image */
+	height: auto; /* Maintain aspect ratio */
+	border-radius: 8px; /* Rounded corners */
 }

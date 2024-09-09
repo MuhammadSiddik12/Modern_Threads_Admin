@@ -5,45 +5,47 @@ import { getPayments } from "../../services/ApiService";
 import { toast } from "react-toastify";
 
 function Payments() {
-	const [payments, setPayments] = useState([]);
-	const [searchTerm, setSearchTerm] = useState("");
-	const [currentPage, setCurrentPage] = useState(1);
-	const [itemsPerPage] = useState(10);
-	const [totalPayments, setTotalPayments] = useState(0);
-	const [loading, setLoading] = useState(false);
+	const [payments, setPayments] = useState([]); // State to store list of payments
+	const [searchTerm, setSearchTerm] = useState(""); // State to manage search input
+	const [currentPage, setCurrentPage] = useState(1); // State to manage current page
+	const [itemsPerPage] = useState(10); // Number of items per page
+	const [totalPayments, setTotalPayments] = useState(0); // State to manage total number of payments
+	const [loading, setLoading] = useState(false); // State to manage loading status
 
+	// Effect to fetch payments data when search term changes
 	useEffect(() => {
 		const delayDebounceFn = setTimeout(() => {
-			fetchPayments();
-		}, 500);
+			fetchPayments(); // Fetch payments with the current search term
+		}, 500); // Debounce delay
 
-		return () => clearTimeout(delayDebounceFn);
+		return () => clearTimeout(delayDebounceFn); // Cleanup debounce timer
 	}, [searchTerm]);
 
+	// Effect to fetch payments data when current page changes
 	useEffect(() => {
-		fetchPayments();
+		fetchPayments(); // Fetch payments for the current page
 	}, [currentPage]);
 
+	// Function to fetch payments data from the API
 	const fetchPayments = async () => {
-		setLoading(true);
+		setLoading(true); // Set loading to true when fetching starts
 		try {
 			const response = await getPayments(currentPage, itemsPerPage, searchTerm);
-			setPayments(response.data);
-			setTotalPayments(response.total_count);
+			setPayments(response.data); // Update payments state with fetched data
+			setTotalPayments(response.total_count); // Update total payments count
 		} catch (error) {
-			toast.error(error.message || "Failed to fetch payments");
+			toast.error(error.message || "Failed to fetch payments"); // Show error if fetching fails
 		} finally {
-			setLoading(false);
+			setLoading(false); // Set loading to false once data is fetched or an error occurs
 		}
 	};
 
+	// Function to handle pagination
 	const paginate = (pageNumber) => {
-		if (pageNumber >= 1 && pageNumber <= totalPayments) {
-			setCurrentPage(pageNumber);
+		if (pageNumber >= 1 && pageNumber <= totalPages) {
+			setCurrentPage(pageNumber); // Set the current page
 		}
 	};
-
-	const totalPages = totalPayments;
 
 	return (
 		<div className="payments">
@@ -55,15 +57,15 @@ function Payments() {
 					className="search-bar"
 					value={searchTerm}
 					onChange={(e) => {
-						setSearchTerm(e.target.value);
+						setSearchTerm(e.target.value); // Update search term
 						setCurrentPage(1); // Reset to page 1 when searching
 					}}
 				/>
 			</div>
 			{loading ? (
-				<div className="loading">Loading...</div>
+				<div className="loading">Loading...</div> // Show loading message while fetching data
 			) : payments.length === 0 ? (
-				<div className="no-data">No data found</div>
+				<div className="no-data">No data found</div> // Show message if no payments are available
 			) : (
 				<>
 					<table>
@@ -106,22 +108,22 @@ function Payments() {
 					<div className="pagination">
 						<button
 							onClick={() => paginate(currentPage - 1)}
-							disabled={currentPage === 1}
+							disabled={currentPage === 1} // Disable "Prev" button if on the first page
 						>
 							Prev
 						</button>
-						{Array.from({ length: totalPages }, (_, index) => (
+						{Array.from({ length: totalPayments }, (_, index) => (
 							<button
 								key={index}
 								onClick={() => paginate(index + 1)}
-								className={index + 1 === currentPage ? "active" : ""}
+								className={index + 1 === currentPage ? "active" : ""} // Highlight the current page
 							>
 								{index + 1}
 							</button>
 						))}
 						<button
 							onClick={() => paginate(currentPage + 1)}
-							disabled={currentPage === totalPages}
+							disabled={currentPage === totalPayments} // Disable "Next" button if on the last page
 						>
 							Next
 						</button>

@@ -1,20 +1,23 @@
+/* Container for order details */
 .order-details {
-	padding: 20px;
-	max-width: 600px;
-	margin: 0 auto;
-	background-color: #f9f9f9;
-	border-radius: 8px;
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	padding: 20px; /* Padding inside the container */
+	max-width: 600px; /* Maximum width of the container */
+	margin: 0 auto; /* Center the container horizontally */
+	background-color: #f9f9f9; /* Light gray background color */
+	border-radius: 8px; /* Rounded corners */
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow for a subtle 3D effect */
 }
 
+/* Header styling for order details */
 .order-details h2 {
-	margin-bottom: 20px;
-	font-size: 28px;
-	color: #333;
+	margin-bottom: 20px; /* Space below the header */
+	font-size: 28px; /* Font size for the header */
+	color: #333; /* Dark gray color for the header */
 }
 
+/* Paragraph styling within order details */
 .order-details p {
-	margin-bottom: 10px;
-	font-size: 16px;
-	color: #555;
+	margin-bottom: 10px; /* Space below paragraphs */
+	font-size: 16px; /* Font size for text */
+	color: #555; /* Medium gray color for text */
 }

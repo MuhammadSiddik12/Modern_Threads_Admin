@@ -9,8 +9,8 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function AddProduct() {
-	const navigate = useNavigate();
-	const [categories, setCategories] = useState([]);
+	const navigate = useNavigate(); // Hook for programmatic navigation
+	const [categories, setCategories] = useState([]); // State to store categories
 	const [product, setProduct] = useState({
 		product_name: "",
 		description: "",
@@ -19,9 +19,10 @@ function AddProduct() {
 		category_id: "",
 		stock_quantity: 0,
 		product_images: null,
-	});
-	const [loading, setLoading] = useState(false);
+	}); // State to store product details
+	const [loading, setLoading] = useState(false); // State to manage loading state
 
+	// Handle changes to form inputs
 	const handleChange = (e) => {
 		const { name, value } = e.target;
 
@@ -49,22 +50,24 @@ function AddProduct() {
 		}
 	};
 
+	// Fetch categories when component mounts
 	useEffect(() => {
 		const fetchCategories = async () => {
 			try {
-				const response = await getAllCategories(1, 100, "");
-				setCategories(response.data);
+				const response = await getAllCategories(1, 100, ""); // Fetch categories with pagination
+				setCategories(response.data); // Update categories state
 			} catch (error) {
-				toast.error("Failed to fetch categories: " + error.message);
+				toast.error("Failed to fetch categories: " + error.message); // Show error message if fetching fails
 			}
 		};
 
 		fetchCategories();
 	}, []);
 
+	// Handle form submission
 	const handleSubmit = async (e) => {
-		e.preventDefault();
-		setLoading(true);
+		e.preventDefault(); // Prevent default form submission behavior
+		setLoading(true); // Set loading state to true
 
 		try {
 			let imageUrl = null;
@@ -72,22 +75,22 @@ function AddProduct() {
 				const formDataImage = new FormData();
 				formDataImage.append("image", product.product_images);
 
-				const imageResponse = await uploadImage(formDataImage);
-				imageUrl = imageResponse.filePath;
+				const imageResponse = await uploadImage(formDataImage); // Upload image
+				imageUrl = imageResponse.filePath; // Get image URL from response
 			}
 
 			const formDataProduct = {
 				...product,
-				product_images: imageUrl ? [imageUrl] : [],
+				product_images: imageUrl ? [imageUrl] : [], // Add image URL to product data
 			};
 
-			await addProduct(formDataProduct);
-			toast.success("Product added successfully!");
-			navigate("/products");
+			await addProduct(formDataProduct); // Add product
+			toast.success("Product added successfully!"); // Show success message
+			navigate("/products"); // Redirect to products page
 		} catch (error) {
-			toast.error("Failed to add product: " + error.message);
+			toast.error("Failed to add product: " + error.message); // Show error message if adding product fails
 		} finally {
-			setLoading(false);
+			setLoading(false); // Set loading state to false
 		}
 	};
 
@@ -101,7 +104,7 @@ function AddProduct() {
 						type="text"
 						name="product_name"
 						value={product.product_name}
-						onChange={handleChange}
+						onChange={handleChange} // Update product_name state on change
 						required
 					/>
 				</label>
@@ -110,7 +113,7 @@ function AddProduct() {
 					<textarea
 						name="description"
 						value={product.description}
-						onChange={handleChange}
+						onChange={handleChange} // Update description state on change
 						required
 					/>
 				</label>
@@ -120,7 +123,7 @@ function AddProduct() {
 						type="number"
 						name="price"
 						value={product.price}
-						onChange={handleChange}
+						onChange={handleChange} // Update price state on change
 						required
 					/>
 				</label>
@@ -130,7 +133,7 @@ function AddProduct() {
 						type="number"
 						name="stock_quantity"
 						value={product.stock_quantity}
-						onChange={handleChange}
+						onChange={handleChange} // Update stock_quantity state on change
 						required
 					/>
 				</label>
@@ -139,7 +142,7 @@ function AddProduct() {
 					<select
 						name="category"
 						value={product.category_name}
-						onChange={handleChange}
+						onChange={handleChange} // Update category_name and category_id state on change
 						required
 					>
 						<option value="">Select a category</option>
@@ -155,12 +158,13 @@ function AddProduct() {
 					<input
 						type="file"
 						name="product_images"
-						onChange={handleChange}
+						onChange={handleChange} // Update product_images state on file input change
 						accept="image/*"
 					/>
 				</label>
 				<button type="submit" disabled={loading}>
-					{loading ? "Adding..." : "Add Product"}
+					{loading ? "Adding..." : "Add Product"}{" "}
+					{/* Display button text based on loading state */}
 				</button>
 			</form>
 		</div>

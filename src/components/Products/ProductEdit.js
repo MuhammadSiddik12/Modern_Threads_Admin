@@ -11,7 +11,7 @@ import "../../asserts/style/Product/ProductForm.css";
 
 function EditProduct() {
 	const navigate = useNavigate();
-	const { id } = useParams(); // Get product ID from URL
+	const { id } = useParams(); // Get product ID from URL parameters
 	const [categories, setCategories] = useState([]); // State to hold categories
 	const [product, setProduct] = useState({
 		product_id: id,
@@ -30,14 +30,14 @@ function EditProduct() {
 	useEffect(() => {
 		const fetchProductData = async () => {
 			try {
-				const { data } = await getProductById(id);
+				const { data } = await getProductById(id); // Fetch product data by ID
 				setProduct({
 					...data,
 					category_name: data?.Category?.category_name || "",
 					category_id: data?.Category?.category_id || "",
 				});
 
-				const { data: categoriesResponse } = await getAllCategories(1, 100, "");
+				const { data: categoriesResponse } = await getAllCategories(1, 100, ""); // Fetch all categories
 				setCategories(categoriesResponse);
 				setLoading(false); // Data fetched, stop loading
 			} catch (error) {
@@ -48,7 +48,7 @@ function EditProduct() {
 		};
 
 		fetchProductData();
-	}, [id]);
+	}, [id]); // Effect runs when `id` changes
 
 	const handleChange = (e) => {
 		const { name, value } = e.target;
@@ -61,7 +61,7 @@ function EditProduct() {
 				category_name: findId?.category_name || "",
 			}));
 		} else if (name === "image") {
-			setImage(e.target.files[0]); // Handle image file
+			setImage(e.target.files[0]); // Handle image file input
 		} else {
 			setProduct((prevProduct) => ({
 				...prevProduct,
@@ -80,8 +80,8 @@ function EditProduct() {
 				formData.append("image", image);
 
 				try {
-					const { data } = await uploadImage(formData);
-					imageUrl = data.filePath; // Assuming the API returns the image URL
+					const { data } = await uploadImage(formData); // Upload image and get the URL
+					imageUrl = data.filePath; // API response includes image URL
 				} catch (error) {
 					toast.error("Failed to upload image.");
 					throw error;
@@ -93,7 +93,7 @@ function EditProduct() {
 				product_images: [imageUrl],
 			};
 
-			const { message } = await updateProduct(updatedProduct); // Call API to update product
+			const { message } = await updateProduct(updatedProduct); // Update product
 			toast.success(message);
 			navigate("/products"); // Redirect after successful update
 		} catch (error) {
@@ -106,11 +106,11 @@ function EditProduct() {
 	};
 
 	if (loading) {
-		return <div>Loading...</div>;
+		return <div>Loading...</div>; // Show loading state
 	}
 
 	if (error) {
-		return <div>{error}</div>;
+		return <div>{error}</div>; // Show error message
 	}
 
 	return (
@@ -168,7 +168,7 @@ function EditProduct() {
 						type="file"
 						name="image"
 						onChange={handleChange}
-						accept="image/*" // Accept only images
+						accept="image/*" // Only accept image files
 					/>
 				</label>
 				<button type="submit">Update Product</button>

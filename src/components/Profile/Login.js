@@ -11,27 +11,28 @@ const LoginPage = () => {
 	const [loading, setLoading] = useState(false); // State for loading state
 	const navigate = useNavigate(); // Hook for programmatic navigation
 
+	// Handle form submission
 	const handleSubmit = async (e) => {
 		e.preventDefault(); // Prevent default form submission behavior
 
-		setLoading(true); // Start loading
+		setLoading(true); // Set loading state to true
 
 		try {
-			const data = await loginUser(email, password); // Call the loginUser function
+			const data = await loginUser(email, password); // Call the loginUser function with email and password
 
 			// Store the token securely (preferably in HttpOnly cookies)
 			localStorage.setItem("authToken", data.token);
 
-			toast.success(data.message);
+			toast.success(data.message); // Show success message
 			// Redirect to home page after successful login
 			navigate("/");
 			setTimeout(() => {
-				window.location.reload();
+				window.location.reload(); // Reload page after redirect
 			}, 1000);
 		} catch (error) {
-			toast.error("Login failed. Please check your credentials.");
+			toast.error("Login failed. Please check your credentials."); // Show error message if login fails
 		} finally {
-			setLoading(false); // Stop loading
+			setLoading(false); // Set loading state to false after try/catch block
 		}
 	};
 
@@ -61,7 +62,8 @@ const LoginPage = () => {
 					/>
 				</div>
 				<button type="submit" className="auth-button" disabled={loading}>
-					{loading ? "Logging in..." : "Login"}
+					{loading ? "Logging in..." : "Login"}{" "}
+					{/* Display appropriate button text based on loading state */}
 				</button>
 			</form>
 		</div>

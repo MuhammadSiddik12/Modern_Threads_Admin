@@ -22,14 +22,19 @@ import PaymentDetails from "./components/Payments/PaymentDetails";
 import { ToastContainer } from "react-toastify";
 import PrivateRoute from "./components/PrivateRoute";
 import AdminProfile from "./components/Profile/Profile";
+import ReportListings from "./components/Reports/ReportListings";
+
 function App() {
+	// Check if the current page is the login page
 	const isAuthPage = window.location.pathname === "/login";
+
 	return (
 		<Router>
 			<div className="app">
-				{" "}
+				{/* Conditionally render the Header based on the page */}
 				<Header isLogin={isAuthPage} />
 				<div className={!isAuthPage ? "main-content" : ""}>
+					{/* Display the Sidebar for authenticated pages */}
 					{!isAuthPage ? (
 						<PrivateRoute>
 							<Sidebar />
@@ -39,6 +44,7 @@ function App() {
 					)}
 					<div className="content">
 						<Routes>
+							{/* Define routes and apply PrivateRoute for protected pages */}
 							<Route path="/login" element={<LoginPage />} />
 							<Route
 								path="/"
@@ -165,6 +171,14 @@ function App() {
 								element={
 									<PrivateRoute>
 										<AdminProfile />
+									</PrivateRoute>
+								}
+							/>{" "}
+							<Route
+								path="/reports"
+								element={
+									<PrivateRoute>
+										<ReportListings />
 									</PrivateRoute>
 								}
 							/>

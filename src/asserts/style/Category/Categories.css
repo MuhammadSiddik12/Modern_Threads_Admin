@@ -1,139 +1,158 @@
+/* Container for categories section */
 .categories {
-	padding: 20px;
+	padding: 20px; /* Padding inside the container */
 }
 
+/* Table styling within the categories section */
 .categories table {
-	width: 100%;
-	border-collapse: collapse;
+	width: 100%; /* Full width of the container */
+	border-collapse: collapse; /* Collapse borders for a unified look */
 }
 
+/* Table headers and cells styling */
 .categories table th,
 .categories table td {
-	padding: 12px;
-	border: 1px solid #ddd;
-	text-align: left;
+	padding: 12px; /* Padding inside table cells */
+	border: 1px solid #ddd; /* Light gray border */
+	text-align: left; /* Left-align text */
 }
 
+/* Table header background color */
 .categories table th {
-	background-color: #f4f4f4;
+	background-color: #f4f4f4; /* Light gray background */
 }
 
+/* Edit link styling */
 .edit-link {
-	color: #007bff;
-	text-decoration: none;
+	color: #007bff; /* Blue color */
+	text-decoration: none; /* Remove underline */
 }
 
+/* Hover effect for edit links */
 .edit-link:hover {
-	text-decoration: underline;
+	text-decoration: underline; /* Underline on hover */
 }
 
+/* Header for categories section */
 .categories-header {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	margin-bottom: 20px;
+	display: flex; /* Flexbox layout */
+	justify-content: space-between; /* Space between items */
+	align-items: center; /* Center align items vertically */
+	margin-bottom: 20px; /* Space below the header */
 }
 
+/* Header title styling */
 .categories-header h2 {
-	margin: 0;
-	font-size: 24px;
+	margin: 0; /* Remove default margin */
+	font-size: 24px; /* Font size */
 }
 
+/* Add category button styling */
 .add-category-button {
-	padding: 10px 20px;
-	background-color: #28a745;
-	color: white;
-	border: none;
-	border-radius: 4px;
-	font-size: 16px;
-	cursor: pointer;
-	margin: 20px 0 20px 60%;
-	transition: background-color 0.3s ease;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
+	padding: 10px 20px; /* Padding inside the button */
+	background-color: #28a745; /* Green background */
+	color: white; /* White text color */
+	border: none; /* No border */
+	border-radius: 4px; /* Rounded corners */
+	font-size: 16px; /* Font size */
+	cursor: pointer; /* Pointer cursor on hover */
+	margin: 20px 0 20px 60%; /* Margin for positioning */
+	transition: background-color 0.3s ease; /* Smooth background color transition */
+	display: flex; /* Flexbox layout */
+	justify-content: space-between; /* Space between items */
+	align-items: center; /* Center align items vertically */
 }
 
+/* Hover effect for add category button */
 .add-category-button:hover {
-	background-color: #218838;
+	background-color: #218838; /* Darker green on hover */
 }
 
+/* Delete category button styling */
 .delete-category-button {
-	padding: 5px 10px;
-	background-color: #dc3545;
-	color: white;
-	border: none;
-	border-radius: 4px;
-	font-size: 14px;
-	cursor: pointer;
-	transition: background-color 0.3s ease;
+	padding: 5px 10px; /* Padding inside the button */
+	background-color: #dc3545; /* Red background */
+	color: white; /* White text color */
+	border: none; /* No border */
+	border-radius: 4px; /* Rounded corners */
+	font-size: 14px; /* Font size */
+	cursor: pointer; /* Pointer cursor on hover */
+	transition: background-color 0.3s ease; /* Smooth background color transition */
 }
 
+/* Hover effect for delete category button */
 .delete-category-button:hover {
-	background-color: #c82333;
+	background-color: #c82333; /* Darker red on hover */
 }
 
-/* Loader, Error, and No Data Messages */
+/* Loader, error, and no data messages styling */
 .loader,
 .error-message,
 .no-data {
-	text-align: center;
-	padding: 20px;
+	text-align: center; /* Center-align text */
+	padding: 20px; /* Padding around the message */
 }
 
+/* Loader styling */
 .loader {
-	font-size: 20px;
+	font-size: 20px; /* Font size */
 }
 
+/* Error and no data messages styling */
 .error-message,
 .no-data {
-	font-size: 24px;
+	font-size: 24px; /* Font size */
 }
 
+/* No data message specific styling */
 .no-data {
-	color: #999;
-	font-size: 18px;
-	margin-top: 20px;
+	color: #999; /* Light gray color */
+	font-size: 18px; /* Font size */
+	margin-top: 20px; /* Space above the message */
 }
 
-/* Pagination Styles */
+/* Pagination styling */
 .pagination {
-	display: flex;
-	justify-content: center;
-	margin-top: 20px;
+	display: flex; /* Flexbox layout */
+	justify-content: center; /* Center align pagination buttons */
+	margin-top: 20px; /* Space above the pagination */
 }
 
+/* Pagination button styling */
 .pagination button {
-	background-color: #f2f2f2;
-	border: 1px solid #ccc;
-	padding: 8px 12px;
-	cursor: pointer;
-	margin: 0 5px;
-	border-radius: 4px;
-	font-size: 16px;
-	transition: background-color 0.3s ease;
+	background-color: #f2f2f2; /* Light gray background */
+	border: 1px solid #ccc; /* Gray border */
+	padding: 8px 12px; /* Padding inside the button */
+	cursor: pointer; /* Pointer cursor on hover */
+	margin: 0 5px; /* Space between buttons */
+	border-radius: 4px; /* Rounded corners */
+	font-size: 16px; /* Font size */
+	transition: background-color 0.3s ease; /* Smooth background color transition */
 }
 
+/* Hover effect for pagination buttons */
 .pagination button:hover {
-	background-color: #ddd;
+	background-color: #ddd; /* Darker gray on hover */
 }
 
+/* Disabled pagination button styling */
 .pagination button:disabled,
 .pagination button:disabled:hover {
-	background-color: #e0e0e0;
-	cursor: not-allowed;
+	background-color: #e0e0e0; /* Light gray background for disabled buttons */
+	cursor: not-allowed; /* Not-allowed cursor for disabled buttons */
 }
 
-/* Search Bar */
+/* Search bar styling */
 .search-bar {
-	padding: 8px 12px;
-	width: 250px;
-	border: 1px solid #ccc;
-	border-radius: 4px;
-	font-size: 16px;
+	padding: 8px 12px; /* Padding inside the search bar */
+	width: 250px; /* Width of the search bar */
+	border: 1px solid #ccc; /* Gray border */
+	border-radius: 4px; /* Rounded corners */
+	font-size: 16px; /* Font size */
 }
 
+/* Focus effect for the search bar */
 .search-bar:focus {
-	outline: none;
-	border-color: #4caf50;
+	outline: none; /* Remove default outline */
+	border-color: #4caf50; /* Green border on focus */
 }

@@ -1,92 +1,102 @@
+/* User list container */
 .users {
-	padding: 20px;
+	padding: 20px; /* Padding around the user list */
 }
 
+/* Table styling */
 .users table {
-	width: 100%;
-	border-collapse: collapse;
+	width: 100%; /* Full width of the container */
+	border-collapse: collapse; /* Merge table borders */
 }
 
+/* Table header and cell styling */
 .users table th,
 .users table td {
-	padding: 12px;
-	border: 1px solid #ddd;
-	text-align: left;
+	padding: 12px; /* Padding inside table cells */
+	border: 1px solid #ddd; /* Light border around cells */
+	text-align: left; /* Align text to the left */
 }
 
+/* Header styling */
 .user-header {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	margin-bottom: 20px;
+	display: flex; /* Flexbox layout */
+	justify-content: space-between; /* Space between header items */
+	align-items: center; /* Align items vertically centered */
+	margin-bottom: 20px; /* Space below the header */
 }
 
+/* Header title styling */
 .user-header h2 {
-	margin: 0;
-	font-size: 24px;
-	color: #333; /* Added color for consistency */
+	margin: 0; /* Remove default margin */
+	font-size: 24px; /* Font size for header title */
+	color: #333; /* Dark color for text consistency */
 }
 
+/* Table header background */
 .users table th {
-	background-color: #f4f4f4;
+	background-color: #f4f4f4; /* Light background color */
 }
 
+/* Edit link styling */
 .edit-link {
-	color: #007bff;
-	text-decoration: none;
+	color: #007bff; /* Blue color for the link */
+	text-decoration: none; /* Remove underline from links */
 }
 
 .edit-link:hover {
-	text-decoration: underline;
+	text-decoration: underline; /* Underline on hover */
 }
 
-/* No Data Message */
+/* No data message styling */
 .no-data {
-	text-align: center;
-	font-size: 18px;
-	color: #999;
-	margin-top: 20px;
+	text-align: center; /* Center align the text */
+	font-size: 18px; /* Font size for no data message */
+	color: #999; /* Light gray color for text */
+	margin-top: 20px; /* Space above the message */
 }
 
-/* Pagination Styles */
+/* Pagination container styling */
 .pagination {
-	display: flex;
-	justify-content: center;
-	margin-top: 20px;
+	display: flex; /* Flexbox layout */
+	justify-content: center; /* Center align pagination buttons */
+	margin-top: 20px; /* Space above the pagination */
 }
 
+/* Pagination button styling */
 .pagination button {
-	background-color: #f2f2f2;
-	border: 1px solid #ccc;
-	padding: 8px 12px;
-	cursor: pointer;
-	margin: 0 5px;
-	border-radius: 4px;
-	font-size: 16px;
+	background-color: #f2f2f2; /* Light background color */
+	border: 1px solid #ccc; /* Light border around buttons */
+	padding: 8px 12px; /* Padding inside buttons */
+	cursor: pointer; /* Pointer cursor on hover */
+	margin: 0 5px; /* Space between buttons */
+	border-radius: 4px; /* Rounded corners */
+	font-size: 16px; /* Font size for button text */
 }
 
 .pagination button:hover {
-	background-color: #ddd;
+	background-color: #ddd; /* Darker background on hover */
 }
 
+/* Disabled pagination button styling */
 .pagination button:disabled {
-	background-color: #e0e0e0;
-	cursor: not-allowed;
+	background-color: #e0e0e0; /* Gray background for disabled */
+	cursor: not-allowed; /* Not-allowed cursor */
 }
 
 .pagination button:disabled:hover {
-	background-color: #e0e0e0;
+	background-color: #e0e0e0; /* Gray background remains on hover */
 }
 
+/* Search bar styling */
 .search-bar {
-	padding: 8px 12px;
-	width: 250px;
-	border: 1px solid #ccc;
-	border-radius: 4px;
-	font-size: 16px;
+	padding: 8px 12px; /* Padding inside the search bar */
+	width: 250px; /* Fixed width */
+	border: 1px solid #ccc; /* Light border */
+	border-radius: 4px; /* Rounded corners */
+	font-size: 16px; /* Font size for input text */
 }
 
 .search-bar:focus {
-	outline: none;
-	border-color: #4caf50;
+	outline: none; /* Remove default focus outline */
+	border-color: #4caf50; /* Green border on focus */
 }

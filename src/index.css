@@ -1,5 +1,5 @@
 body {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
+	margin: 0; /* Remove default margin */
+	font-family: "eurostile, sans-serif"; /* Set default font to sans-serif */
+	padding-top: 80px; /* Adjust this value based on your header height */
 }

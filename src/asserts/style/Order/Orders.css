@@ -1,62 +1,70 @@
+/* Container for orders section */
 .orders {
-	padding: 20px;
+	padding: 20px; /* Padding inside the container */
 }
 
+/* Table styling for orders section */
 .orders table {
-	width: 100%;
-	border-collapse: collapse;
-	overflow-x: auto;
+	width: 100%; /* Full width table */
+	border-collapse: collapse; /* Collapse table borders */
+	overflow-x: auto; /* Allow horizontal scroll if needed */
 }
 
+/* Table header and cell styling */
 .orders table th,
 .orders table td {
-	padding: 12px;
-	border: 1px solid #ddd;
-	text-align: left;
+	padding: 12px; /* Padding inside table cells */
+	border: 1px solid #ddd; /* Light gray border for cells */
+	text-align: left; /* Align text to the left */
 }
 
+/* Table header background color */
 .orders table th {
-	background-color: #f4f4f4;
+	background-color: #f4f4f4; /* Light gray background for header */
 }
 
+/* Link styling for edit links */
 .edit-link {
-	color: #007bff;
-	text-decoration: none;
+	color: #007bff; /* Blue color for links */
+	text-decoration: none; /* Remove underline from links */
 }
 
+/* Link hover effect */
 .edit-link:hover {
-	text-decoration: underline;
+	text-decoration: underline; /* Add underline on hover */
 }
 
-/* Responsive Design */
+/* Responsive design adjustments */
 @media (max-width: 768px) {
 	.orders {
-		padding: 10px;
+		padding: 10px; /* Adjust padding for smaller screens */
 	}
 
 	.orders table {
-		display: block;
-		overflow-x: auto;
-		white-space: nowrap;
+		display: block; /* Make table block to enable scrolling */
+		overflow-x: auto; /* Enable horizontal scrolling */
+		white-space: nowrap; /* Prevent wrapping of table cells */
 	}
 }
 
 @media (max-width: 480px) {
 	.orders table th,
 	.orders table td {
-		padding: 8px;
-		font-size: 14px; /* Adjust font size for smaller screens */
+		padding: 8px; /* Reduce padding for smaller screens */
+		font-size: 14px; /* Adjust font size for readability */
 	}
 }
 
+/* Header styling for orders section */
 .order-header {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	margin-bottom: 20px;
+	display: flex; /* Use flexbox for alignment */
+	justify-content: space-between; /* Space between items */
+	align-items: center; /* Align items vertically center */
+	margin-bottom: 20px; /* Space below the header */
 }
 
+/* Header title styling */
 .order-header h2 {
-	margin: 0;
-	font-size: 24px;
+	margin: 0; /* Remove default margin */
+	font-size: 24px; /* Font size for header title */
 }

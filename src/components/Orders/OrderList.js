@@ -6,46 +6,51 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function Orders() {
-	const [orders, setOrders] = useState([]);
-	const [searchTerm, setSearchTerm] = useState("");
-	const [currentPage, setCurrentPage] = useState(1);
-	const [itemsPerPage] = useState(10);
-	const [totalOrders, setTotalOrders] = useState(0);
-	const [loading, setLoading] = useState(true);
-	const [error, setError] = useState(null);
+	const [orders, setOrders] = useState([]); // State to store list of orders
+	const [searchTerm, setSearchTerm] = useState(""); // State to manage search input
+	const [currentPage, setCurrentPage] = useState(1); // State to manage current page
+	const [itemsPerPage] = useState(10); // Number of items per page
+	const [totalOrders, setTotalOrders] = useState(0); // State to manage total number of orders
+	const [loading, setLoading] = useState(true); // State to manage loading status
+	const [error, setError] = useState(null); // State to manage error messages
 
+	// Effect to fetch orders data when search term or current page changes
 	useEffect(() => {
 		const delayDebounceFn = setTimeout(() => {
-			getOrders(); // Fetch orders whenever search input changes after a delay
-		}, 500); // Delay of 500ms
+			getOrders(); // Fetch orders with the current search term and page number
+		}, 500); // Delay of 500ms for debouncing search input
 
-		return () => clearTimeout(delayDebounceFn); // Cleanup the timeout if search changes again
+		return () => clearTimeout(delayDebounceFn); // Cleanup debounce timeout if search or page changes
 	}, [searchTerm, currentPage]);
 
+	// Function to fetch orders data from the API
 	const getOrders = async () => {
-		setLoading(true);
+		setLoading(true); // Set loading to true when fetching starts
 		try {
 			const response = await fetchOrders(currentPage, itemsPerPage, searchTerm);
-			setOrders(response.data);
-			setTotalOrders(response.total_count);
+			setOrders(response.data); // Update orders state with fetched data
+			setTotalOrders(response.total_count); // Update total orders count
 		} catch (error) {
-			setError(error.message || "Failed to fetch orders");
+			setError(error.message || "Failed to fetch orders"); // Update error state and show toast error
 			toast.error(error.message || "Failed to fetch orders");
 		} finally {
-			setLoading(false);
+			setLoading(false); // Set loading to false once data is fetched or an error occurs
 		}
 	};
 
+	// Function to handle pagination
 	const paginate = (pageNumber) => {
 		if (pageNumber >= 1 && pageNumber <= totalOrders) {
-			setCurrentPage(pageNumber);
+			setCurrentPage(pageNumber); // Set the current page
 		}
 	};
 
+	// Show loading message while fetching data
 	if (loading) {
 		return <div className="loading">Loading...</div>;
 	}
 
+	// Show error message if there is an error
 	if (error) {
 		return <div className="error">Error: {error}</div>;
 	}
@@ -60,13 +65,13 @@ function Orders() {
 					className="search-bar"
 					value={searchTerm}
 					onChange={(e) => {
-						setSearchTerm(e.target.value);
+						setSearchTerm(e.target.value); // Update search term
 						setCurrentPage(1); // Reset to page 1 when searching
 					}}
 				/>
 			</div>
 			{orders.length === 0 ? (
-				<div className="no-data">No data found</div>
+				<div className="no-data">No data found</div> // Show message if no orders are available
 			) : (
 				<>
 					<table>
@@ -103,7 +108,7 @@ function Orders() {
 					<div className="pagination">
 						<button
 							onClick={() => paginate(currentPage - 1)}
-							disabled={currentPage === 1}
+							disabled={currentPage === 1} // Disable "Prev" button if on the first page
 						>
 							Prev
 						</button>
@@ -111,14 +116,14 @@ function Orders() {
 							<button
 								key={index + 1}
 								onClick={() => paginate(index + 1)}
-								className={currentPage === index + 1 ? "active" : ""}
+								className={currentPage === index + 1 ? "active" : ""} // Highlight the current page
 							>
 								{index + 1}
 							</button>
 						))}
 						<button
 							onClick={() => paginate(currentPage + 1)}
-							disabled={currentPage === totalOrders}
+							disabled={currentPage === totalOrders} // Disable "Next" button if on the last page
 						>
 							Next
 						</button>

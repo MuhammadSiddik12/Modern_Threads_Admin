@@ -6,9 +6,9 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function CategoryDetail() {
-	const { id } = useParams();
-	const [category, setCategory] = useState(null);
-	const [loading, setLoading] = useState(true);
+	const { id } = useParams(); // Get category ID from URL parameters
+	const [category, setCategory] = useState(null); // State to store category details
+	const [loading, setLoading] = useState(true); // State to manage loading state
 
 	useEffect(() => {
 		const fetchCategory = async () => {
@@ -16,25 +16,25 @@ function CategoryDetail() {
 				const { data } = await getCategoryById(id); // Fetch category details by ID
 				setCategory(data); // Set the fetched data to category state
 			} catch (error) {
-				console.error("Error fetching category:", error);
-				toast.error("Failed to fetch category details. Please try again.");
+				console.error("Error fetching category:", error); // Log error
+				toast.error("Failed to fetch category details. Please try again."); // Show error message
 			} finally {
-				setLoading(false);
+				setLoading(false); // Set loading state to false after fetching
 			}
 		};
 
 		fetchCategory();
-	}, [id]);
+	}, [id]); // Dependency array: refetch if ID changes
 
 	if (loading) {
-		return <div>Loading...</div>;
+		return <div>Loading...</div>; // Show loading message while fetching data
 	}
 
 	if (!category) {
-		return <div>No category data found.</div>;
+		return <div>No category data found.</div>; // Show message if no category data is found
 	}
 
-	const defaultImage = "https://via.placeholder.com/300";
+	const defaultImage = "https://via.placeholder.com/300"; // Default image URL
 
 	return (
 		<div className="category-detail">
@@ -43,10 +43,10 @@ function CategoryDetail() {
 				<img
 					src={
 						category.category_image
-							? `${IMAGE_BASE_URL}${category.category_image}`
-							: defaultImage
+							? `${IMAGE_BASE_URL}${category.category_image}` // Use image URL from API response
+							: defaultImage // Fallback to default image
 					}
-					alt={category.category_name || "Category"}
+					alt={category.category_name || "Category"} // Alt text for image
 					className="category-image"
 				/>
 				<p>

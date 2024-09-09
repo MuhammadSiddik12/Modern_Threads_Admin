@@ -13,11 +13,11 @@ function Products() {
 	const [currentPage, setCurrentPage] = useState(1); // State to manage current page
 	const [productsPerPage] = useState(10); // Products per page
 	const [totalPages, setTotalPages] = useState(0); // State to track total pages
-	const [searchTerm, setSearchTerm] = useState("");
+	const [searchTerm, setSearchTerm] = useState(""); // State to store search term
 
 	useEffect(() => {
 		const fetchProducts = async () => {
-			setLoading(true);
+			setLoading(true); // Set loading state to true before fetching
 			try {
 				const response = await getAllProducts(
 					currentPage,
@@ -26,10 +26,10 @@ function Products() {
 				);
 				setProducts(response.data); // Set the products data
 				setTotalPages(response.total_count); // Calculate total pages
-				setLoading(false);
+				setLoading(false); // Set loading state to false after fetching
 			} catch (error) {
 				toast.error("Error fetching products: " + error.message);
-				setLoading(false);
+				setLoading(false); // Set loading state to false if there's an error
 			}
 		};
 
@@ -40,19 +40,19 @@ function Products() {
 
 		// Cleanup timeout if searchTerm or currentPage changes again before delay is over
 		return () => clearTimeout(delayDebounceFn);
-	}, [currentPage, searchTerm]);
+	}, [currentPage, searchTerm]); // Dependency array
 
 	const handleDeleteProduct = async (id) => {
 		const confirmDelete = window.confirm(
-			"Are you sure you want to delete this product?"
+			"Are you sure you want to delete this product?" // Confirm deletion
 		);
 		if (confirmDelete) {
 			try {
-				await deleteProduct(id);
-				setProducts(products.filter((product) => product.product_id !== id));
-				toast.success("Product deleted successfully!");
+				await deleteProduct(id); // Delete the product
+				setProducts(products.filter((product) => product.product_id !== id)); // Remove deleted product from the list
+				toast.success("Product deleted successfully!"); // Show success message
 			} catch (error) {
-				toast.error("Error deleting product: " + error.message);
+				toast.error("Error deleting product: " + error.message); // Show error message
 			}
 		}
 	};
@@ -60,12 +60,12 @@ function Products() {
 	// Pagination logic
 	const paginate = (pageNumber) => {
 		if (pageNumber >= 1 && pageNumber <= totalPages) {
-			setCurrentPage(pageNumber);
+			setCurrentPage(pageNumber); // Set the current page
 		}
 	};
 
 	const handleAddProduct = () => {
-		navigate("/products/add");
+		navigate("/products/add"); // Navigate to add product page
 	};
 
 	if (loading) {
@@ -79,15 +79,15 @@ function Products() {
 					<input
 						type="text"
 						placeholder="Search products..."
-						className="search-bar"
+						className="search-bar-product"
 						value={searchTerm}
 						onChange={(e) => {
-							setSearchTerm(e.target.value);
+							setSearchTerm(e.target.value); // Update search term
 							setCurrentPage(1); // Reset to page 1 when searching
 						}}
 					/>
 				</div>
-				<div>Loading...</div>
+				<div>Loading...</div> {/* Show loading message */}
 			</div>
 		);
 	}
@@ -105,13 +105,15 @@ function Products() {
 					className="search-bar-product"
 					value={searchTerm}
 					onChange={(e) => {
-						setSearchTerm(e.target.value);
+						setSearchTerm(e.target.value); // Update search term
 						setCurrentPage(1); // Reset to page 1 when searching
 					}}
 				/>
 			</div>
 			{products.length === 0 ? (
-				<div className="no-data">No products found</div>
+				<div className="no-data">
+					No products found
+				</div> /* Show message if no products */
 			) : (
 				<>
 					<table>
@@ -163,7 +165,7 @@ function Products() {
 					<div className="pagination">
 						<button
 							onClick={() => paginate(currentPage - 1)}
-							disabled={currentPage === 1}
+							disabled={currentPage === 1} // Disable Prev button on first page
 						>
 							Prev
 						</button>
@@ -178,7 +180,7 @@ function Products() {
 						))}
 						<button
 							onClick={() => paginate(currentPage + 1)}
-							disabled={currentPage === totalPages}
+							disabled={currentPage === totalPages} // Disable Next button on last page
 						>
 							Next
 						</button>

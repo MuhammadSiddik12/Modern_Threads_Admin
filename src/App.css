@@ -1,24 +1,24 @@
 .app {
 	display: flex;
-	flex-direction: column;
-	height: 100vh;
-	font-family: "eurostile, sans-serif";
+	flex-direction: column; /* Arrange elements in a column */
+	height: 100vh; /* Full viewport height */
+	font-family: "eurostile, sans-serif"; /* Set font family */
 }
 
 .content {
-	flex: 1;
-	padding: 20px;
+	flex: 1; /* Take up remaining space */
+	padding: 20px; /* Add padding around content */
 }
 
 .main-content {
 	display: flex;
-	flex: 1;
-	margin-left: 250px;
-	transition: margin-left 0.3s ease;
+	flex: 1; /* Flex-grow to fill available space */
+	margin-left: 250px; /* Adjust for sidebar width */
+	transition: margin-left 0.3s ease; /* Smooth transition for sidebar collapse */
 }
 
 @media (max-width: 768px) {
 	.main-content {
-		margin-left: 0;
+		margin-left: 0; /* Remove left margin for smaller screens */
 	}
 }

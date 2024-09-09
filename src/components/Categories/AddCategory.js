@@ -6,21 +6,21 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function AddCategory() {
-	const [category, setCategory] = useState({ name: "", image: null });
-	const [loading, setLoading] = useState(false);
-	const navigate = useNavigate();
+	const [category, setCategory] = useState({ name: "", image: null }); // State to store category name and image
+	const [loading, setLoading] = useState(false); // State to manage loading state
+	const navigate = useNavigate(); // Hook for navigation
 
 	const handleChange = (e) => {
-		setCategory({ ...category, name: e.target.value });
+		setCategory({ ...category, name: e.target.value }); // Update category name
 	};
 
 	const handleImageChange = (e) => {
-		setCategory({ ...category, image: e.target.files[0] });
+		setCategory({ ...category, image: e.target.files[0] }); // Update category image
 	};
 
 	const handleSubmit = async (e) => {
-		e.preventDefault();
-		setLoading(true);
+		e.preventDefault(); // Prevent default form submission behavior
+		setLoading(true); // Set loading state to true
 
 		let imageUrl = null;
 
@@ -30,7 +30,7 @@ function AddCategory() {
 				const formData = new FormData();
 				formData.append("image", category.image);
 
-				const data = await uploadImage(formData);
+				const data = await uploadImage(formData); // Upload image
 				console.log("🚀 ~ handleSubmit ~ data:", data);
 				imageUrl = data.filePath; // Adjust based on the actual response structure
 			}
@@ -41,18 +41,18 @@ function AddCategory() {
 				category_image: imageUrl, // Include the image URL in the request
 			};
 
-			await addCategory(categoryData);
-			toast.success("Category added successfully!");
-			navigate("/categories");
+			await addCategory(categoryData); // Add category
+			toast.success("Category added successfully!"); // Show success message
+			navigate("/categories"); // Navigate to categories page
 		} catch (error) {
-			console.error("Error adding category:", error);
+			console.error("Error adding category:", error); // Log error
 			toast.error(
 				error.response?.data?.message ||
 					error.message ||
-					"Failed to add category"
+					"Failed to add category" // Show error message
 			);
 		} finally {
-			setLoading(false);
+			setLoading(false); // Reset loading state
 		}
 	};
 
@@ -78,7 +78,7 @@ function AddCategory() {
 				/>
 
 				<button type="submit" disabled={loading}>
-					{loading ? "Adding..." : "Add Category"}
+					{loading ? "Adding..." : "Add Category"} {/* Show loading state */}
 				</button>
 			</form>
 		</div>

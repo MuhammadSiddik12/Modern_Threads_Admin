@@ -18,25 +18,25 @@ function EditCategory() {
 		category_name: "",
 		category_image: "",
 	});
-	const [loading, setLoading] = useState(false);
+	const [loading, setLoading] = useState(false); // Manage loading state
 
 	useEffect(() => {
 		const fetchCategory = async () => {
-			setLoading(true);
+			setLoading(true); // Start loading
 			try {
 				const response = await getCategoryById(id); // Fetch category details by ID
-				setCategory(response.data); // Set the fetched data to category state
+				setCategory(response.data); // Set fetched data to category state
 			} catch (error) {
-				toast.error(error.message || "Error fetching category");
+				toast.error(error.message || "Error fetching category"); // Show error message
 			} finally {
-				setLoading(false);
+				setLoading(false); // Stop loading
 			}
 		};
 		fetchCategory();
 	}, [id]);
 
 	const handleChange = (e) => {
-		setCategory({ ...category, category_name: e.target.value });
+		setCategory({ ...category, category_name: e.target.value }); // Update category name
 	};
 
 	const handleImageUpload = async (e) => {
@@ -46,44 +46,44 @@ function EditCategory() {
 		const formData = new FormData();
 		formData.append("image", file);
 
-		setLoading(true);
+		setLoading(true); // Start loading
 		try {
-			const response = await uploadImage(formData); // Upload image to the server
-			const imageUrl = response.filePath; // Get the uploaded image URL
-			setCategory({ ...category, category_image: imageUrl }); // Update category with the image URL
-			toast.success("Image uploaded successfully!");
+			const response = await uploadImage(formData); // Upload image
+			const imageUrl = response.filePath; // Get uploaded image URL
+			setCategory({ ...category, category_image: imageUrl }); // Update category with image URL
+			toast.success("Image uploaded successfully!"); // Success message
 		} catch (error) {
-			toast.error(error.message || "Error uploading image");
+			toast.error(error.message || "Error uploading image"); // Error message
 		} finally {
-			setLoading(false);
+			setLoading(false); // Stop loading
 		}
 	};
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		setLoading(true);
+		setLoading(true); // Start loading
 		try {
-			await updateCategory(category); // Update category with the image URL and name
-			navigate("/categories"); // Redirect to categories page after saving
-			toast.success("Category edited successfully!");
+			await updateCategory(category); // Update category
+			navigate("/categories"); // Redirect to categories page
+			toast.success("Category edited successfully!"); // Success message
 		} catch (error) {
-			toast.error(error.message || "Error updating category");
+			toast.error(error.message || "Error updating category"); // Error message
 		} finally {
-			setLoading(false);
+			setLoading(false); // Stop loading
 		}
 	};
 
 	const handleDelete = async () => {
-		setLoading(true);
+		setLoading(true); // Start loading
 		if (window.confirm("Are you sure you want to delete this category?")) {
 			try {
-				await deleteCategory(id); // Call API to delete category
-				navigate("/categories");
-				toast.success("Category deleted successfully!");
+				await deleteCategory(id); // Delete category
+				navigate("/categories"); // Redirect to categories page
+				toast.success("Category deleted successfully!"); // Success message
 			} catch (error) {
-				toast.error(error.message || "Error deleting category");
+				toast.error(error.message || "Error deleting category"); // Error message
 			} finally {
-				setLoading(false);
+				setLoading(false); // Stop loading
 			}
 		}
 	};
@@ -99,7 +99,7 @@ function EditCategory() {
 					value={category.category_name}
 					onChange={handleChange}
 					required
-					disabled={loading}
+					disabled={loading} // Disable input while loading
 				/>
 				<label htmlFor="image">Upload Image:</label>
 				<input
@@ -107,7 +107,7 @@ function EditCategory() {
 					id="image"
 					accept="image/*"
 					onChange={handleImageUpload}
-					disabled={loading}
+					disabled={loading} // Disable input while loading
 				/>
 				{category.category_image && (
 					<div className="image-preview">
@@ -120,15 +120,16 @@ function EditCategory() {
 					</div>
 				)}
 				<button className="edit-button" type="submit" disabled={loading}>
-					{loading ? "Saving..." : "Save"}
+					{loading ? "Saving..." : "Save"} // Show loading text while saving
 				</button>
 			</form>
 			<button
 				onClick={handleDelete}
 				className="delete-button"
-				disabled={loading}
+				disabled={loading} // Disable button while loading
 			>
-				{loading ? "Deleting..." : "Delete Category"}
+				{loading ? "Deleting..." : "Delete Category"} // Show loading text while
+				deleting
 			</button>
 		</div>
 	);

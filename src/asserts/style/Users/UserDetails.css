@@ -1,38 +1,44 @@
+/* User details container */
 .user-details {
-	padding: 20px;
-	text-align: left;
-	width: 100%;
-	max-width: 600px;
-	margin: 0 auto;
+	padding: 20px; /* Padding inside the container */
+	text-align: left; /* Align text to the left */
+	width: 100%; /* Full width of the parent container */
+	max-width: 600px; /* Maximum width of the container */
+	margin: 0 auto; /* Center align container horizontally */
 }
 
+/* User details header */
 .user-details h2 {
-	margin-bottom: 20px;
-	font-size: 28px;
-	color: #333;
+	margin-bottom: 20px; /* Space below the header */
+	font-size: 28px; /* Font size for the header */
+	color: #333; /* Dark color for header text */
 }
 
+/* User information section */
 .user-info {
-	background-color: #f9f9f9;
-	padding: 20px;
-	border-radius: 8px;
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	background-color: #f9f9f9; /* Light background color */
+	padding: 20px; /* Padding inside the section */
+	border-radius: 8px; /* Rounded corners */
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow effect */
 }
 
+/* User information text */
 .user-info p {
-	font-size: 18px;
-	margin: 10px 0;
-	color: #555;
+	font-size: 18px; /* Font size for text */
+	margin: 10px 0; /* Vertical margin */
+	color: #555; /* Gray color for text */
 }
 
+/* User information strong text */
 .user-info strong {
-	color: #333;
+	color: #333; /* Dark color for strong text */
 }
 
+/* User profile picture */
 .user-profile-pic {
-	width: 200px;
-	height: 200px;
-	border-radius: 50%;
-	object-fit: cover;
-	margin: 0 auto 20px; /* Simplified margin property */
+	width: 200px; /* Fixed width */
+	height: 200px; /* Fixed height */
+	border-radius: 50%; /* Circular shape */
+	object-fit: cover; /* Cover the container while maintaining aspect ratio */
+	margin: 0 auto 20px; /* Center align horizontally and space below */
 }

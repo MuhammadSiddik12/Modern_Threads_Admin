@@ -1,44 +1,48 @@
+/* Center-aligns the content within the dashboard */
 .dashboard {
-	text-align: center;
+	text-align: center; /* Centers text and inline elements */
 }
 
+/* Flex container for displaying statistics cards */
 .stats {
-	display: flex;
-	justify-content: space-around;
-	flex-wrap: wrap;
-	margin-top: 20px;
+	display: flex; /* Uses flexbox layout */
+	justify-content: space-around; /* Distributes space around items */
+	flex-wrap: wrap; /* Allows wrapping of items to the next line */
+	margin-top: 20px; /* Space above the stats section */
 }
 
+/* Individual card styling for statistics */
 .stat-card {
-	background-color: #232525;
-	color: white;
-	padding: 20px;
-	border-radius: 10px;
-	width: 200px;
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-	margin: 10px;
-	transition: transform 0.3s ease;
+	background-color: #232525; /* Dark background color */
+	color: white; /* White text color */
+	padding: 20px; /* Padding inside the card */
+	border-radius: 10px; /* Rounded corners */
+	width: 200px; /* Fixed width for the card */
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow effect for depth */
+	margin: 10px; /* Space around each card */
+	transition: transform 0.3s ease; /* Smooth scaling effect on hover */
 }
 
+/* Hover effect to slightly enlarge the card */
 .stat-card:hover {
-	transform: scale(1.05);
+	transform: scale(1.05); /* Scales up the card by 5% */
 }
 
-/* Responsive Design */
+/* Responsive design adjustments */
 @media (max-width: 768px) {
 	.stats {
-		justify-content: center;
+		justify-content: center; /* Centers cards when screen is smaller */
 	}
 
 	.stat-card {
-		width: 100%;
-		max-width: 300px;
+		width: 100%; /* Full width on smaller screens */
+		max-width: 300px; /* Max width to prevent too large cards */
 	}
 }
 
 @media (max-width: 480px) {
 	.stat-card {
-		width: 100%;
+		width: 100%; /* Full width on very small screens */
 		/* Removed redundant max-width since it already takes full width */
 	}
 }

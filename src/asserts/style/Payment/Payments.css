@@ -1,40 +1,47 @@
+/* Container for payment section */
 .payments {
-	padding: 20px;
+	padding: 20px; /* Padding inside the container */
 }
 
+/* Table styling within payments section */
 .payments table {
-	width: 100%;
-	border-collapse: collapse;
+	width: 100%; /* Full width of the container */
+	border-collapse: collapse; /* Collapse table borders */
 }
 
+/* Table header and cell styling */
 .payments table th,
 .payments table td {
-	padding: 12px;
-	border: 1px solid #ddd;
-	text-align: left;
+	padding: 12px; /* Padding inside table cells */
+	border: 1px solid #ddd; /* Light gray border for table cells */
+	text-align: left; /* Left-align text in cells */
 }
 
+/* Table header background color */
 .payments table th {
-	background-color: #f4f4f4;
+	background-color: #f4f4f4; /* Light gray background for headers */
 }
 
+/* Styling for edit links */
 .edit-link {
-	color: #007bff;
-	text-decoration: none;
+	color: #007bff; /* Blue color for links */
+	text-decoration: none; /* Remove underline from links */
 }
 
 .edit-link:hover {
-	text-decoration: underline;
+	text-decoration: underline; /* Underline on hover for links */
 }
 
+/* Header styling within payments section */
 .payment-header {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	margin-bottom: 20px;
+	display: flex; /* Use flexbox for layout */
+	justify-content: space-between; /* Space out items */
+	align-items: center; /* Center-align items vertically */
+	margin-bottom: 20px; /* Space below the header */
 }
 
+/* Header text styling */
 .payment-header h2 {
-	margin: 0;
-	font-size: 24px;
+	margin: 0; /* Remove default margin */
+	font-size: 24px; /* Font size for header */
 }
