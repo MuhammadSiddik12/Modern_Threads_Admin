@@ -1,8 +1,8 @@
 // src/api.js
 import axios from "axios";
 
-const BASE_URL = "https://ignou-project-backend.onrender.com/admin";
-export const IMAGE_BASE_URL = "https://ignou-project-backend.onrender.com";
+const BASE_URL = "http://localhost:3001/admin";
+export const IMAGE_BASE_URL = "http://localhost:3001";
 
 const getAuthHeaders = () => {
 	const token = localStorage.getItem("authToken");
@@ -287,6 +287,33 @@ export const uploadImage = async (formData) => {
 					"Content-Type": "multipart/form-data",
 				},
 			}
+		);
+		return response.data;
+	} catch (error) {
+		handleError(error);
+	}
+};
+
+// Report
+
+export const generateReports = async (data) => {
+	try {
+		const response = await axios.post(
+			`${BASE_URL}/reports/generateReport`,
+			data,
+			getAuthHeaders()
+		);
+		return response.data;
+	} catch (error) {
+		handleError(error);
+	}
+};
+
+export const getAllReports = async () => {
+	try {
+		const response = await axios.get(
+			`${BASE_URL}/reports/getAllReports`,
+			getAuthHeaders()
 		);
 		return response.data;
 	} catch (error) {

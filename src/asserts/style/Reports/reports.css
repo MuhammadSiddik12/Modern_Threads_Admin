@@ -1,0 +1,62 @@
+/* Container for the report generation section */
+.report-container {
+	max-width: 600px; /* Maximum width of the container */
+	margin: 50px auto; /* Center horizontally and add vertical margin */
+	padding: 20px; /* Add padding inside the container */
+	border: 1px solid #ccc; /* Light grey border */
+	border-radius: 8px; /* Rounded corners */
+	background-color: #f9f9f9; /* Light grey background */
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+/* Styling for headings inside the report container */
+.report-container h1 {
+	text-align: center; /* Center-align the text */
+	margin-bottom: 20px; /* Space below the heading */
+	font-size: 24px; /* Font size of the heading */
+	color: #333; /* Dark grey text color */
+}
+
+/* Styling for select dropdown and text inputs */
+.report-container select,
+.report-container input[type="text"] {
+	width: 100%; /* Full width of the container */
+	padding: 12px; /* Padding inside the input */
+	margin: 10px 0; /* Margin on top and bottom */
+	border: 1px solid #ccc; /* Light grey border */
+	border-radius: 4px; /* Slightly rounded corners */
+	font-size: 16px; /* Font size of the input text */
+}
+
+/* Styling for buttons inside the report container */
+.report-container button {
+	width: 100%; /* Full width of the container */
+	padding: 12px; /* Padding inside the button */
+	background-color: #4caf50; /* Green background color */
+	color: white; /* White text color */
+	border: none; /* Remove default border */
+	border-radius: 4px; /* Slightly rounded corners */
+	font-size: 16px; /* Font size of the button text */
+	cursor: pointer; /* Pointer cursor on hover */
+	margin-top: 20px; /* Space above the button */
+}
+
+/* Hover effect for buttons */
+.report-container button:hover {
+	background-color: #45a049; /* Darker green background on hover */
+}
+
+/* Styling for the list of reports */
+.report-container ul {
+	list-style-type: none; /* Remove default list styling */
+	padding: 0; /* Remove default padding */
+}
+
+/* Styling for individual list items */
+.report-container li {
+	margin: 10px 0; /* Space above and below each list item */
+	padding: 10px; /* Padding inside each list item */
+	background-color: #f4f4f4; /* Light grey background */
+	border: 1px solid #ddd; /* Light grey border */
+	border-radius: 5px; /* Slightly rounded corners */
+}

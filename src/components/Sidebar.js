@@ -67,6 +67,11 @@ function Sidebar() {
 						</Link>
 					</li>
 					<li>
+						<Link to="/reports" onClick={toggleSidebar} aria-label="Report">
+							<FaReceipt className="sidebar-icon" /> Reports
+						</Link>
+					</li>
+					<li>
 						<Link to="/profile" onClick={toggleSidebar} aria-label="Profile">
 							<FaUser className="sidebar-icon" /> Profile
 						</Link>
