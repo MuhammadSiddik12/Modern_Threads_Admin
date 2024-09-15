@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import "../../asserts/style/Product/ProductDetails.css";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { getProductById } from "../../services/ApiService";
+import { getProductById, IMAGE_BASE_URL } from "../../services/ApiService";
 
 function ProductDetails() {
 	const { id } = useParams(); // Get the product ID from the URL parameters
@@ -41,7 +41,7 @@ function ProductDetails() {
 
 	const imageUrl =
 		product.product_images && product.product_images.length
-			? `http://localhost:3001${product.product_images[0]}` // Construct image URL if product images exist
+			? `${IMAGE_BASE_URL}${product.product_images[0]}` // Construct image URL if product images exist
 			: "https://via.placeholder.com/300"; // Fallback image URL if no images are available
 
 	return (

@@ -80,7 +80,7 @@ function EditProduct() {
 				formData.append("image", image);
 
 				try {
-					const { data } = await uploadImage(formData); // Upload image and get the URL
+					const data = await uploadImage(formData); // Upload image and get the URL
 					imageUrl = data.filePath; // API response includes image URL
 				} catch (error) {
 					toast.error("Failed to upload image.");
